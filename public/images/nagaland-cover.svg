@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="nlsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a7a6a"/>
+      <stop offset="40%" stop-color="#8a9a88"/>
+      <stop offset="70%" stop-color="#a8b8a0"/>
+      <stop offset="100%" stop-color="#c8d4c0"/>
+    </linearGradient>
+    <linearGradient id="nlmist1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8d4c0" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#d0dcc8" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#c8d4c0" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="nlmist2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8c8b0" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#c0d0b8" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#b8c8b0" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#nlsky)"/>
+
+  <!-- Hill ridge 1 (farthest, lightest) -->
+  <path d="M0 140 Q100 100 200 120 Q300 80 400 110 Q500 75 600 105 Q700 80 800 100 L800 200 L0 200Z" fill="#98a890" opacity="0.5"/>
+
+  <!-- Mist layer 1 -->
+  <rect x="0" y="170" width="800" height="50" fill="url(#nlmist1)"/>
+
+  <!-- Hill ridge 2 -->
+  <path d="M0 195 Q80 165 180 180 Q280 150 380 172 Q480 140 580 168 Q680 145 800 160 L800 260 L0 260Z" fill="#788a70" opacity="0.6"/>
+
+  <!-- Mist layer 2 -->
+  <rect x="0" y="230" width="800" height="45" fill="url(#nlmist2)"/>
+
+  <!-- Hill ridge 3 -->
+  <path d="M0 260 Q120 230 240 248 Q360 215 480 240 Q600 210 720 235 Q770 225 800 230 L800 310 L0 310Z" fill="#5a7050" opacity="0.7"/>
+
+  <!-- Smoke wisps from village -->
+  <g stroke="#b8c8b0" stroke-width="1" fill="none" opacity="0.35">
+    <path d="M580 240 Q575 225 580 210 Q585 195 578 180"/>
+    <path d="M590 242 Q587 230 592 218 Q588 205 593 192"/>
+  </g>
+
+  <!-- Small village huts on ridge 3 -->
+  <g fill="#4a5a42" opacity="0.5">
+    <rect x="565" y="234" width="12" height="8"/>
+    <path d="M563 234 L571 228 L579 234Z"/>
+    <rect x="585" y="236" width="10" height="7"/>
+    <path d="M583 236 L590 231 L597 236Z"/>
+    <rect x="600" y="237" width="8" height="6"/>
+    <path d="M598 237 L604 232 L610 237Z"/>
+  </g>
+
+  <!-- Hill ridge 4 (nearer, darker) -->
+  <path d="M0 310 Q60 285 150 298 Q250 270 370 290 Q480 265 580 285 Q700 260 800 278 L800 370 L0 370Z" fill="#3a5838" opacity="0.8"/>
+
+  <!-- Naga morung (community house) silhouette on ridge 4 -->
+  <g transform="translate(300, 280)" fill="#2a4028" opacity="0.7">
+    <!-- Main structure -->
+    <rect x="-25" y="0" width="50" height="20"/>
+    <!-- Tall peaked roof -->
+    <path d="M-30 0 L0 -28 L30 0Z"/>
+    <!-- Roof horns (crossed at peak - traditional Naga style) -->
+    <line x1="-4" y1="-28" x2="-12" y2="-40" stroke="#2a4028" stroke-width="3"/>
+    <line x1="4" y1="-28" x2="12" y2="-40" stroke="#2a4028" stroke-width="3"/>
+    <!-- Front posts -->
+    <rect x="-28" y="-2" width="4" height="24"/>
+    <rect x="24" y="-2" width="4" height="24"/>
+    <!-- Decorative carved panel -->
+    <rect x="-10" y="5" width="20" height="12" fill="#344a30" opacity="0.5"/>
+  </g>
+
+  <!-- Hornbill bird silhouette (large, iconic) -->
+  <g transform="translate(620, 160)" fill="#4a5a42" opacity="0.5">
+    <!-- Body -->
+    <ellipse cx="0" cy="0" rx="18" ry="10"/>
+    <!-- Head + large beak -->
+    <ellipse cx="20" cy="-5" rx="7" ry="6"/>
+    <!-- Casque (hornbill's crown) -->
+    <path d="M24 -10 Q30 -14 36 -10 Q34 -8 28 -8Z" fill="#4a5a42"/>
+    <!-- Long beak -->
+    <path d="M26 -4 L42 0 L26 2Z"/>
+    <!-- Tail -->
+    <path d="M-18 -2 L-35 8 L-32 -2 L-18 2Z"/>
+    <!-- Wing detail -->
+    <path d="M-8 -8 Q0 -14 10 -8" fill="none" stroke="#4a5a42" stroke-width="2"/>
+  </g>
+
+  <!-- Bamboo forest (foreground left) -->
+  <g stroke="#2a4020" fill="none" opacity="0.6">
+    <line x1="30" y1="320" x2="25" y2="450" stroke-width="3"/>
+    <line x1="50" y1="315" x2="48" y2="450" stroke-width="2.5"/>
+    <line x1="65" y1="322" x2="62" y2="450" stroke-width="3"/>
+    <line x1="85" y1="318" x2="82" y2="450" stroke-width="2"/>
+    <line x1="100" y1="325" x2="98" y2="450" stroke-width="2.5"/>
+    <!-- Bamboo nodes -->
+    <line x1="28" y1="360" x2="32" y2="360" stroke-width="4"/>
+    <line x1="28" y1="400" x2="32" y2="400" stroke-width="4"/>
+    <line x1="48" y1="350" x2="52" y2="350" stroke-width="3.5"/>
+    <line x1="48" y1="390" x2="52" y2="390" stroke-width="3.5"/>
+    <line x1="63" y1="365" x2="67" y2="365" stroke-width="4"/>
+    <line x1="63" y1="410" x2="67" y2="410" stroke-width="4"/>
+    <line x1="83" y1="355" x2="87" y2="355" stroke-width="3"/>
+    <line x1="83" y1="395" x2="87" y2="395" stroke-width="3"/>
+  </g>
+
+  <!-- Bamboo leaves (left) -->
+  <g fill="#3a5830" opacity="0.5">
+    <path d="M30 320 Q20 310 15 318 Q22 318 30 320Z"/>
+    <path d="M30 320 Q38 308 42 316 Q36 316 30 320Z"/>
+    <path d="M50 315 Q42 305 38 313 Q44 313 50 315Z"/>
+    <path d="M50 315 Q56 303 60 311 Q55 312 50 315Z"/>
+    <path d="M65 322 Q58 312 54 320 Q60 319 65 322Z"/>
+    <path d="M85 318 Q78 308 75 316 Q80 316 85 318Z"/>
+    <path d="M85 318 Q92 306 96 314 Q90 315 85 318Z"/>
+  </g>
+
+  <!-- Bamboo forest (foreground right) -->
+  <g stroke="#2a4020" fill="none" opacity="0.55">
+    <line x1="710" y1="318" x2="708" y2="450" stroke-width="2.5"/>
+    <line x1="730" y1="322" x2="727" y2="450" stroke-width="3"/>
+    <line x1="750" y1="316" x2="748" y2="450" stroke-width="2"/>
+    <line x1="770" y1="320" x2="768" y2="450" stroke-width="2.5"/>
+    <line x1="790" y1="324" x2="788" y2="450" stroke-width="3"/>
+    <line x1="708" y1="358" x2="712" y2="358" stroke-width="3.5"/>
+    <line x1="728" y1="365" x2="732" y2="365" stroke-width="4"/>
+    <line x1="748" y1="352" x2="752" y2="352" stroke-width="3"/>
+    <line x1="768" y1="362" x2="772" y2="362" stroke-width="3.5"/>
+  </g>
+
+  <!-- Bamboo leaves (right) -->
+  <g fill="#3a5830" opacity="0.45">
+    <path d="M710 318 Q702 308 698 316 Q704 316 710 318Z"/>
+    <path d="M730 322 Q722 312 718 320 Q724 320 730 322Z"/>
+    <path d="M730 322 Q738 310 742 318 Q736 319 730 322Z"/>
+    <path d="M750 316 Q742 306 738 314 Q744 314 750 316Z"/>
+    <path d="M770 320 Q778 308 782 316 Q776 317 770 320Z"/>
+  </g>
+
+  <!-- Nearest hill ridge 5 (foreground) -->
+  <path d="M0 380 Q100 360 200 372 Q350 350 500 368 Q650 352 800 362 L800 450 L0 450Z" fill="#243a20" opacity="0.85"/>
+
+  <!-- Foreground darkest ground -->
+  <path d="M0 420 Q200 408 400 415 Q600 405 800 412 L800 450 L0 450Z" fill="#1a2a18" opacity="0.7"/>
+
+  <!-- Atmospheric mist overlay at bottom -->
+  <rect x="0" y="350" width="800" height="30" fill="#b8c8b0" opacity="0.08"/>
+</svg>

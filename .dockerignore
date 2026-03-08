@@ -1,0 +1,12 @@
+node_modules
+.next
+.git
+.gitignore
+*.md
+!CLAUDE.md
+plan/
+.playwright-mcp/
+.env.local
+.env*.local
+.vscode
+.idea

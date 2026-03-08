@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="msky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a6a70"/>
+      <stop offset="30%" stop-color="#6a7a72"/>
+      <stop offset="60%" stop-color="#8a9a80"/>
+      <stop offset="100%" stop-color="#a0b088"/>
+    </linearGradient>
+    <linearGradient id="mridge1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a6a48"/>
+      <stop offset="100%" stop-color="#2a5a3a"/>
+    </linearGradient>
+    <linearGradient id="mridge2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a5a38"/>
+      <stop offset="100%" stop-color="#1a4a2a"/>
+    </linearGradient>
+    <linearGradient id="mridge3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a4a2a"/>
+      <stop offset="100%" stop-color="#0e3a1a"/>
+    </linearGradient>
+    <linearGradient id="mwater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#8ab8c0" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#msky)"/>
+  <!-- Monsoon clouds -->
+  <g opacity="0.25">
+    <ellipse cx="150" cy="60" rx="120" ry="35" fill="#4a5a58"/>
+    <ellipse cx="250" cy="50" rx="80" ry="28" fill="#5a6a60"/>
+    <ellipse cx="450" cy="75" rx="130" ry="40" fill="#4a5a55"/>
+    <ellipse cx="600" cy="55" rx="100" ry="30" fill="#5a6a5a"/>
+    <ellipse cx="700" cy="70" rx="90" ry="32" fill="#4a5a58"/>
+    <ellipse cx="350" cy="40" rx="70" ry="22" fill="#5a6a60"/>
+  </g>
+  <!-- Rain streaks (subtle diagonal lines) -->
+  <g stroke="#8a9a90" stroke-width="0.5" opacity="0.12">
+    <line x1="50" y1="0" x2="30" y2="450"/>
+    <line x1="120" y1="0" x2="100" y2="450"/>
+    <line x1="190" y1="0" x2="170" y2="450"/>
+    <line x1="260" y1="0" x2="240" y2="450"/>
+    <line x1="330" y1="0" x2="310" y2="450"/>
+    <line x1="400" y1="0" x2="380" y2="450"/>
+    <line x1="470" y1="0" x2="450" y2="450"/>
+    <line x1="540" y1="0" x2="520" y2="450"/>
+    <line x1="610" y1="0" x2="590" y2="450"/>
+    <line x1="680" y1="0" x2="660" y2="450"/>
+    <line x1="750" y1="0" x2="730" y2="450"/>
+    <line x1="85" y1="0" x2="65" y2="450"/>
+    <line x1="155" y1="0" x2="135" y2="450"/>
+    <line x1="225" y1="0" x2="205" y2="450"/>
+    <line x1="365" y1="0" x2="345" y2="450"/>
+    <line x1="435" y1="0" x2="415" y2="450"/>
+    <line x1="505" y1="0" x2="485" y2="450"/>
+    <line x1="575" y1="0" x2="555" y2="450"/>
+    <line x1="645" y1="0" x2="625" y2="450"/>
+    <line x1="715" y1="0" x2="695" y2="450"/>
+    <line x1="785" y1="0" x2="765" y2="450"/>
+  </g>
+  <!-- Ridge 1 (farthest, lightest green) -->
+  <path d="M0 230 Q60 200 130 215 Q200 190 280 208 Q360 185 440 200 Q520 180 600 198 Q680 175 760 195 L800 190 L800 280 L0 280Z" fill="url(#mridge1)" opacity="0.5"/>
+  <!-- Mist between ridges 1 and 2 -->
+  <ellipse cx="400" cy="255" rx="450" ry="20" fill="#8aaa90" opacity="0.3"/>
+  <!-- Fort silhouette (Sinhagad-like) on ridge 1 -->
+  <g transform="translate(580, 185)" fill="#2a5a38" opacity="0.5">
+    <!-- Main wall -->
+    <rect x="-20" y="-10" width="40" height="15" rx="1"/>
+    <!-- Towers -->
+    <rect x="-24" y="-18" width="10" height="23" rx="1"/>
+    <rect x="14" y="-16" width="10" height="21" rx="1"/>
+    <!-- Battlements -->
+    <rect x="-24" y="-20" width="3" height="4"/>
+    <rect x="-18" y="-20" width="3" height="4"/>
+    <rect x="14" y="-18" width="3" height="4"/>
+    <rect x="20" y="-18" width="3" height="4"/>
+    <!-- Central tower -->
+    <rect x="-5" y="-22" width="10" height="12" rx="1"/>
+    <rect x="-5" y="-24" width="3" height="4"/>
+    <rect x="2" y="-24" width="3" height="4"/>
+    <!-- Flag -->
+    <line x1="0" y1="-24" x2="0" y2="-32" stroke="#2a5a38" stroke-width="1"/>
+    <path d="M0 -32 L8 -30 L0 -28Z" fill="#2a5a38"/>
+  </g>
+  <!-- Ridge 2 -->
+  <path d="M0 295 Q80 268 170 280 Q260 252 360 270 Q450 248 540 265 Q640 242 730 260 L800 252 L800 340 L0 340Z" fill="url(#mridge2)" opacity="0.65"/>
+  <!-- Waterfall on ridge 2 -->
+  <g>
+    <path d="M310 260 Q312 280 308 300 Q310 320 306 340" stroke="#b8d0d8" stroke-width="3" fill="none" opacity="0.5" stroke-linecap="round"/>
+    <path d="M310 260 Q314 278 312 295 Q316 315 310 335" stroke="#fff" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+    <!-- Waterfall mist at base -->
+    <ellipse cx="308" cy="342" rx="12" ry="5" fill="#b8d0d8" opacity="0.25"/>
+  </g>
+  <!-- Mist between ridges 2 and 3 -->
+  <ellipse cx="350" cy="315" rx="420" ry="18" fill="#7a9a82" opacity="0.3"/>
+  <ellipse cx="550" cy="325" rx="200" ry="12" fill="#8aaa90" opacity="0.2"/>
+  <!-- Ridge 3 -->
+  <path d="M0 355 Q100 332 200 345 Q300 318 400 335 Q500 315 600 330 Q700 310 800 325 L800 395 L0 395Z" fill="url(#mridge3)" opacity="0.75"/>
+  <!-- Ridge 4 (closest, darkest) -->
+  <path d="M0 400 Q120 382 240 392 Q360 375 480 388 Q600 370 720 385 L800 378 L800 450 L0 450Z" fill="#0a2e12" opacity="0.7"/>
+  <!-- Trees on closest ridge -->
+  <g fill="#0e3818" opacity="0.5">
+    <path d="M20 400 Q25 388 30 400 Q35 385 40 400 Q45 382 50 400"/>
+    <path d="M100 395 Q105 383 110 395 Q115 380 120 395 Q125 377 130 395"/>
+    <path d="M200 392 Q205 380 210 392 Q215 377 220 392"/>
+    <path d="M350 388 Q355 376 360 388 Q365 373 370 388"/>
+    <path d="M500 385 Q505 373 510 385 Q515 370 520 385 Q525 368 530 385"/>
+    <path d="M650 382 Q655 370 660 382 Q665 367 670 382"/>
+    <path d="M750 380 Q755 368 760 380 Q765 365 770 380 Q775 362 780 380"/>
+  </g>
+  <!-- Foreground vegetation -->
+  <path d="M0 430 Q200 420 400 425 Q600 418 800 422 L800 450 L0 450Z" fill="#082a0e" opacity="0.5"/>
+  <!-- Additional mist wisps -->
+  <g opacity="0.15">
+    <ellipse cx="150" cy="280" rx="80" ry="8" fill="#a0c0a0"/>
+    <ellipse cx="650" cy="300" rx="70" ry="6" fill="#a0c0a0"/>
+    <ellipse cx="400" cy="350" rx="90" ry="7" fill="#8aaa8a"/>
+  </g>
+</svg>

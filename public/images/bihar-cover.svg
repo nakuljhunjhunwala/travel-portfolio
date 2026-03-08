@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bhsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8a0a0"/>
+      <stop offset="25%" stop-color="#f0c098"/>
+      <stop offset="50%" stop-color="#f8d8a8"/>
+      <stop offset="75%" stop-color="#f0e0b8"/>
+      <stop offset="100%" stop-color="#e8dcc0"/>
+    </linearGradient>
+    <radialGradient id="bhdawn" cx="0.5" cy="0.35" r="0.3">
+      <stop offset="0%" stop-color="#fff0c0" stop-opacity="0.8"/>
+      <stop offset="40%" stop-color="#ffd898" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffd898" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bhriver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8a880"/>
+      <stop offset="50%" stop-color="#b89870"/>
+      <stop offset="100%" stop-color="#a88860"/>
+    </linearGradient>
+    <linearGradient id="bhplain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8a868"/>
+      <stop offset="100%" stop-color="#a89858"/>
+    </linearGradient>
+  </defs>
+  <!-- Serene dawn sky -->
+  <rect width="800" height="450" fill="url(#bhsky)"/>
+  <rect width="800" height="450" fill="url(#bhdawn)"/>
+  <!-- Soft dawn glow on horizon -->
+  <ellipse cx="400" cy="230" rx="400" ry="60" fill="#ffd898" opacity="0.15"/>
+  <!-- Flat Gangetic plains (far) -->
+  <path d="M0 260 Q200 255 400 258 Q600 252 800 256 L800 300 L0 300Z" fill="url(#bhplain)" opacity="0.35"/>
+  <!-- Distant monastery/stupa shapes -->
+  <g fill="#b89068" opacity="0.3">
+    <!-- Small stupa left -->
+    <path d="M120 252 Q125 238 130 252Z"/>
+    <rect x="122" y="252" width="6" height="8" rx="1"/>
+    <!-- Another stupa -->
+    <path d="M180 248 Q186 232 192 248Z"/>
+    <rect x="182" y="248" width="6" height="10" rx="1"/>
+    <!-- Monastery shape -->
+    <rect x="680" y="248" width="40" height="12" rx="2"/>
+    <path d="M685 248 Q700 238 715 248" fill="#b89068"/>
+  </g>
+  <!-- Mahabodhi temple silhouette -->
+  <g fill="#8a6840" opacity="0.7" transform="translate(400, 0)">
+    <!-- Main tall spire -->
+    <path d="M-8 260 L-12 200 Q0 120 12 200 L8 260Z"/>
+    <!-- Pointed top -->
+    <path d="M-4 145 Q0 100 4 145Z" fill="#7a5830"/>
+    <!-- Spire finial -->
+    <line x1="0" y1="100" x2="0" y2="88" stroke="#7a5830" stroke-width="2"/>
+    <circle cx="0" cy="86" r="3" fill="#7a5830"/>
+    <!-- Tiered ridges on spire -->
+    <path d="M-10 200 Q0 195 10 200" stroke="#7a5830" stroke-width="1" fill="none"/>
+    <path d="M-9 185 Q0 180 9 185" stroke="#7a5830" stroke-width="1" fill="none"/>
+    <path d="M-7 170 Q0 165 7 170" stroke="#7a5830" stroke-width="1" fill="none"/>
+    <path d="M-6 158 Q0 153 6 158" stroke="#7a5830" stroke-width="1" fill="none"/>
+    <!-- Base platform -->
+    <rect x="-25" y="260" width="50" height="18" rx="2"/>
+    <!-- Small subsidiary spires -->
+    <path d="M-22 260 L-24 232 Q-20 218 -16 232 L-18 260Z"/>
+    <path d="M18 260 L16 232 Q20 218 24 232 L22 260Z"/>
+    <!-- Arch in base -->
+    <path d="M-8 278 L-8 265 Q0 258 8 265 L8 278Z" fill="#9a7848"/>
+  </g>
+  <!-- Bodhi tree silhouette beside temple -->
+  <g opacity="0.6">
+    <line x1="340" y1="270" x2="338" y2="200" stroke="#6a5028" stroke-width="5" stroke-linecap="round"/>
+    <!-- Wide spreading canopy -->
+    <ellipse cx="338" cy="185" rx="35" ry="25" fill="#6a5028"/>
+    <ellipse cx="320" cy="192" rx="20" ry="18" fill="#6a5028"/>
+    <ellipse cx="358" cy="190" rx="22" ry="19" fill="#6a5028"/>
+    <!-- Heart-shaped leaf hints on canopy edge -->
+    <circle cx="308" cy="180" r="8" fill="#5a4420"/>
+    <circle cx="368" cy="178" r="7" fill="#5a4420"/>
+    <circle cx="338" cy="168" r="9" fill="#5a4420"/>
+    <!-- Branches -->
+    <path d="M338 210 Q318 195 305 200" stroke="#6a5028" stroke-width="2.5" fill="none"/>
+    <path d="M338 210 Q358 195 370 198" stroke="#6a5028" stroke-width="2.5" fill="none"/>
+  </g>
+  <!-- River in mid-ground -->
+  <path d="M0 310 Q150 300 300 306 Q450 295 600 302 Q720 294 800 300 L800 360 Q600 352 400 358 Q200 350 0 356Z" fill="url(#bhriver)" opacity="0.5"/>
+  <!-- River reflections -->
+  <g opacity="0.1">
+    <ellipse cx="400" cy="330" rx="120" ry="3" fill="#ffd898"/>
+    <ellipse cx="250" cy="345" rx="80" ry="2" fill="#ffc880"/>
+    <ellipse cx="550" cy="340" rx="90" ry="2.5" fill="#ffd090"/>
+  </g>
+  <!-- Plains (near ground) -->
+  <path d="M0 356 Q200 350 400 354 Q600 348 800 352 L800 400 L0 400Z" fill="#a89858" opacity="0.4"/>
+  <!-- Monks walking (tiny silhouettes) -->
+  <g fill="#8a6030" opacity="0.45">
+    <!-- Monk 1 -->
+    <circle cx="510" cy="342" r="3.5"/>
+    <path d="M506 345 L506 360 M514 345 L514 360" stroke="#8a6030" stroke-width="1.5"/>
+    <path d="M507 346 Q510 350 513 346" fill="#8a6030"/>
+    <!-- Monk 2 -->
+    <circle cx="530" cy="344" r="3"/>
+    <path d="M527 347 L527 360 M533 347 L533 360" stroke="#8a6030" stroke-width="1.3"/>
+    <path d="M528 348 Q530 351 532 348" fill="#8a6030"/>
+    <!-- Monk 3 -->
+    <circle cx="548" cy="343" r="3.2"/>
+    <path d="M545 346 L545 359 M551 346 L551 359" stroke="#8a6030" stroke-width="1.4"/>
+    <path d="M546 347 Q548 350 550 347" fill="#8a6030"/>
+  </g>
+  <!-- Scattered trees on plain -->
+  <g opacity="0.3">
+    <line x1="150" y1="350" x2="150" y2="330" stroke="#8a7838" stroke-width="2.5"/>
+    <ellipse cx="150" cy="325" rx="12" ry="9" fill="#8a7838"/>
+    <line x1="650" y1="345" x2="650" y2="328" stroke="#8a7838" stroke-width="2"/>
+    <ellipse cx="650" cy="324" rx="10" ry="8" fill="#8a7838"/>
+    <line x1="750" y1="348" x2="750" y2="332" stroke="#8a7838" stroke-width="2"/>
+    <ellipse cx="750" cy="328" rx="11" ry="8" fill="#8a7838"/>
+  </g>
+  <!-- Foreground ground -->
+  <path d="M0 400 Q200 394 400 398 Q600 392 800 396 L800 450 L0 450Z" fill="#98884a" opacity="0.35"/>
+  <path d="M0 430 Q200 424 400 428 Q600 422 800 426 L800 450 L0 450Z" fill="#887840" opacity="0.25"/>
+  <!-- Soft mist layer -->
+  <rect x="0" y="270" width="800" height="40" fill="#f0dcc0" opacity="0.1"/>
+  <!-- Birds -->
+  <g stroke="#a08050" stroke-width="1.2" fill="none" opacity="0.25">
+    <path d="M450 130 Q455 124 460 130 Q465 124 470 130"/>
+    <path d="M490 118 Q494 113 498 118 Q502 113 506 118"/>
+    <path d="M430 145 Q434 140 438 145 Q442 140 446 145"/>
+    <path d="M510 128 Q513 124 516 128 Q519 124 522 128"/>
+  </g>
+</svg>

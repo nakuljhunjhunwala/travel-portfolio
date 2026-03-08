@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="tgsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a2868"/>
+      <stop offset="30%" stop-color="#7a3878"/>
+      <stop offset="55%" stop-color="#c06848"/>
+      <stop offset="80%" stop-color="#e8a050"/>
+      <stop offset="100%" stop-color="#dab060"/>
+    </linearGradient>
+    <radialGradient id="tgsun" cx="0.35" cy="0.55" r="0.25">
+      <stop offset="0%" stop-color="#ffd880" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#e8a050" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#e8a050" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tglake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a4878"/>
+      <stop offset="50%" stop-color="#584068"/>
+      <stop offset="100%" stop-color="#483058"/>
+    </linearGradient>
+  </defs>
+  <!-- Warm dusk sky -->
+  <rect width="800" height="450" fill="url(#tgsky)"/>
+  <rect width="800" height="450" fill="url(#tgsun)"/>
+  <!-- Distant city haze -->
+  <rect x="0" y="280" width="800" height="170" fill="#5a3858" opacity="0.2"/>
+  <!-- Lake (Hussain Sagar-like) in mid-ground -->
+  <path d="M0 320 Q100 305 200 310 Q350 298 500 306 Q620 295 750 305 Q780 308 800 310 L800 400 Q600 392 400 396 Q200 390 0 395Z" fill="url(#tglake)" opacity="0.7"/>
+  <!-- Lake reflections -->
+  <g opacity="0.12">
+    <ellipse cx="350" cy="350" rx="100" ry="2.5" fill="#ffd080"/>
+    <ellipse cx="200" cy="365" rx="80" ry="2" fill="#ffc870"/>
+    <ellipse cx="500" cy="360" rx="90" ry="2" fill="#ffd090"/>
+    <ellipse cx="400" cy="380" rx="70" ry="1.5" fill="#ffc060"/>
+  </g>
+  <!-- Rocky Deccan plateau boulders (far) -->
+  <g fill="#6a4858" opacity="0.4">
+    <ellipse cx="680" cy="295" rx="30" ry="18"/>
+    <ellipse cx="720" cy="300" rx="22" ry="15"/>
+    <ellipse cx="700" cy="290" rx="18" ry="22"/>
+    <ellipse cx="50" cy="300" rx="25" ry="16"/>
+    <ellipse cx="80" cy="305" rx="20" ry="14"/>
+  </g>
+  <!-- Scattered neem/banyan trees (far) -->
+  <g opacity="0.35">
+    <line x1="620" y1="298" x2="620" y2="268" stroke="#4a3040" stroke-width="3"/>
+    <ellipse cx="620" cy="262" rx="18" ry="12" fill="#4a3040"/>
+    <line x1="760" y1="302" x2="760" y2="278" stroke="#4a3040" stroke-width="2.5"/>
+    <ellipse cx="760" cy="273" rx="14" ry="10" fill="#4a3040"/>
+    <line x1="100" y1="308" x2="100" y2="280" stroke="#4a3040" stroke-width="2.5"/>
+    <ellipse cx="100" cy="275" rx="16" ry="11" fill="#4a3040"/>
+  </g>
+  <!-- Charminar silhouette -->
+  <g fill="#3a1838" opacity="0.85" transform="translate(340, 0)">
+    <!-- Main structure base -->
+    <rect x="-50" y="230" width="100" height="70" rx="2"/>
+    <!-- Main arched gateway -->
+    <path d="M-30 300 L-30 248 Q0 225 30 248 L30 300 Z" fill="#4a2848"/>
+    <!-- Small arches on sides -->
+    <path d="M-50 300 L-50 265 Q-40 255 -30 265 L-30 300 Z" fill="#4a2848"/>
+    <path d="M30 300 L30 265 Q40 255 50 265 L50 300 Z" fill="#4a2848"/>
+    <!-- Four minarets -->
+    <rect x="-56" y="195" width="10" height="105" rx="2" fill="#3a1838"/>
+    <rect x="46" y="195" width="10" height="105" rx="2" fill="#3a1838"/>
+    <rect x="-30" y="200" width="8" height="95" rx="2" fill="#3a1838"/>
+    <rect x="22" y="200" width="8" height="95" rx="2" fill="#3a1838"/>
+    <!-- Minaret tops (bulbous domes) -->
+    <ellipse cx="-51" cy="193" rx="6" ry="4" fill="#3a1838"/>
+    <line x1="-51" y1="189" x2="-51" y2="182" stroke="#3a1838" stroke-width="2"/>
+    <ellipse cx="51" cy="193" rx="6" ry="4" fill="#3a1838"/>
+    <line x1="51" y1="189" x2="51" y2="182" stroke="#3a1838" stroke-width="2"/>
+    <ellipse cx="-26" cy="198" rx="5" ry="3.5" fill="#3a1838"/>
+    <line x1="-26" y1="194" x2="-26" y2="188" stroke="#3a1838" stroke-width="1.8"/>
+    <ellipse cx="26" cy="198" rx="5" ry="3.5" fill="#3a1838"/>
+    <line x1="26" y1="194" x2="26" y2="188" stroke="#3a1838" stroke-width="1.8"/>
+    <!-- Central dome hint -->
+    <path d="M-15 230 Q0 215 15 230" fill="#3a1838"/>
+  </g>
+  <!-- Rocky boulders (near, Deccan) -->
+  <g fill="#5a3850" opacity="0.55">
+    <ellipse cx="140" cy="340" rx="40" ry="25"/>
+    <ellipse cx="180" cy="348" rx="28" ry="20"/>
+    <ellipse cx="155" cy="330" rx="22" ry="28"/>
+    <ellipse cx="650" cy="335" rx="35" ry="22"/>
+    <ellipse cx="690" cy="342" rx="25" ry="18"/>
+    <ellipse cx="670" cy="328" rx="20" ry="25"/>
+  </g>
+  <!-- Scattered trees (mid) -->
+  <g opacity="0.45">
+    <line x1="230" y1="320" x2="230" y2="290" stroke="#3a2030" stroke-width="3.5"/>
+    <ellipse cx="230" cy="283" rx="20" ry="14" fill="#3a2030"/>
+    <line x1="560" y1="315" x2="560" y2="288" stroke="#3a2030" stroke-width="3"/>
+    <ellipse cx="560" cy="282" rx="17" ry="12" fill="#3a2030"/>
+  </g>
+  <!-- City lights (warm dots) -->
+  <g opacity="0.6">
+    <circle cx="250" cy="310" r="2" fill="#ffd060"/>
+    <circle cx="270" cy="315" r="1.5" fill="#ffe080"/>
+    <circle cx="290" cy="308" r="1.8" fill="#ffc850"/>
+    <circle cx="480" cy="312" r="2" fill="#ffd060"/>
+    <circle cx="500" cy="318" r="1.5" fill="#ffe080"/>
+    <circle cx="520" cy="310" r="1.8" fill="#ffc850"/>
+    <circle cx="380" cy="305" r="1.5" fill="#ffd870"/>
+    <circle cx="310" cy="312" r="1.2" fill="#ffe080"/>
+    <circle cx="450" cy="316" r="1.3" fill="#ffc850"/>
+    <circle cx="540" cy="305" r="1.5" fill="#ffd060"/>
+    <circle cx="260" cy="305" r="1" fill="#ffe080"/>
+    <circle cx="410" cy="318" r="1.4" fill="#ffd870"/>
+  </g>
+  <!-- Ground -->
+  <path d="M0 395 Q200 388 400 392 Q600 385 800 390 L800 450 L0 450Z" fill="#3a1830" opacity="0.5"/>
+  <!-- Foreground -->
+  <path d="M0 425 Q200 418 400 422 Q600 416 800 420 L800 450 L0 450Z" fill="#2a1020" opacity="0.4"/>
+  <!-- Birds -->
+  <g stroke="#6a3860" stroke-width="1.2" fill="none" opacity="0.3">
+    <path d="M200 150 Q205 144 210 150 Q215 144 220 150"/>
+    <path d="M240 138 Q244 133 248 138 Q252 133 256 138"/>
+    <path d="M180 165 Q184 160 188 165 Q192 160 196 165"/>
+  </g>
+</svg>

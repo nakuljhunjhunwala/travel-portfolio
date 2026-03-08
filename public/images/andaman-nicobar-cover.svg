@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="ansky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a90c8"/>
+      <stop offset="35%" stop-color="#7ac0e0"/>
+      <stop offset="60%" stop-color="#aadcee"/>
+      <stop offset="100%" stop-color="#d8f0f8"/>
+    </linearGradient>
+    <linearGradient id="anocean" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1ab5b8"/>
+      <stop offset="30%" stop-color="#0e9aa0"/>
+      <stop offset="70%" stop-color="#0a7888"/>
+      <stop offset="100%" stop-color="#065a6e"/>
+    </linearGradient>
+    <linearGradient id="anshallow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5ee8d8"/>
+      <stop offset="100%" stop-color="#30c8c0"/>
+    </linearGradient>
+    <radialGradient id="ansun" cx="0.7" cy="0.15" r="0.22">
+      <stop offset="0%" stop-color="#fff8e0" stop-opacity="0.9"/>
+      <stop offset="45%" stop-color="#ffe8a8" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ffe8a8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="anisland" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a8848"/>
+      <stop offset="60%" stop-color="#1e6838"/>
+      <stop offset="100%" stop-color="#185830"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#ansky)"/>
+  <rect width="800" height="450" fill="url(#ansun)"/>
+  <!-- Dramatic clouds -->
+  <g opacity="0.5">
+    <ellipse cx="180" cy="60" rx="120" ry="28" fill="#fff"/>
+    <ellipse cx="220" cy="55" rx="80" ry="22" fill="#fff" opacity="0.8"/>
+    <ellipse cx="140" cy="65" rx="60" ry="18" fill="#fff" opacity="0.6"/>
+    <ellipse cx="550" cy="80" rx="100" ry="24" fill="#fff" opacity="0.45"/>
+    <ellipse cx="600" cy="75" rx="70" ry="18" fill="#fff" opacity="0.55"/>
+    <ellipse cx="380" cy="45" rx="55" ry="14" fill="#fff" opacity="0.35"/>
+  </g>
+  <!-- Far island/hill background -->
+  <path d="M350 210 Q400 140 480 155 Q540 130 600 160 Q650 148 700 175 Q730 168 750 185 L750 260 Q650 250 550 255 Q450 248 350 255Z" fill="url(#anisland)" opacity="0.55"/>
+  <!-- Lush green island mid-ground -->
+  <path d="M380 230 Q420 170 490 185 Q550 160 620 188 Q665 178 700 200 L710 260 L370 260Z" fill="url(#anisland)" opacity="0.75"/>
+  <!-- Island vegetation texture -->
+  <g fill="#1a7a38" opacity="0.5">
+    <circle cx="430" cy="195" r="12"/>
+    <circle cx="460" cy="185" r="14"/>
+    <circle cx="500" cy="178" r="16"/>
+    <circle cx="540" cy="175" r="13"/>
+    <circle cx="575" cy="180" r="15"/>
+    <circle cx="610" cy="185" r="12"/>
+    <circle cx="645" cy="190" r="11"/>
+    <circle cx="480" cy="190" r="10"/>
+  </g>
+  <!-- Deep ocean -->
+  <path d="M0 260 Q200 252 400 258 Q600 250 800 256 L800 450 L0 450Z" fill="url(#anocean)"/>
+  <!-- Shallow crystal-clear water near beach -->
+  <path d="M40 310 Q120 298 200 305 Q260 295 330 302 Q380 310 410 320 L410 370 Q350 365 280 368 Q180 362 100 370 Q60 368 40 365Z" fill="url(#anshallow)" opacity="0.55"/>
+  <!-- White sandy beach curve -->
+  <path d="M0 330 Q60 310 140 315 Q220 305 310 310 Q370 318 400 330 Q430 340 400 355 Q340 365 260 360 Q160 358 80 362 Q30 358 0 355Z" fill="#f5eed8" opacity="0.85"/>
+  <path d="M0 340 Q80 328 180 332 Q260 325 340 332 Q380 340 370 350 Q310 358 230 354 Q140 352 60 356 Q20 354 0 352Z" fill="#faf6ec" opacity="0.6"/>
+  <!-- Coral reef hints underwater -->
+  <g opacity="0.3">
+    <ellipse cx="180" cy="340" rx="18" ry="6" fill="#c87050"/>
+    <ellipse cx="220" cy="345" rx="14" ry="5" fill="#b86848"/>
+    <ellipse cx="260" cy="338" rx="12" ry="4" fill="#d88060"/>
+    <ellipse cx="150" cy="348" rx="10" ry="4" fill="#c07858"/>
+    <ellipse cx="300" cy="342" rx="15" ry="5" fill="#b87050"/>
+    <circle cx="190" cy="336" r="5" fill="#a0c870"/>
+    <circle cx="240" cy="342" r="4" fill="#90b860"/>
+    <circle cx="280" cy="335" r="6" fill="#a8d070"/>
+  </g>
+  <!-- Wooden pier/jetty -->
+  <g opacity="0.7">
+    <rect x="460" y="270" width="6" height="50" fill="#8a6840" rx="1"/>
+    <rect x="510" y="275" width="6" height="48" fill="#8a6840" rx="1"/>
+    <rect x="560" y="280" width="6" height="45" fill="#8a6840" rx="1"/>
+    <rect x="610" y="285" width="6" height="42" fill="#8a6840" rx="1"/>
+    <rect x="660" y="288" width="6" height="40" fill="#8a6840" rx="1"/>
+    <!-- Planks -->
+    <line x1="458" y1="282" x2="668" y2="298" stroke="#9a7848" stroke-width="4" stroke-linecap="round"/>
+    <line x1="458" y1="288" x2="668" y2="304" stroke="#8a6838" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- Railing -->
+    <line x1="460" y1="268" x2="665" y2="286" stroke="#7a5830" stroke-width="2" stroke-linecap="round"/>
+    <rect x="460" y="258" width="4" height="14" fill="#7a5830" rx="1"/>
+    <rect x="510" y="263" width="4" height="14" fill="#7a5830" rx="1"/>
+    <rect x="560" y="268" width="4" height="14" fill="#7a5830" rx="1"/>
+    <rect x="610" y="273" width="4" height="14" fill="#7a5830" rx="1"/>
+    <rect x="660" y="276" width="4" height="14" fill="#7a5830" rx="1"/>
+  </g>
+  <!-- Overhanging tropical trees (left side) -->
+  <g opacity="0.7">
+    <path d="M0 180 Q20 170 40 200 Q50 230 30 260 L0 260Z" fill="#1a6a30"/>
+    <line x1="20" y1="260" x2="35" y2="140" stroke="#3a5828" stroke-width="5" stroke-linecap="round"/>
+    <path d="M35 140 Q10 120 -10 135" stroke="#1a7a35" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M35 140 Q55 118 78 128" stroke="#1a7a35" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M35 145 Q15 132 0 145" stroke="#228a40" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M35 145 Q58 130 75 142" stroke="#228a40" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M35 150 Q20 142 8 155" stroke="#2a8a48" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M35 150 Q52 140 68 152" stroke="#2a8a48" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- Another overhanging tree (right-ish) -->
+  <g opacity="0.5">
+    <line x1="120" y1="310" x2="105" y2="185" stroke="#2a5828" stroke-width="4" stroke-linecap="round"/>
+    <path d="M105 185 Q80 170 65 182" stroke="#1e7838" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M105 185 Q125 168 142 178" stroke="#1e7838" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M105 190 Q88 180 75 192" stroke="#268842" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M105 190 Q122 178 135 190" stroke="#268842" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- Water surface shimmer -->
+  <g opacity="0.12">
+    <ellipse cx="500" cy="310" rx="100" ry="2.5" fill="#fff"/>
+    <ellipse cx="300" cy="380" rx="80" ry="2" fill="#fff"/>
+    <ellipse cx="650" cy="350" rx="90" ry="2" fill="#fff"/>
+    <ellipse cx="150" cy="400" rx="70" ry="2" fill="#fff"/>
+    <ellipse cx="450" cy="390" rx="60" ry="1.5" fill="#fff"/>
+  </g>
+  <!-- Ocean waves (foreground) -->
+  <path d="M0 420 Q100 414 200 418 Q300 412 400 416 Q500 410 600 415 Q700 408 800 414 L800 450 L0 450Z" fill="#05506a" opacity="0.35"/>
+  <!-- Birds -->
+  <g stroke="#3a6888" stroke-width="1.3" fill="none" opacity="0.3">
+    <path d="M480 100 Q485 94 490 100 Q495 94 500 100"/>
+    <path d="M520 88 Q524 83 528 88 Q532 83 536 88"/>
+    <path d="M460 115 Q464 110 468 115 Q472 110 476 115"/>
+    <path d="M540 105 Q543 100 546 105 Q549 100 552 105"/>
+  </g>
+</svg>

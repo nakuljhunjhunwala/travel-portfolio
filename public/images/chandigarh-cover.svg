@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="chsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4098d0"/>
+      <stop offset="35%" stop-color="#68b8e0"/>
+      <stop offset="65%" stop-color="#90d0ec"/>
+      <stop offset="100%" stop-color="#c8e8f5"/>
+    </linearGradient>
+    <radialGradient id="chsun" cx="0.7" cy="0.18" r="0.2">
+      <stop offset="0%" stop-color="#fff8e0" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#ffe8b0" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffe8b0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="chlake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5098c0"/>
+      <stop offset="50%" stop-color="#4088b0"/>
+      <stop offset="100%" stop-color="#3078a0"/>
+    </linearGradient>
+  </defs>
+  <!-- Clean blue sky -->
+  <rect width="800" height="450" fill="url(#chsky)"/>
+  <rect width="800" height="450" fill="url(#chsun)"/>
+  <!-- Clean white clouds -->
+  <g opacity="0.45">
+    <ellipse cx="180" cy="60" rx="80" ry="20" fill="#fff"/>
+    <ellipse cx="220" cy="55" rx="55" ry="15" fill="#fff" opacity="0.8"/>
+    <ellipse cx="550" cy="50" rx="70" ry="18" fill="#fff" opacity="0.5"/>
+  </g>
+  <!-- Shivalik hills in far background -->
+  <path d="M0 240 Q80 210 180 225 Q280 205 380 218 Q480 200 580 215 Q680 205 760 220 Q790 215 800 218 L800 280 L0 280Z" fill="#88b8a0" opacity="0.3"/>
+  <!-- Planned grid (subtle road lines) -->
+  <g stroke="#8ab0c0" stroke-width="0.8" opacity="0.15">
+    <line x1="200" y1="280" x2="200" y2="450"/>
+    <line x1="400" y1="280" x2="400" y2="450"/>
+    <line x1="600" y1="280" x2="600" y2="450"/>
+    <line x1="0" y1="320" x2="800" y2="320"/>
+    <line x1="0" y1="370" x2="800" y2="370"/>
+    <line x1="0" y1="420" x2="800" y2="420"/>
+  </g>
+  <!-- Le Corbusier's Open Hand monument silhouette -->
+  <g fill="#4a6878" opacity="0.7" transform="translate(200, 0)">
+    <!-- Pedestal/base -->
+    <rect x="-8" y="260" width="16" height="30" rx="2"/>
+    <rect x="-15" y="288" width="30" height="8" rx="2"/>
+    <!-- Arm -->
+    <rect x="-5" y="195" width="10" height="68" rx="3"/>
+    <!-- Palm -->
+    <path d="M-5 198 Q-20 175 -18 155 Q-16 140 -8 145 L-5 160Z" fill="#4a6878"/>
+    <path d="M5 198 Q20 175 18 155 Q16 140 8 145 L5 160Z" fill="#4a6878"/>
+    <!-- Fingers -->
+    <path d="M-18 155 Q-22 130 -18 120 Q-14 118 -12 125 L-8 145Z" fill="#4a6878"/>
+    <path d="M-12 148 Q-15 122 -10 110 Q-6 108 -5 118 L-5 145Z" fill="#4a6878"/>
+    <path d="M0 145 Q-2 115 2 105 Q6 103 7 112 L5 142Z" fill="#4a6878"/>
+    <path d="M8 148 Q12 125 15 115 Q18 113 18 120 L12 145Z" fill="#4a6878"/>
+    <path d="M18 155 Q24 138 22 128 Q20 125 16 132 L14 148Z" fill="#4a6878"/>
+    <!-- Pivot mechanism hint -->
+    <ellipse cx="0" cy="260" rx="12" ry="5" fill="#3a5868"/>
+  </g>
+  <!-- Rock Garden-inspired organic shapes -->
+  <g opacity="0.5">
+    <!-- Organic mosaic shapes (recycled materials aesthetic) -->
+    <path d="M480 310 Q490 300 510 305 Q520 298 535 308 Q540 318 530 325 Q515 330 500 325 Q485 322 480 310Z" fill="#b87888" opacity="0.6"/>
+    <path d="M520 318 Q535 310 550 315 Q558 322 550 332 Q538 338 525 332 Q518 328 520 318Z" fill="#c89060" opacity="0.5"/>
+    <path d="M490 325 Q498 318 512 322 Q520 330 512 340 Q500 345 490 338 Q485 332 490 325Z" fill="#88a8b8" opacity="0.5"/>
+    <!-- Stone figures (Rock Garden style) -->
+    <g fill="#8a7868" opacity="0.45">
+      <ellipse cx="560" cy="312" rx="6" ry="8"/>
+      <ellipse cx="560" cy="322" rx="4" ry="5"/>
+      <ellipse cx="575" cy="314" rx="5" ry="7"/>
+      <ellipse cx="575" cy="323" rx="3.5" ry="4.5"/>
+      <ellipse cx="548" cy="316" rx="5.5" ry="7"/>
+      <ellipse cx="548" cy="325" rx="3.5" ry="4.5"/>
+    </g>
+    <!-- Arched pathways -->
+    <path d="M470 340 Q490 328 510 340" stroke="#9a8878" stroke-width="2.5" fill="none" opacity="0.4"/>
+    <path d="M510 340 Q530 328 550 340" stroke="#9a8878" stroke-width="2.5" fill="none" opacity="0.4"/>
+  </g>
+  <!-- Sukhna Lake -->
+  <path d="M300 300 Q450 290 600 295 Q700 288 800 292 L800 370 Q650 362 500 366 Q380 360 300 365Z" fill="url(#chlake)" opacity="0.5"/>
+  <!-- Sailing boat on lake -->
+  <g transform="translate(520, 310)" opacity="0.6">
+    <path d="M-18 4 Q-20 10 -16 12 L18 12 Q22 10 20 4Z" fill="#5a7888"/>
+    <line x1="2" y1="12" x2="2" y2="-18" stroke="#4a6070" stroke-width="1.5"/>
+    <path d="M2 -16 L16 6 L2 6Z" fill="#e8e0d8" opacity="0.8"/>
+    <path d="M2 -16 L-8 6 L2 6Z" fill="#d8d0c8" opacity="0.6"/>
+  </g>
+  <!-- Lake reflections -->
+  <g opacity="0.12">
+    <ellipse cx="500" cy="340" rx="80" ry="2" fill="#fff"/>
+    <ellipse cx="600" cy="355" rx="60" ry="1.5" fill="#fff"/>
+    <ellipse cx="420" cy="360" rx="50" ry="1.5" fill="#fff"/>
+  </g>
+  <!-- Bougainvillea/flowering bushes (left, pink-purple accents) -->
+  <g opacity="0.65">
+    <!-- Bush structure -->
+    <ellipse cx="80" cy="330" rx="35" ry="22" fill="#3a8858"/>
+    <ellipse cx="60" cy="338" rx="25" ry="18" fill="#3a8858"/>
+    <ellipse cx="105" cy="335" rx="28" ry="20" fill="#3a8858"/>
+    <!-- Pink flowers -->
+    <circle cx="65" cy="322" r="4" fill="#d050a0" opacity="0.7"/>
+    <circle cx="78" cy="318" r="3.5" fill="#c848a0" opacity="0.65"/>
+    <circle cx="92" cy="320" r="4" fill="#d858a8" opacity="0.7"/>
+    <circle cx="55" cy="330" r="3" fill="#c040a0" opacity="0.6"/>
+    <circle cx="100" cy="328" r="3.5" fill="#d050a0" opacity="0.65"/>
+    <circle cx="72" cy="325" r="3" fill="#c848a0" opacity="0.6"/>
+    <circle cx="110" cy="325" r="3" fill="#d858a8" opacity="0.6"/>
+    <circle cx="85" cy="315" r="3" fill="#c040a0" opacity="0.55"/>
+  </g>
+  <!-- More bougainvillea (right side, purple) -->
+  <g opacity="0.55">
+    <ellipse cx="720" cy="335" rx="30" ry="20" fill="#3a8858"/>
+    <ellipse cx="745" cy="340" rx="25" ry="16" fill="#3a8858"/>
+    <circle cx="710" cy="328" r="3.5" fill="#9040c0" opacity="0.65"/>
+    <circle cx="725" cy="325" r="3" fill="#8838b8" opacity="0.6"/>
+    <circle cx="738" cy="330" r="3.5" fill="#9848c8" opacity="0.65"/>
+    <circle cx="750" cy="328" r="3" fill="#9040c0" opacity="0.6"/>
+    <circle cx="718" cy="335" r="3" fill="#8838b8" opacity="0.55"/>
+    <circle cx="740" cy="322" r="2.5" fill="#9848c8" opacity="0.6"/>
+  </g>
+  <!-- Geometric modernist buildings (subtle) -->
+  <g fill="#7898a8" opacity="0.25">
+    <rect x="300" y="270" width="50" height="30" rx="1"/>
+    <rect x="360" y="265" width="30" height="35" rx="1"/>
+    <rect x="255" y="275" width="35" height="25" rx="1"/>
+    <!-- Clean horizontal lines -->
+    <line x1="300" y1="280" x2="350" y2="280" stroke="#6888a0" stroke-width="0.8"/>
+    <line x1="300" y1="288" x2="350" y2="288" stroke="#6888a0" stroke-width="0.8"/>
+    <line x1="360" y1="275" x2="390" y2="275" stroke="#6888a0" stroke-width="0.8"/>
+    <line x1="360" y1="283" x2="390" y2="283" stroke="#6888a0" stroke-width="0.8"/>
+  </g>
+  <!-- Green ground (well-maintained, planned city) -->
+  <path d="M0 350 Q200 342 400 348 Q600 340 800 345 L800 400 L0 400Z" fill="#68a858" opacity="0.3"/>
+  <!-- Neat pathway -->
+  <path d="M0 365 Q200 358 400 362 Q600 356 800 360 L800 368 Q600 362 400 366 Q200 362 0 368Z" fill="#c8c0b0" opacity="0.2"/>
+  <!-- Foreground green -->
+  <path d="M0 400 Q200 394 400 398 Q600 392 800 396 L800 450 L0 450Z" fill="#58a048" opacity="0.25"/>
+  <path d="M0 430 Q200 426 400 428 Q600 424 800 426 L800 450 L0 450Z" fill="#4a9040" opacity="0.2"/>
+  <!-- Birds -->
+  <g stroke="#4a7888" stroke-width="1.2" fill="none" opacity="0.25">
+    <path d="M340 100 Q345 94 350 100 Q355 94 360 100"/>
+    <path d="M380 88 Q384 83 388 88 Q392 83 396 88"/>
+    <path d="M310 112 Q314 107 318 112 Q322 107 326 112"/>
+  </g>
+</svg>

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="mzsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a5a8a"/>
+      <stop offset="30%" stop-color="#6a78a8"/>
+      <stop offset="60%" stop-color="#8a90b8"/>
+      <stop offset="100%" stop-color="#b0a8c0"/>
+    </linearGradient>
+    <linearGradient id="mzsunrise" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#e8c090" stop-opacity="0.5"/>
+      <stop offset="30%" stop-color="#e8c090" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#e8c090" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="mzglow" cx="0.5" cy="0.72" r="0.4">
+      <stop offset="0%" stop-color="#f0d8a0" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#e8c888" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#e8c888" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mzcloud" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8c0d8" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#c8c0d8" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#mzsky)"/>
+  <!-- Sunrise glow at horizon -->
+  <rect width="800" height="450" fill="url(#mzsunrise)"/>
+  <rect width="800" height="450" fill="url(#mzglow)"/>
+
+  <!-- Mountain ridge 1 (farthest, lightest blue-purple) -->
+  <path d="M0 220 Q60 190 140 205 Q220 175 320 195 Q420 165 520 188 Q620 162 720 182 Q770 172 800 178 L800 280 L0 280Z" fill="#7a80a8" opacity="0.4"/>
+
+  <!-- Mountain ridge 2 -->
+  <path d="M0 260 Q80 235 180 250 Q280 220 380 242 Q480 215 580 238 Q680 218 780 232 L800 228 L800 310 L0 310Z" fill="#6a70a0" opacity="0.5"/>
+
+  <!-- Cloud sea filling valley -->
+  <g opacity="0.35">
+    <ellipse cx="200" cy="300" rx="120" ry="20" fill="#c8c0d8"/>
+    <ellipse cx="400" cy="305" rx="150" ry="22" fill="#d0c8e0"/>
+    <ellipse cx="600" cy="298" rx="130" ry="18" fill="#c8c0d8"/>
+    <ellipse cx="100" cy="308" rx="80" ry="15" fill="#d0c8e0"/>
+    <ellipse cx="700" cy="310" rx="100" ry="16" fill="#c8c0d8"/>
+  </g>
+
+  <!-- Mountain ridge 3 -->
+  <path d="M0 310 Q100 285 200 300 Q300 275 400 292 Q500 270 600 288 Q700 268 800 280 L800 360 L0 360Z" fill="#5a5e90" opacity="0.6"/>
+
+  <!-- Mountain ridge 4 (nearer, darker) -->
+  <path d="M0 355 Q120 330 240 345 Q360 318 480 338 Q600 315 720 332 Q770 325 800 328 L800 400 L0 400Z" fill="#484880" opacity="0.7"/>
+
+  <!-- Traditional Mizo house on stilts (on ridge 4) -->
+  <g transform="translate(400, 335)" fill="#3a3a68" opacity="0.65">
+    <!-- Stilts -->
+    <line x1="-15" y1="5" x2="-15" y2="22" stroke="#3a3a68" stroke-width="2.5"/>
+    <line x1="15" y1="5" x2="15" y2="22" stroke="#3a3a68" stroke-width="2.5"/>
+    <line x1="-5" y1="5" x2="-5" y2="22" stroke="#3a3a68" stroke-width="2"/>
+    <line x1="5" y1="5" x2="5" y2="22" stroke="#3a3a68" stroke-width="2"/>
+    <!-- Platform -->
+    <rect x="-20" y="2" width="40" height="5" rx="1"/>
+    <!-- Walls -->
+    <rect x="-16" y="-10" width="32" height="14" rx="1"/>
+    <!-- Steep roof -->
+    <path d="M-22 -10 L0 -28 L22 -10Z" fill="#44447a"/>
+    <!-- Door -->
+    <rect x="-3" y="-6" width="6" height="10" fill="#2a2a58" opacity="0.5"/>
+    <!-- Ladder -->
+    <line x1="18" y1="5" x2="28" y2="20" stroke="#3a3a68" stroke-width="1.5"/>
+    <line x1="20" y1="5" x2="30" y2="20" stroke="#3a3a68" stroke-width="1.5"/>
+    <line x1="19" y1="8" x2="29" y2="8" stroke="#3a3a68" stroke-width="1" transform="rotate(32, 24, 12)"/>
+    <line x1="20" y1="12" x2="30" y2="12" stroke="#3a3a68" stroke-width="1" transform="rotate(32, 25, 15)"/>
+  </g>
+
+  <!-- Bamboo forest foreground (left) -->
+  <g stroke="#2a3050" fill="none" opacity="0.6">
+    <line x1="20" y1="370" x2="15" y2="450" stroke-width="3.5"/>
+    <line x1="45" y1="365" x2="42" y2="450" stroke-width="3"/>
+    <line x1="65" y1="372" x2="62" y2="450" stroke-width="4"/>
+    <line x1="90" y1="368" x2="87" y2="450" stroke-width="3"/>
+    <line x1="110" y1="374" x2="108" y2="450" stroke-width="3.5"/>
+    <!-- Nodes -->
+    <line x1="18" y1="400" x2="22" y2="400" stroke-width="5"/>
+    <line x1="43" y1="395" x2="47" y2="395" stroke-width="4"/>
+    <line x1="63" y1="405" x2="67" y2="405" stroke-width="5"/>
+    <line x1="88" y1="398" x2="92" y2="398" stroke-width="4"/>
+  </g>
+  <!-- Bamboo leaves (left) -->
+  <g fill="#2a3858" opacity="0.5">
+    <path d="M20 370 Q10 360 6 368 Q12 367 20 370Z"/>
+    <path d="M20 370 Q28 358 33 366 Q27 367 20 370Z"/>
+    <path d="M45 365 Q36 355 32 363 Q38 362 45 365Z"/>
+    <path d="M45 365 Q54 353 58 361 Q52 362 45 365Z"/>
+    <path d="M65 372 Q56 362 52 370 Q58 369 65 372Z"/>
+    <path d="M90 368 Q82 358 78 366 Q84 366 90 368Z"/>
+    <path d="M90 368 Q98 356 102 364 Q96 365 90 368Z"/>
+    <path d="M110 374 Q102 364 98 372 Q104 372 110 374Z"/>
+  </g>
+
+  <!-- Bamboo forest foreground (right) -->
+  <g stroke="#2a3050" fill="none" opacity="0.55">
+    <line x1="700" y1="368" x2="697" y2="450" stroke-width="3"/>
+    <line x1="725" y1="372" x2="722" y2="450" stroke-width="3.5"/>
+    <line x1="748" y1="366" x2="745" y2="450" stroke-width="4"/>
+    <line x1="772" y1="370" x2="770" y2="450" stroke-width="3"/>
+    <line x1="795" y1="374" x2="793" y2="450" stroke-width="3.5"/>
+    <line x1="698" y1="398" x2="702" y2="398" stroke-width="4"/>
+    <line x1="723" y1="405" x2="727" y2="405" stroke-width="5"/>
+    <line x1="746" y1="396" x2="750" y2="396" stroke-width="5"/>
+  </g>
+  <g fill="#2a3858" opacity="0.45">
+    <path d="M700 368 Q692 358 688 366 Q694 366 700 368Z"/>
+    <path d="M725 372 Q716 362 712 370 Q718 370 725 372Z"/>
+    <path d="M748 366 Q756 354 760 362 Q754 363 748 366Z"/>
+    <path d="M772 370 Q764 360 760 368 Q766 368 772 370Z"/>
+  </g>
+
+  <!-- Nearest foreground slope -->
+  <path d="M0 405 Q200 390 400 400 Q600 388 800 395 L800 450 L0 450Z" fill="#2a2a58" opacity="0.8"/>
+
+  <!-- Darkest foreground -->
+  <path d="M0 430 Q200 420 400 425 Q600 418 800 422 L800 450 L0 450Z" fill="#1e1e48" opacity="0.7"/>
+
+  <!-- Bird silhouettes in sky -->
+  <g stroke="#5a6090" stroke-width="1.2" fill="none" opacity="0.35">
+    <path d="M280 100 Q285 93 290 100 Q295 93 300 100"/>
+    <path d="M320 85 Q324 79 328 85 Q332 79 336 85"/>
+    <path d="M260 115 Q264 109 268 115 Q272 109 276 115"/>
+    <path d="M350 95 Q353 90 356 95 Q359 90 362 95"/>
+    <path d="M240 105 Q243 100 246 105 Q249 100 252 105"/>
+  </g>
+</svg>

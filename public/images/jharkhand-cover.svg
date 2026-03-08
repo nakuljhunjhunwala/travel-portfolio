@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="jkdsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a5a30"/>
+      <stop offset="30%" stop-color="#4a7838"/>
+      <stop offset="60%" stop-color="#7a9850"/>
+      <stop offset="100%" stop-color="#c8a860"/>
+    </linearGradient>
+    <radialGradient id="jkdsun" cx="0.7" cy="0.18" r="0.22">
+      <stop offset="0%" stop-color="#f0d880" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#e8c860" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#e8c860" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="jkdwater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a9860" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#4a7848" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky gradient (deep forest green to amber) -->
+  <rect width="800" height="450" fill="url(#jkdsky)"/>
+  <rect width="800" height="450" fill="url(#jkdsun)"/>
+
+  <!-- Chota Nagpur plateau - far terrain -->
+  <path d="M0 140 Q100 120 200 132 Q300 110 400 125 Q500 108 600 122 Q700 105 800 118 L800 180 L0 180Z" fill="#3a6830" opacity="0.4"/>
+
+  <!-- Plateau layer 2 -->
+  <path d="M0 175 Q120 158 240 168 Q360 148 480 162 Q600 145 720 158 Q770 150 800 155 L800 220 L0 220Z" fill="#2a5828" opacity="0.5"/>
+
+  <!-- Sal forest layer 1 (far) -->
+  <g fill="#1e4820" opacity="0.45">
+    <path d="M0 200 Q20 178 40 200 Q60 175 80 200 Q100 172 120 200 Q140 175 160 200 Q180 178 200 200 Q220 175 240 200 Q260 172 280 200 L280 230 L0 230Z"/>
+    <path d="M520 195 Q540 172 560 195 Q580 168 600 195 Q620 172 640 195 Q660 175 680 195 Q700 172 720 195 Q740 175 760 195 Q780 172 800 195 L800 228 L520 228Z"/>
+  </g>
+
+  <!-- Rocky ledge where waterfall drops -->
+  <path d="M280 200 L300 195 L340 200 L380 192 L420 198 L460 190 L500 196 L520 192 L520 270 L280 270Z" fill="#6a7a50" opacity="0.65"/>
+
+  <!-- Cliff face texture -->
+  <g fill="#5a6a42" opacity="0.4">
+    <path d="M285 220 L295 215 L305 225 L290 228Z"/>
+    <path d="M330 215 L345 210 L350 222 L335 225Z"/>
+    <path d="M380 218 L395 212 L400 224 L385 226Z"/>
+    <path d="M430 215 L440 208 L448 220 L435 224Z"/>
+    <path d="M470 218 L485 213 L490 225 L475 228Z"/>
+  </g>
+
+  <!-- Waterfall cascading down rocky ledge -->
+  <g opacity="0.7">
+    <!-- Main falls -->
+    <rect x="370" y="198" width="12" height="72" rx="5" fill="#b8d8b0" opacity="0.5"/>
+    <rect x="390" y="195" width="14" height="75" rx="5" fill="#c0e0c0" opacity="0.55"/>
+    <rect x="410" y="198" width="10" height="72" rx="4" fill="#b8d8b0" opacity="0.45"/>
+    <!-- Secondary smaller falls -->
+    <rect x="340" y="200" width="8" height="70" rx="3" fill="#a8c8a0" opacity="0.35"/>
+    <rect x="430" y="200" width="8" height="70" rx="3" fill="#a8c8a0" opacity="0.35"/>
+    <!-- Mist at base -->
+    <ellipse cx="400" cy="275" rx="60" ry="12" fill="#d0e8d0" opacity="0.3"/>
+    <ellipse cx="400" cy="270" rx="40" ry="8" fill="#e0f0e0" opacity="0.2"/>
+  </g>
+
+  <!-- Sal forest layer 2 (mid, flanking the falls) -->
+  <g fill="#1a4218" opacity="0.55">
+    <path d="M0 225 Q15 202 30 225 Q45 198 60 225 Q75 195 90 225 Q105 200 120 225 Q135 198 150 225 Q165 202 180 225 Q195 198 210 225 Q225 200 240 225 Q255 198 270 225 L280 225 L280 280 L0 280Z"/>
+    <path d="M520 222 Q535 198 550 222 Q565 195 580 222 Q595 200 610 222 Q625 195 640 222 Q655 198 670 222 Q685 195 700 222 Q715 200 730 222 Q745 195 760 222 Q775 200 790 222 L800 222 L800 278 L520 278Z"/>
+  </g>
+
+  <!-- River flowing through from falls -->
+  <path d="M340 280 Q370 275 400 278 Q430 272 460 280 L480 310 Q440 320 400 315 Q360 322 320 312Z" fill="url(#jkdwater)"/>
+
+  <!-- River continuing and widening -->
+  <path d="M300 315 Q350 310 400 313 Q450 308 500 315 L530 360 Q460 370 400 365 Q340 372 270 362Z" fill="#4a7848" opacity="0.7"/>
+
+  <!-- River into foreground -->
+  <path d="M260 365 Q340 358 400 362 Q460 356 540 365 L560 420 Q470 430 400 425 Q330 432 240 422Z" fill="#3a6838" opacity="0.6"/>
+
+  <!-- Rocky terrain in foreground (left) -->
+  <g fill="#5a6840" opacity="0.5">
+    <path d="M0 320 Q30 310 60 325 Q90 308 120 322 Q150 305 180 320 Q210 308 240 318 L260 365 L240 370 Q210 365 180 375 Q150 362 120 378 Q90 365 60 380 Q30 370 0 378Z"/>
+    <ellipse cx="40" cy="340" rx="15" ry="8" fill="#4a5a38"/>
+    <ellipse cx="100" cy="335" rx="12" ry="7" fill="#4a5a38"/>
+    <ellipse cx="160" cy="342" rx="14" ry="6" fill="#4a5a38"/>
+  </g>
+
+  <!-- Rocky terrain (right) -->
+  <g fill="#5a6840" opacity="0.5">
+    <path d="M540 318 Q570 305 600 320 Q630 308 660 322 Q690 310 720 325 Q750 308 780 320 L800 322 L800 380 Q770 372 740 382 Q710 368 680 380 Q650 365 620 378 Q590 368 560 378 L540 365Z"/>
+    <ellipse cx="600" cy="340" rx="14" ry="7" fill="#4a5a38"/>
+    <ellipse cx="680" cy="338" rx="12" ry="6" fill="#4a5a38"/>
+    <ellipse cx="750" cy="342" rx="15" ry="7" fill="#4a5a38"/>
+  </g>
+
+  <!-- Tribal village huts silhouette (far right, on plateau) -->
+  <g transform="translate(660, 155)" fill="#2a4820" opacity="0.45">
+    <rect x="0" y="0" width="14" height="10" rx="1"/>
+    <path d="M-2 0 L7 -8 L16 0Z"/>
+    <rect x="25" y="2" width="12" height="8" rx="1"/>
+    <path d="M23 2 L31 -6 L39 2Z"/>
+    <rect x="48" y="1" width="10" height="9" rx="1"/>
+    <path d="M46 1 L53 -7 L60 1Z"/>
+  </g>
+
+  <!-- Sal forest layer 3 (nearest, framing) -->
+  <g fill="#143812" opacity="0.6">
+    <path d="M0 330 Q12 308 24 330 Q36 305 48 330 Q60 302 72 330 Q84 308 96 330 Q108 305 120 330 L120 390 L0 390Z"/>
+    <path d="M680 328 Q692 305 704 328 Q716 302 728 328 Q740 308 752 328 Q764 305 776 328 Q788 308 800 328 L800 388 L680 388Z"/>
+  </g>
+
+  <!-- Foreground ground -->
+  <path d="M0 395 Q200 382 400 390 Q600 380 800 385 L800 450 L0 450Z" fill="#1e3a18" opacity="0.7"/>
+  <path d="M0 425 Q200 415 400 420 Q600 412 800 418 L800 450 L0 450Z" fill="#142a10" opacity="0.6"/>
+
+  <!-- Light rays through canopy -->
+  <g opacity="0.06">
+    <polygon points="500,0 520,280 480,280" fill="#f0e8a0"/>
+    <polygon points="600,0 615,250 585,250" fill="#f0e8a0"/>
+    <polygon points="680,0 692,220 668,220" fill="#f0e8a0"/>
+  </g>
+
+  <!-- Birds in distance -->
+  <g stroke="#3a5830" stroke-width="1" fill="none" opacity="0.25">
+    <path d="M560 80 Q564 74 568 80 Q572 74 576 80"/>
+    <path d="M600 68 Q603 63 606 68 Q609 63 612 68"/>
+    <path d="M540 95 Q543 90 546 95 Q549 90 552 95"/>
+  </g>
+</svg>

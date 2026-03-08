@@ -1,0 +1,19 @@
+<!-- PWA icon: compass/map pin in brand blue (#2B6CE6) -->
+<!-- TODO: Generate icon-192.png and icon-512.png from this SVG for production -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="#2B6CE6"/>
+
+  <!-- Map pin shape -->
+  <g transform="translate(256, 240)">
+    <!-- Pin body -->
+    <path d="M0-140 C-77.3-140-140-77.3-140 0 C-140 50 0 180 0 180 S140 50 140 0 C140-77.3 77.3-140 0-140Z" fill="#FFFFFF"/>
+    <!-- Inner circle -->
+    <circle cx="0" cy="0" r="52" fill="#2B6CE6"/>
+    <!-- Compass cross -->
+    <line x1="0" y1="-36" x2="0" y2="36" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+    <line x1="-36" y1="0" x2="36" y2="0" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+    <!-- North indicator -->
+    <polygon points="0,-32 -8,-16 8,-16" fill="#F5F6FA"/>
+  </g>
+</svg>

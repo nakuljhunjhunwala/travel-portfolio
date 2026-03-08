@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="asky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8c878"/>
+      <stop offset="30%" stop-color="#d4dca0"/>
+      <stop offset="60%" stop-color="#a8c8a0"/>
+      <stop offset="100%" stop-color="#78a878"/>
+    </linearGradient>
+    <radialGradient id="asun" cx="0.2" cy="0.15" r="0.25">
+      <stop offset="0%" stop-color="#fff8e0" stop-opacity="0.8"/>
+      <stop offset="40%" stop-color="#f0e0a0" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#f0e0a0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ariver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8aaa98"/>
+      <stop offset="50%" stop-color="#7a9a88"/>
+      <stop offset="100%" stop-color="#6a8a78"/>
+    </linearGradient>
+    <linearGradient id="amist" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8e8d0" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#d8e8d0" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#asky)"/>
+  <rect width="800" height="450" fill="url(#asun)"/>
+
+  <!-- Misty mountains far background -->
+  <path d="M0 130 Q50 95 120 110 Q180 75 260 100 Q320 65 400 90 Q460 60 540 85 Q600 55 680 80 Q740 60 800 75 L800 180 L0 180Z" fill="#7a9a80" opacity="0.35"/>
+
+  <!-- Mountains mid -->
+  <path d="M0 165 Q80 135 160 150 Q240 120 340 142 Q420 115 520 138 Q600 112 700 135 Q760 118 800 130 L800 200 L0 200Z" fill="#6a8a70" opacity="0.45"/>
+
+  <!-- Mist between mountains -->
+  <rect x="0" y="150" width="800" height="35" fill="url(#amist)"/>
+
+  <!-- Rolling tea garden hills - far -->
+  <path d="M0 210 Q100 195 200 205 Q300 190 420 200 Q540 188 650 198 Q740 190 800 195 L800 250 L0 250Z" fill="#5a8a58"/>
+
+  <!-- Tea bush rows far -->
+  <g fill="#4a7a48" opacity="0.6">
+    <ellipse cx="60" cy="210" rx="18" ry="5"/>
+    <ellipse cx="100" cy="208" rx="18" ry="5"/>
+    <ellipse cx="140" cy="207" rx="18" ry="5"/>
+    <ellipse cx="180" cy="208" rx="18" ry="5"/>
+    <ellipse cx="220" cy="206" rx="18" ry="5"/>
+    <ellipse cx="260" cy="204" rx="18" ry="5"/>
+    <ellipse cx="300" cy="202" rx="18" ry="5"/>
+    <ellipse cx="340" cy="200" rx="18" ry="5"/>
+    <ellipse cx="380" cy="199" rx="18" ry="5"/>
+    <ellipse cx="420" cy="200" rx="18" ry="5"/>
+    <ellipse cx="460" cy="198" rx="18" ry="5"/>
+    <ellipse cx="500" cy="196" rx="18" ry="5"/>
+    <ellipse cx="540" cy="195" rx="18" ry="5"/>
+    <ellipse cx="580" cy="196" rx="18" ry="5"/>
+    <ellipse cx="620" cy="197" rx="18" ry="5"/>
+    <ellipse cx="660" cy="198" rx="18" ry="5"/>
+    <ellipse cx="700" cy="196" rx="18" ry="5"/>
+    <ellipse cx="740" cy="194" rx="18" ry="5"/>
+  </g>
+
+  <!-- Shade trees scattered -->
+  <g fill="#3a6a38" opacity="0.55">
+    <!-- Tree 1 -->
+    <rect x="148" y="192" width="4" height="16" fill="#5a4a30"/>
+    <ellipse cx="150" cy="188" rx="14" ry="12"/>
+    <!-- Tree 2 -->
+    <rect x="388" y="186" width="4" height="16" fill="#5a4a30"/>
+    <ellipse cx="390" cy="182" rx="12" ry="10"/>
+    <!-- Tree 3 -->
+    <rect x="598" y="184" width="4" height="14" fill="#5a4a30"/>
+    <ellipse cx="600" cy="180" rx="13" ry="11"/>
+    <!-- Tree 4 -->
+    <rect x="728" y="182" width="3" height="12" fill="#5a4a30"/>
+    <ellipse cx="730" cy="178" rx="10" ry="9"/>
+  </g>
+
+  <!-- Brahmaputra river -->
+  <path d="M0 255 Q100 248 200 252 Q350 244 500 250 Q650 242 800 248 L800 310 Q650 302 500 308 Q350 300 200 306 Q100 298 0 305Z" fill="url(#ariver)" opacity="0.7"/>
+
+  <!-- River water reflections -->
+  <g stroke="#a0c0b0" stroke-width="0.8" opacity="0.3" fill="none">
+    <path d="M50 265 Q100 262 150 265"/>
+    <path d="M200 268 Q260 264 320 267"/>
+    <path d="M380 262 Q440 258 500 262"/>
+    <path d="M550 266 Q610 262 670 266"/>
+    <path d="M700 264 Q740 260 780 264"/>
+    <path d="M100 280 Q160 276 220 280"/>
+    <path d="M300 278 Q360 274 420 278"/>
+    <path d="M500 276 Q560 272 620 276"/>
+    <path d="M670 282 Q720 278 770 282"/>
+    <path d="M40 295 Q100 291 160 295"/>
+    <path d="M250 292 Q310 288 370 292"/>
+    <path d="M450 290 Q510 286 570 290"/>
+  </g>
+
+  <!-- Tea garden hills - near side of river -->
+  <path d="M0 310 Q120 298 240 305 Q380 292 520 302 Q660 290 800 298 L800 360 L0 360Z" fill="#4a8048"/>
+
+  <!-- Near tea bush rows -->
+  <g fill="#3a7038" opacity="0.6">
+    <ellipse cx="40" cy="318" rx="22" ry="6"/>
+    <ellipse cx="90" cy="316" rx="22" ry="6"/>
+    <ellipse cx="140" cy="314" rx="22" ry="6"/>
+    <ellipse cx="190" cy="312" rx="22" ry="6"/>
+    <ellipse cx="240" cy="310" rx="22" ry="6"/>
+    <ellipse cx="290" cy="308" rx="22" ry="6"/>
+    <ellipse cx="340" cy="305" rx="22" ry="6"/>
+    <ellipse cx="390" cy="303" rx="22" ry="6"/>
+    <ellipse cx="440" cy="302" rx="22" ry="6"/>
+    <ellipse cx="490" cy="303" rx="22" ry="6"/>
+    <ellipse cx="540" cy="302" rx="22" ry="6"/>
+    <ellipse cx="590" cy="300" rx="22" ry="6"/>
+    <ellipse cx="640" cy="298" rx="22" ry="6"/>
+    <ellipse cx="690" cy="296" rx="22" ry="6"/>
+    <ellipse cx="740" cy="298" rx="22" ry="6"/>
+  </g>
+
+  <!-- Tea bush rows second line -->
+  <g fill="#3a7038" opacity="0.5">
+    <ellipse cx="60" cy="332" rx="22" ry="6"/>
+    <ellipse cx="110" cy="330" rx="22" ry="6"/>
+    <ellipse cx="160" cy="328" rx="22" ry="6"/>
+    <ellipse cx="210" cy="326" rx="22" ry="6"/>
+    <ellipse cx="260" cy="324" rx="22" ry="6"/>
+    <ellipse cx="310" cy="322" rx="22" ry="6"/>
+    <ellipse cx="360" cy="320" rx="22" ry="6"/>
+    <ellipse cx="410" cy="318" rx="22" ry="6"/>
+    <ellipse cx="460" cy="317" rx="22" ry="6"/>
+    <ellipse cx="510" cy="316" rx="22" ry="6"/>
+    <ellipse cx="560" cy="315" rx="22" ry="6"/>
+    <ellipse cx="610" cy="314" rx="22" ry="6"/>
+    <ellipse cx="660" cy="312" rx="22" ry="6"/>
+    <ellipse cx="710" cy="311" rx="22" ry="6"/>
+    <ellipse cx="760" cy="312" rx="22" ry="6"/>
+  </g>
+
+  <!-- Tea plucker silhouette -->
+  <g fill="#2a4a28" opacity="0.6" transform="translate(340, 310) scale(0.5)">
+    <!-- Head -->
+    <circle cx="0" cy="-48" r="9"/>
+    <!-- Hat -->
+    <ellipse cx="0" cy="-54" rx="14" ry="5"/>
+    <!-- Body bent forward -->
+    <path d="M-8 -40 Q-4 -20 -12 0 L12 0 Q8 -20 8 -40Z"/>
+    <!-- Legs -->
+    <rect x="-10" y="0" width="6" height="20" rx="2"/>
+    <rect x="4" y="0" width="6" height="20" rx="2"/>
+    <!-- Arms reaching to pluck -->
+    <path d="M8 -35 Q20 -28 28 -22" stroke="#2a4a28" stroke-width="3" fill="none"/>
+    <path d="M-8 -35 Q-20 -28 -26 -20" stroke="#2a4a28" stroke-width="3" fill="none"/>
+    <!-- Basket on back -->
+    <path d="M-6 -38 L-10 -15 L10 -15 L6 -38" fill="#5a4a30" opacity="0.8"/>
+  </g>
+
+  <!-- One-horned rhino silhouette (small, iconic) -->
+  <g fill="#3a5a38" opacity="0.4" transform="translate(650, 340) scale(0.35)">
+    <!-- Body -->
+    <ellipse cx="0" cy="0" rx="35" ry="18"/>
+    <!-- Head -->
+    <ellipse cx="-32" cy="-5" rx="14" ry="10"/>
+    <!-- Horn -->
+    <path d="M-44 -10 L-46 -22 L-40 -12Z"/>
+    <!-- Legs -->
+    <rect x="-18" y="15" width="7" height="18" rx="2"/>
+    <rect x="-6" y="15" width="7" height="18" rx="2"/>
+    <rect x="10" y="15" width="7" height="18" rx="2"/>
+    <rect x="22" y="15" width="7" height="18" rx="2"/>
+    <!-- Tail -->
+    <path d="M34 -2 Q40 -8 42 -4" stroke="#3a5a38" stroke-width="2" fill="none"/>
+    <!-- Ear -->
+    <ellipse cx="-30" cy="-14" rx="4" ry="5"/>
+  </g>
+
+  <!-- Foreground -->
+  <path d="M0 370 Q200 360 400 365 Q600 358 800 362 L800 450 L0 450Z" fill="#3a6a38" opacity="0.6"/>
+  <path d="M0 400 Q200 392 400 396 Q600 390 800 394 L800 450 L0 450Z" fill="#2a5a28" opacity="0.5"/>
+
+  <!-- Row lines in foreground -->
+  <g stroke="#2a5028" stroke-width="0.6" opacity="0.3" fill="none">
+    <path d="M0 375 Q200 368 400 372 Q600 366 800 370"/>
+    <path d="M0 385 Q200 379 400 382 Q600 377 800 380"/>
+    <path d="M0 395 Q200 390 400 393 Q600 388 800 391"/>
+    <path d="M0 408 Q200 404 400 406 Q600 402 800 405"/>
+    <path d="M0 420 Q200 417 400 418 Q600 415 800 417"/>
+  </g>
+
+  <!-- Near shade tree -->
+  <g opacity="0.5">
+    <rect x="88" y="355" width="5" height="22" fill="#4a3a20"/>
+    <ellipse cx="90" cy="348" rx="18" ry="15" fill="#2a5a28"/>
+  </g>
+
+  <!-- Morning mist layers -->
+  <g opacity="0.15" fill="#d8e8d0">
+    <ellipse cx="300" cy="170" rx="150" ry="12"/>
+    <ellipse cx="600" cy="160" rx="120" ry="10"/>
+    <ellipse cx="100" cy="175" rx="100" ry="8"/>
+  </g>
+
+  <!-- Soft golden sunlight rays -->
+  <g stroke="#f0d870" stroke-width="1" opacity="0.08">
+    <line x1="160" y1="60" x2="80" y2="350"/>
+    <line x1="160" y1="60" x2="200" y2="380"/>
+    <line x1="160" y1="60" x2="320" y2="360"/>
+    <line x1="160" y1="60" x2="440" y2="340"/>
+  </g>
+</svg>

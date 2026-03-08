@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="rsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8734a"/>
+      <stop offset="50%" stop-color="#eda96e"/>
+      <stop offset="100%" stop-color="#dbb88a"/>
+    </linearGradient>
+    <radialGradient id="rsun" cx="0.72" cy="0.22" r="0.18">
+      <stop offset="0%" stop-color="#fff8e8" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#ffe0a0" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffe0a0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#rsky)"/>
+  <rect width="800" height="450" fill="url(#rsun)"/>
+  <!-- Far dunes -->
+  <path d="M0 310 Q100 270 220 295 Q360 255 480 280 Q600 250 720 275 Q770 265 800 278 L800 450 L0 450Z" fill="#c49060" opacity="0.45"/>
+  <!-- Fort silhouette -->
+  <g fill="#9a7045" opacity="0.4">
+    <rect x="520" y="240" width="100" height="60" rx="3"/>
+    <rect x="514" y="220" width="16" height="80" rx="2"/>
+    <rect x="610" y="225" width="16" height="75" rx="2"/>
+    <rect x="555" y="215" width="20" height="85" rx="2"/>
+    <rect x="514" y="216" width="5" height="7"/><rect x="525" y="216" width="5" height="7"/>
+    <rect x="555" y="211" width="6" height="7"/><rect x="568" y="211" width="6" height="7"/>
+    <rect x="610" y="221" width="5" height="7"/><rect x="621" y="221" width="5" height="7"/>
+    <ellipse cx="570" cy="300" rx="14" ry="18" fill="#c49060"/>
+  </g>
+  <!-- Mid dunes -->
+  <path d="M0 345 Q160 305 310 328 Q440 298 560 320 Q680 292 800 315 L800 450 L0 450Z" fill="#b58050"/>
+  <!-- Near dunes -->
+  <path d="M0 385 Q200 355 370 372 Q520 350 660 368 Q740 358 800 365 L800 450 L0 450Z" fill="#a57242" opacity="0.85"/>
+  <!-- Camel silhouettes -->
+  <g fill="#8a6030" opacity="0.3" transform="translate(160,348) scale(0.38)">
+    <ellipse cx="0" cy="0" rx="24" ry="15"/><ellipse cx="-10" cy="-14" rx="5" ry="9"/>
+    <line x1="-14" y1="14" x2="-16" y2="30" stroke="#8a6030" stroke-width="3.5"/>
+    <line x1="-4" y1="14" x2="-3" y2="30" stroke="#8a6030" stroke-width="3.5"/>
+    <line x1="10" y1="14" x2="9" y2="30" stroke="#8a6030" stroke-width="3.5"/>
+    <line x1="20" y1="14" x2="21" y2="30" stroke="#8a6030" stroke-width="3.5"/>
+  </g>
+  <g fill="#8a6030" opacity="0.3" transform="translate(230,344) scale(0.34)">
+    <ellipse cx="0" cy="0" rx="24" ry="15"/><ellipse cx="-10" cy="-14" rx="5" ry="9"/>
+    <line x1="-14" y1="14" x2="-16" y2="30" stroke="#8a6030" stroke-width="3.5"/>
+    <line x1="-4" y1="14" x2="-3" y2="30" stroke="#8a6030" stroke-width="3.5"/>
+    <line x1="10" y1="14" x2="9" y2="30" stroke="#8a6030" stroke-width="3.5"/>
+    <line x1="20" y1="14" x2="21" y2="30" stroke="#8a6030" stroke-width="3.5"/>
+  </g>
+  <!-- Foreground sand -->
+  <path d="M0 415 Q130 398 300 408 Q480 395 650 405 Q750 398 800 402 L800 450 L0 450Z" fill="#966838" opacity="0.5"/>
+  <!-- Birds -->
+  <g stroke="#7a5530" stroke-width="1.2" fill="none" opacity="0.3">
+    <path d="M340 140 Q345 134 350 140 Q355 134 360 140"/>
+    <path d="M380 125 Q384 120 388 125 Q392 120 396 125"/>
+    <path d="M310 155 Q314 150 318 155 Q322 150 326 155"/>
+  </g>
+</svg>

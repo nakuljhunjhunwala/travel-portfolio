@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="tpsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8a050"/>
+      <stop offset="35%" stop-color="#d8b868"/>
+      <stop offset="65%" stop-color="#d0c480"/>
+      <stop offset="100%" stop-color="#b8c890"/>
+    </linearGradient>
+    <linearGradient id="tplake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a0b080" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#88a070" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#708860" stop-opacity="0.8"/>
+    </linearGradient>
+    <radialGradient id="tpsunglow" cx="0.6" cy="0.15" r="0.25">
+      <stop offset="0%" stop-color="#f0e0a0" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#f0e0a0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#tpsky)"/>
+  <rect width="800" height="450" fill="url(#tpsunglow)"/>
+
+  <!-- Gentle hills in background -->
+  <path d="M0 180 Q100 155 200 168 Q300 140 400 158 Q500 135 600 155 Q700 138 800 148 L800 220 L0 220Z" fill="#8aa068" opacity="0.35"/>
+  <path d="M0 215 Q120 195 240 208 Q360 185 480 202 Q600 182 720 198 Q770 192 800 195 L800 250 L0 250Z" fill="#7a9058" opacity="0.4"/>
+
+  <!-- Bamboo groves framing (left) -->
+  <g opacity="0.55">
+    <!-- Bamboo stalks -->
+    <line x1="30" y1="140" x2="25" y2="450" stroke="#6a8048" stroke-width="4"/>
+    <line x1="55" y1="130" x2="50" y2="450" stroke="#6a8048" stroke-width="3.5"/>
+    <line x1="75" y1="145" x2="72" y2="450" stroke="#6a8048" stroke-width="4.5"/>
+    <line x1="100" y1="135" x2="97" y2="450" stroke="#6a8048" stroke-width="3"/>
+    <line x1="118" y1="150" x2="116" y2="450" stroke="#6a8048" stroke-width="3.5"/>
+    <!-- Nodes -->
+    <line x1="27" y1="200" x2="33" y2="200" stroke="#6a8048" stroke-width="6"/>
+    <line x1="27" y1="280" x2="33" y2="280" stroke="#6a8048" stroke-width="6"/>
+    <line x1="52" y1="190" x2="58" y2="190" stroke="#6a8048" stroke-width="5"/>
+    <line x1="52" y1="270" x2="58" y2="270" stroke="#6a8048" stroke-width="5"/>
+    <line x1="72" y1="210" x2="78" y2="210" stroke="#6a8048" stroke-width="6"/>
+    <line x1="72" y1="300" x2="78" y2="300" stroke="#6a8048" stroke-width="6"/>
+    <line x1="97" y1="195" x2="103" y2="195" stroke="#6a8048" stroke-width="5"/>
+    <line x1="97" y1="285" x2="103" y2="285" stroke="#6a8048" stroke-width="5"/>
+    <!-- Leaves -->
+    <g fill="#5a7838">
+      <path d="M30 140 Q18 128 14 138 Q22 136 30 140Z"/>
+      <path d="M30 140 Q40 126 45 136 Q38 137 30 140Z"/>
+      <path d="M55 130 Q44 118 40 128 Q48 126 55 130Z"/>
+      <path d="M55 130 Q64 116 68 126 Q62 127 55 130Z"/>
+      <path d="M75 145 Q64 133 60 143 Q68 141 75 145Z"/>
+      <path d="M75 145 Q84 131 88 141 Q82 142 75 145Z"/>
+      <path d="M100 135 Q90 123 86 133 Q93 132 100 135Z"/>
+      <path d="M118 150 Q108 138 104 148 Q111 147 118 150Z"/>
+      <path d="M118 150 Q126 136 130 146 Q124 147 118 150Z"/>
+    </g>
+  </g>
+
+  <!-- Bamboo groves framing (right) -->
+  <g opacity="0.5">
+    <line x1="695" y1="138" x2="692" y2="450" stroke="#6a8048" stroke-width="3.5"/>
+    <line x1="720" y1="148" x2="717" y2="450" stroke="#6a8048" stroke-width="4"/>
+    <line x1="745" y1="132" x2="742" y2="450" stroke="#6a8048" stroke-width="3"/>
+    <line x1="768" y1="142" x2="766" y2="450" stroke="#6a8048" stroke-width="4.5"/>
+    <line x1="790" y1="136" x2="788" y2="450" stroke="#6a8048" stroke-width="3.5"/>
+    <line x1="693" y1="198" x2="697" y2="198" stroke="#6a8048" stroke-width="5"/>
+    <line x1="718" y1="208" x2="722" y2="208" stroke="#6a8048" stroke-width="6"/>
+    <line x1="742" y1="192" x2="746" y2="192" stroke="#6a8048" stroke-width="5"/>
+    <line x1="766" y1="202" x2="770" y2="202" stroke="#6a8048" stroke-width="6"/>
+    <g fill="#5a7838">
+      <path d="M695 138 Q685 126 681 136 Q688 135 695 138Z"/>
+      <path d="M720 148 Q728 134 732 144 Q726 145 720 148Z"/>
+      <path d="M745 132 Q736 120 732 130 Q739 129 745 132Z"/>
+      <path d="M768 142 Q776 128 780 138 Q774 139 768 142Z"/>
+      <path d="M790 136 Q780 124 776 134 Q783 133 790 136Z"/>
+    </g>
+  </g>
+
+  <!-- Lake surface -->
+  <path d="M130 250 Q300 242 450 248 Q600 240 680 248 L680 400 Q550 408 400 402 Q250 410 130 402Z" fill="url(#tplake)"/>
+
+  <!-- Neermahal water palace silhouette -->
+  <g transform="translate(400, 280)" fill="#7a6848" opacity="0.6">
+    <!-- Main central tower -->
+    <rect x="-12" y="-60" width="24" height="60" rx="2"/>
+    <path d="M-14 -60 Q0 -78 14 -60Z" fill="#8a7858"/>
+    <!-- Dome on top -->
+    <ellipse cx="0" cy="-72" rx="8" ry="6" fill="#8a7858"/>
+    <line x1="0" y1="-78" x2="0" y2="-84" stroke="#8a7858" stroke-width="2"/>
+
+    <!-- Left wing -->
+    <rect x="-60" y="-35" width="50" height="35" rx="2"/>
+    <!-- Left towers -->
+    <rect x="-62" y="-50" width="14" height="50" rx="1"/>
+    <path d="M-64 -50 Q-55 -60 -46 -50Z" fill="#8a7858"/>
+    <rect x="-38" y="-45" width="12" height="45" rx="1"/>
+    <path d="M-40 -45 Q-32 -54 -24 -45Z" fill="#8a7858"/>
+
+    <!-- Right wing -->
+    <rect x="10" y="-35" width="50" height="35" rx="2"/>
+    <!-- Right towers -->
+    <rect x="48" y="-50" width="14" height="50" rx="1"/>
+    <path d="M46 -50 Q55 -60 64 -50Z" fill="#8a7858"/>
+    <rect x="26" y="-45" width="12" height="45" rx="1"/>
+    <path d="M24 -45 Q32 -54 40 -45Z" fill="#8a7858"/>
+
+    <!-- Windows -->
+    <g fill="#c0b080" opacity="0.4">
+      <rect x="-6" y="-50" width="4" height="5" rx="1"/>
+      <rect x="2" y="-50" width="4" height="5" rx="1"/>
+      <rect x="-6" y="-40" width="4" height="5" rx="1"/>
+      <rect x="2" y="-40" width="4" height="5" rx="1"/>
+      <rect x="-52" y="-28" width="4" height="5" rx="1"/>
+      <rect x="-42" y="-28" width="4" height="5" rx="1"/>
+      <rect x="-32" y="-28" width="4" height="5" rx="1"/>
+      <rect x="28" y="-28" width="4" height="5" rx="1"/>
+      <rect x="38" y="-28" width="4" height="5" rx="1"/>
+      <rect x="48" y="-28" width="4" height="5" rx="1"/>
+    </g>
+
+    <!-- Arched entrance -->
+    <path d="M-5 0 Q0 -12 5 0Z" fill="#5a4838"/>
+  </g>
+
+  <!-- Palace reflection in lake -->
+  <g transform="translate(400, 310) scale(1, -0.4)" opacity="0.15">
+    <rect x="-60" y="-35" width="120" height="35" rx="2" fill="#7a6848"/>
+    <rect x="-12" y="-60" width="24" height="60" rx="2" fill="#7a6848"/>
+  </g>
+
+  <!-- Lotus flowers on water -->
+  <g opacity="0.45">
+    <!-- Lotus 1 -->
+    <g transform="translate(250, 360)">
+      <ellipse cx="0" cy="2" rx="10" ry="3" fill="#5a8050"/>
+      <path d="M-4 0 Q0 -8 4 0Z" fill="#e0a0b0"/>
+      <path d="M-6 1 Q-3 -6 0 1Z" fill="#d890a0"/>
+      <path d="M0 1 Q3 -6 6 1Z" fill="#d890a0"/>
+    </g>
+    <!-- Lotus 2 -->
+    <g transform="translate(520, 370)">
+      <ellipse cx="0" cy="2" rx="9" ry="2.5" fill="#5a8050"/>
+      <path d="M-3 0 Q0 -7 3 0Z" fill="#e0a0b0"/>
+      <path d="M-5 1 Q-2 -5 0 1Z" fill="#d890a0"/>
+      <path d="M0 1 Q2 -5 5 1Z" fill="#d890a0"/>
+    </g>
+    <!-- Lotus 3 -->
+    <g transform="translate(350, 380)">
+      <ellipse cx="0" cy="2" rx="8" ry="2" fill="#5a8050"/>
+      <path d="M-3 0 Q0 -6 3 0Z" fill="#e8b0c0"/>
+    </g>
+    <!-- Lotus pads -->
+    <ellipse cx="280" cy="375" rx="12" ry="4" fill="#4a7848" opacity="0.4"/>
+    <ellipse cx="490" cy="365" rx="10" ry="3" fill="#4a7848" opacity="0.35"/>
+    <ellipse cx="380" cy="392" rx="11" ry="3.5" fill="#4a7848" opacity="0.38"/>
+  </g>
+
+  <!-- Water ripples -->
+  <g stroke="#b8c898" stroke-width="0.5" fill="none" opacity="0.1">
+    <ellipse cx="300" cy="340" rx="25" ry="2.5"/>
+    <ellipse cx="450" cy="360" rx="30" ry="2.5"/>
+    <ellipse cx="550" cy="350" rx="20" ry="2"/>
+    <ellipse cx="200" cy="380" rx="22" ry="2"/>
+  </g>
+
+  <!-- Foreground shore -->
+  <path d="M0 400 Q200 392 400 398 Q600 390 800 395 L800 450 L0 450Z" fill="#5a7840" opacity="0.6"/>
+  <path d="M0 425 Q200 418 400 422 Q600 416 800 420 L800 450 L0 450Z" fill="#4a6830" opacity="0.5"/>
+</svg>

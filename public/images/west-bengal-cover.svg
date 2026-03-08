@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="wbsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a5a68"/>
+      <stop offset="30%" stop-color="#6a7a80"/>
+      <stop offset="55%" stop-color="#8a9a90"/>
+      <stop offset="80%" stop-color="#a8b8a0"/>
+      <stop offset="100%" stop-color="#c0c8a8"/>
+    </linearGradient>
+    <radialGradient id="wbsun" cx="0.6" cy="0.4" r="0.25">
+      <stop offset="0%" stop-color="#e8dcc0" stop-opacity="0.6"/>
+      <stop offset="40%" stop-color="#d0c8a0" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#c0c8a8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wbwater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a8a78"/>
+      <stop offset="50%" stop-color="#5a7068"/>
+      <stop offset="100%" stop-color="#4a6058"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#wbsky)"/>
+  <!-- Morning sun through mist -->
+  <rect width="800" height="450" fill="url(#wbsun)"/>
+  <!-- Sun disc (diffused through mist) -->
+  <circle cx="480" cy="175" r="30" fill="#e8dcc0" opacity="0.4"/>
+  <circle cx="480" cy="175" r="20" fill="#f0e8d0" opacity="0.3"/>
+  <circle cx="480" cy="175" r="45" fill="#d8d0b0" opacity="0.1"/>
+  <!-- Mist layer (top) -->
+  <g opacity="0.15">
+    <ellipse cx="200" cy="140" rx="150" ry="25" fill="#b8c0a8"/>
+    <ellipse cx="550" cy="130" rx="120" ry="20" fill="#b8c0a8"/>
+    <ellipse cx="400" cy="160" rx="180" ry="15" fill="#b8c0a8"/>
+  </g>
+  <!-- Howrah bridge silhouette (distant, subtle) -->
+  <g transform="translate(480, 195)" fill="#5a6a60" opacity="0.2">
+    <!-- Main cantilever arch -->
+    <path d="M-80 20 Q-60 -20 -20 -25 Q0 -28 20 -25 Q60 -20 80 20" fill="none" stroke="#5a6a60" stroke-width="3"/>
+    <!-- Deck -->
+    <rect x="-85" y="18" width="170" height="5" rx="1"/>
+    <!-- Vertical supports -->
+    <line x1="-60" y1="18" x2="-50" y2="-12" stroke="#5a6a60" stroke-width="2"/>
+    <line x1="-40" y1="18" x2="-35" y2="-20" stroke="#5a6a60" stroke-width="2"/>
+    <line x1="-20" y1="18" x2="-18" y2="-24" stroke="#5a6a60" stroke-width="2"/>
+    <line x1="0" y1="18" x2="0" y2="-28" stroke="#5a6a60" stroke-width="2"/>
+    <line x1="20" y1="18" x2="18" y2="-24" stroke="#5a6a60" stroke-width="2"/>
+    <line x1="40" y1="18" x2="35" y2="-20" stroke="#5a6a60" stroke-width="2"/>
+    <line x1="60" y1="18" x2="50" y2="-12" stroke="#5a6a60" stroke-width="2"/>
+    <!-- Tower supports on ends -->
+    <rect x="-88" y="-5" width="8" height="25" rx="1"/>
+    <rect x="80" y="-5" width="8" height="25" rx="1"/>
+  </g>
+  <!-- Far mangrove tree line -->
+  <path d="M0 230 Q40 222 80 228 Q120 218 160 226 Q200 215 240 224 Q280 212 320 222 Q360 210 400 220 Q440 208 480 218 Q520 210 560 218 Q600 206 640 216 Q680 208 720 215 Q760 204 800 212 L800 250 L0 250Z" fill="#4a6a50" opacity="0.35"/>
+  <!-- Water body -->
+  <path d="M0 250 Q200 244 400 248 Q600 242 800 246 L800 450 L0 450Z" fill="url(#wbwater)" opacity="0.7"/>
+  <!-- Water reflections/shimmer -->
+  <g opacity="0.1">
+    <path d="M100 280 Q200 276 300 280 Q400 275 500 280" stroke="#c8c8b0" stroke-width="1.5" fill="none"/>
+    <path d="M200 310 Q300 306 400 310 Q500 305 600 310" stroke="#c8c8b0" stroke-width="1" fill="none"/>
+    <path d="M50 340 Q150 336 250 340 Q350 335 450 340" stroke="#c8c8b0" stroke-width="1" fill="none"/>
+    <path d="M350 365 Q450 361 550 365 Q650 360 750 365" stroke="#c8c8b0" stroke-width="0.8" fill="none"/>
+  </g>
+  <!-- Sun reflection on water -->
+  <g opacity="0.15">
+    <ellipse cx="480" cy="270" rx="40" ry="4" fill="#e8dcc0"/>
+    <ellipse cx="480" cy="290" rx="28" ry="3" fill="#e8dcc0"/>
+    <ellipse cx="480" cy="310" rx="18" ry="2" fill="#d8d0b0"/>
+  </g>
+  <!-- Left mangrove cluster with aerial roots -->
+  <g opacity="0.6">
+    <!-- Trunk -->
+    <path d="M80 250 Q78 220 82 190 Q85 170 80 155" stroke="#3a4a30" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Aerial roots going into water -->
+    <path d="M72 210 Q68 230 65 255" stroke="#3a4a30" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M76 200 Q70 225 67 250" stroke="#3a4a30" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M85 205 Q90 228 92 252" stroke="#3a4a30" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M88 195 Q95 220 96 248" stroke="#3a4a30" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- Canopy -->
+    <ellipse cx="80" cy="152" rx="30" ry="18" fill="#3a5a35" opacity="0.7"/>
+    <ellipse cx="65" cy="158" rx="20" ry="14" fill="#2a4a28" opacity="0.6"/>
+    <ellipse cx="95" cy="156" rx="22" ry="15" fill="#2a4a28" opacity="0.6"/>
+  </g>
+  <!-- Right mangrove cluster -->
+  <g opacity="0.5">
+    <path d="M700 248 Q698 215 702 185 Q705 168 700 150" stroke="#3a4a30" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <!-- Aerial roots -->
+    <path d="M694 208 Q688 228 685 252" stroke="#3a4a30" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M706 205 Q712 225 715 250" stroke="#3a4a30" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M710 198 Q718 222 720 248" stroke="#3a4a30" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- Canopy -->
+    <ellipse cx="700" cy="148" rx="28" ry="16" fill="#3a5a35" opacity="0.65"/>
+    <ellipse cx="685" cy="155" rx="18" ry="12" fill="#2a4a28" opacity="0.55"/>
+    <ellipse cx="718" cy="152" rx="20" ry="13" fill="#2a4a28" opacity="0.55"/>
+  </g>
+  <!-- Additional mangrove trees (mid-distance) -->
+  <g opacity="0.35">
+    <path d="M200 248 Q198 225 200 205" stroke="#3a4a30" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M195 220 Q190 238 188 250" stroke="#3a4a30" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M206 218 Q212 235 214 248" stroke="#3a4a30" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="200" cy="202" rx="18" ry="12" fill="#3a5a35" opacity="0.6"/>
+  </g>
+  <g opacity="0.3">
+    <path d="M600 246 Q598 225 600 208" stroke="#3a4a30" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M594 222 Q590 236 588 248" stroke="#3a4a30" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M606 220 Q612 234 614 246" stroke="#3a4a30" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="600" cy="205" rx="16" ry="11" fill="#3a5a35" opacity="0.55"/>
+  </g>
+  <!-- Traditional boat on water -->
+  <g transform="translate(350, 285)" opacity="0.45">
+    <!-- Hull -->
+    <path d="M-35 5 Q-40 10 -32 12 L38 12 Q42 10 38 5 Z" fill="#4a3a28"/>
+    <!-- Bow curve -->
+    <path d="M38 12 Q50 8 45 4 Q42 1 38 5" fill="#4a3a28"/>
+    <!-- Boatman figure -->
+    <ellipse cx="-15" cy="0" rx="3" ry="5" fill="#3a2a1a"/>
+    <!-- Pole/oar -->
+    <line x1="-15" y1="-5" x2="-10" y2="-20" stroke="#4a3a28" stroke-width="1.5"/>
+    <line x1="-10" y1="-20" x2="-25" y2="15" stroke="#4a3a28" stroke-width="1" opacity="0.4"/>
+    <!-- Cargo/net at back -->
+    <ellipse cx="20" cy="2" rx="10" ry="5" fill="#5a4a35" opacity="0.5"/>
+  </g>
+  <!-- Heron/crane bird silhouette -->
+  <g transform="translate(140, 240)" fill="#3a4a38" opacity="0.5">
+    <!-- Body -->
+    <ellipse cx="0" cy="0" rx="6" ry="4"/>
+    <!-- Neck -->
+    <path d="M-4 -2 Q-8 -12 -5 -18" stroke="#3a4a38" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- Head -->
+    <circle cx="-5" cy="-19" r="2.5"/>
+    <!-- Beak -->
+    <line x1="-5" y1="-19" x2="-12" y2="-21" stroke="#3a4a38" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Legs -->
+    <line x1="2" y1="3" x2="3" y2="12" stroke="#3a4a38" stroke-width="1.2"/>
+    <line x1="-1" y1="3" x2="-2" y2="12" stroke="#3a4a38" stroke-width="1.2"/>
+  </g>
+  <!-- Mist between elements -->
+  <ellipse cx="400" cy="250" rx="420" ry="12" fill="#a0a890" opacity="0.2"/>
+  <ellipse cx="300" cy="270" rx="300" ry="8" fill="#a0a890" opacity="0.15"/>
+  <!-- Flying birds -->
+  <g stroke="#4a5a50" stroke-width="1.2" fill="none" opacity="0.2">
+    <path d="M320 130 Q325 123 330 130 Q335 123 340 130"/>
+    <path d="M355 118 Q359 112 363 118 Q367 112 371 118"/>
+    <path d="M300 145 Q304 139 308 145 Q312 139 316 145"/>
+  </g>
+  <!-- Foreground water darker -->
+  <path d="M0 410 Q200 404 400 408 Q600 402 800 406 L800 450 L0 450Z" fill="#3a5048" opacity="0.4"/>
+  <!-- Lily pads (foreground detail) -->
+  <g fill="#3a5a38" opacity="0.2">
+    <ellipse cx="120" cy="400" rx="8" ry="4"/>
+    <ellipse cx="140" cy="410" rx="6" ry="3"/>
+    <ellipse cx="650" cy="405" rx="7" ry="3.5"/>
+    <ellipse cx="670" cy="415" rx="5" ry="2.5"/>
+  </g>
+</svg>

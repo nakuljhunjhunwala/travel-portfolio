@@ -1,0 +1,77 @@
+@theme {
+  /* Backgrounds */
+  --color-bg: #F5F6FA;
+  --color-card: #FFFFFF;
+  --color-travel-row: #F0F1F5;
+
+  /* Primary Blue (pins, badges, links) */
+  --color-primary: #2B6CE6;
+  --color-primary-soft: #EEF3FD;
+  --color-primary-text: #1A56DB;
+
+  /* Typography */
+  --color-heading: #111827;
+  --color-body: #374151;
+  --color-muted: #6B7280;
+  --color-link: #2B6CE6;
+
+  /* Structural */
+  --color-border: #E5E7EB;
+  --color-border-dashed: #D1D5DB;
+  --color-pin-bg: #2B6CE6;
+  --color-pin-text: #FFFFFF;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.12);
+
+  /* Radius */
+  --radius-card: 12px;
+  --radius-badge: 6px;
+  --radius-pin: 50%;
+
+  /* Fonts (chained to next/font CSS vars) */
+  --font-heading: var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', sans-serif;
+  --font-body: var(--font-inter), 'Inter', sans-serif;
+  --font-mono: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --color-bg: #0F172A;
+  --color-card: #1E293B;
+  --color-heading: #F1F5F9;
+  --color-body: #CBD5E1;
+  --color-muted: #64748B;
+  --color-border: #334155;
+  --color-travel-row: #1E293B;
+}
+
+/* Per-trip color themes */
+[data-trip-theme="rajasthan"] {
+  --color-primary: #D97706;
+  --color-primary-soft: #FEF3C7;
+  --color-primary-text: #B45309;
+  --color-pin-bg: #D97706;
+}
+
+[data-trip-theme="kerala"] {
+  --color-primary: #059669;
+  --color-primary-soft: #D1FAE5;
+  --color-primary-text: #047857;
+  --color-pin-bg: #059669;
+}
+
+[data-trip-theme="ladakh"] {
+  --color-primary: #7C3AED;
+  --color-primary-soft: #EDE9FE;
+  --color-primary-text: #6D28D9;
+  --color-pin-bg: #7C3AED;
+}
+
+[data-trip-theme="himachal"] {
+  --color-primary: #0891B2;
+  --color-primary-soft: #CFFAFE;
+  --color-primary-text: #0E7490;
+  --color-pin-bg: #0891B2;
+}

@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Trips: public read if published, admin write only
+    match /trips/{tripId} {
+      allow read: if resource.data.published == true;
+      allow write: if request.auth != null && request.auth.uid == '3VE0ucRyv6XHrYEGEpw4JC9KYD43';
+
+      match /days/{dayId} {
+        allow read: if get(/databases/$(database)/documents/trips/$(tripId)).data.published == true;
+        allow write: if request.auth.uid == '3VE0ucRyv6XHrYEGEpw4JC9KYD43';
+
+        match /places/{placeId} {
+          allow read: if get(/databases/$(database)/documents/trips/$(tripId)).data.published == true;
+          allow write: if request.auth.uid == '3VE0ucRyv6XHrYEGEpw4JC9KYD43';
+        }
+      }
+    }
+
+    // Gemini cache: read anyone, write server only (admin SDK bypasses rules)
+    match /gemini-cache/{placeId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Users: own doc only
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Analytics: admin reads, user writes own
+    match /analytics/{tripId}/views/{uid} {
+      allow read: if request.auth != null && request.auth.uid == '3VE0ucRyv6XHrYEGEpw4JC9KYD43';
+      allow write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}

@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="dlsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a2868"/>
+      <stop offset="30%" stop-color="#5a3878"/>
+      <stop offset="55%" stop-color="#8a4870"/>
+      <stop offset="75%" stop-color="#c86878"/>
+      <stop offset="100%" stop-color="#d8908a"/>
+    </linearGradient>
+    <radialGradient id="dlglow" cx="0.5" cy="0.75" r="0.35">
+      <stop offset="0%" stop-color="#e8a898" stop-opacity="0.3"/>
+      <stop offset="60%" stop-color="#c86878" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#c86878" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Dusky pink-to-indigo sky -->
+  <rect width="800" height="450" fill="url(#dlsky)"/>
+  <rect width="800" height="450" fill="url(#dlglow)"/>
+  <!-- Stars hint -->
+  <g fill="#fff" opacity="0.15">
+    <circle cx="100" cy="40" r="1"/>
+    <circle cx="250" cy="25" r="0.8"/>
+    <circle cx="380" cy="50" r="1"/>
+    <circle cx="520" cy="35" r="0.8"/>
+    <circle cx="680" cy="45" r="1"/>
+    <circle cx="150" cy="70" r="0.7"/>
+    <circle cx="450" cy="30" r="0.9"/>
+    <circle cx="600" cy="60" r="0.8"/>
+    <circle cx="750" cy="30" r="1"/>
+  </g>
+  <!-- Tree-lined Rajpath (far, avenue of trees) -->
+  <g opacity="0.3">
+    <ellipse cx="250" cy="285" rx="20" ry="15" fill="#3a2838"/>
+    <ellipse cx="290" cy="282" rx="18" ry="14" fill="#3a2838"/>
+    <ellipse cx="330" cy="280" rx="16" ry="12" fill="#3a2838"/>
+    <ellipse cx="470" cy="280" rx="16" ry="12" fill="#3a2838"/>
+    <ellipse cx="510" cy="282" rx="18" ry="14" fill="#3a2838"/>
+    <ellipse cx="550" cy="285" rx="20" ry="15" fill="#3a2838"/>
+  </g>
+  <!-- Qutub Minar silhouette (tall tapering tower, left) -->
+  <g fill="#2a1838" opacity="0.75" transform="translate(130, 0)">
+    <path d="M-8 300 L-12 200 Q-10 150 -6 120 Q-3 100 0 85 Q3 100 6 120 Q10 150 12 200 L8 300Z"/>
+    <!-- Balcony rings -->
+    <ellipse cx="0" cy="140" rx="8" ry="2.5"/>
+    <ellipse cx="0" cy="180" rx="9.5" ry="2.5"/>
+    <ellipse cx="0" cy="220" rx="10.5" ry="2.5"/>
+    <ellipse cx="0" cy="255" rx="11" ry="2.5"/>
+    <!-- Top -->
+    <circle cx="0" cy="83" r="4" fill="#2a1838"/>
+    <line x1="0" y1="79" x2="0" y2="72" stroke="#2a1838" stroke-width="2"/>
+  </g>
+  <!-- Red Fort wall silhouette (right side) -->
+  <g fill="#2a1838" opacity="0.65">
+    <rect x="580" y="260" width="220" height="40" rx="2"/>
+    <!-- Battlements -->
+    <rect x="585" y="254" width="8" height="10"/>
+    <rect x="600" y="254" width="8" height="10"/>
+    <rect x="615" y="254" width="8" height="10"/>
+    <rect x="630" y="254" width="8" height="10"/>
+    <rect x="645" y="254" width="8" height="10"/>
+    <rect x="660" y="254" width="8" height="10"/>
+    <rect x="675" y="254" width="8" height="10"/>
+    <rect x="690" y="254" width="8" height="10"/>
+    <rect x="705" y="254" width="8" height="10"/>
+    <rect x="720" y="254" width="8" height="10"/>
+    <rect x="735" y="254" width="8" height="10"/>
+    <rect x="750" y="254" width="8" height="10"/>
+    <rect x="765" y="254" width="8" height="10"/>
+    <rect x="780" y="254" width="8" height="10"/>
+    <!-- Main gate tower -->
+    <rect x="640" y="228" width="40" height="32" rx="2"/>
+    <path d="M640 228 Q660 215 680 228" fill="#2a1838"/>
+    <!-- Gate arch -->
+    <path d="M650 260 L650 245 Q660 238 670 245 L670 260Z" fill="#3a2848"/>
+    <!-- Side towers -->
+    <rect x="600" y="240" width="20" height="20" rx="1"/>
+    <path d="M600 240 Q610 232 620 240" fill="#2a1838"/>
+    <rect x="700" y="240" width="20" height="20" rx="1"/>
+    <path d="M700 240 Q710 232 720 240" fill="#2a1838"/>
+  </g>
+  <!-- India Gate silhouette (center) -->
+  <g fill="#2a1838" opacity="0.8" transform="translate(400, 0)">
+    <!-- Main arch structure -->
+    <rect x="-40" y="235" width="12" height="65" rx="1"/>
+    <rect x="28" y="235" width="12" height="65" rx="1"/>
+    <!-- Top beam -->
+    <rect x="-44" y="228" width="88" height="12" rx="2"/>
+    <!-- Attic (stepped top) -->
+    <rect x="-35" y="218" width="70" height="12" rx="1"/>
+    <rect x="-25" y="210" width="50" height="10" rx="1"/>
+    <!-- Dome on top -->
+    <path d="M-10 210 Q0 198 10 210Z"/>
+    <!-- Inner arch -->
+    <path d="M-28 300 L-28 258 Q0 232 28 258 L28 300Z" fill="#3a2848"/>
+  </g>
+  <!-- Lotus Temple dome hint (far right background) -->
+  <g fill="#2a1838" opacity="0.35" transform="translate(720, 268)">
+    <path d="M-12 0 Q-8 -18 0 -25 Q8 -18 12 0Z"/>
+    <path d="M-18 0 Q-14 -12 -8 -20" stroke="#2a1838" stroke-width="1.5" fill="none"/>
+    <path d="M18 0 Q14 -12 8 -20" stroke="#2a1838" stroke-width="1.5" fill="none"/>
+    <path d="M-6 0 Q0 -15 6 0" fill="#352040"/>
+  </g>
+  <!-- Metro train silhouette (subtle, modern) -->
+  <g fill="#2a1838" opacity="0.25">
+    <!-- Elevated track -->
+    <line x1="0" y1="310" x2="250" y2="298" stroke="#2a1838" stroke-width="2"/>
+    <!-- Support pillars -->
+    <line x1="50" y1="308" x2="50" y2="330" stroke="#2a1838" stroke-width="2.5"/>
+    <line x1="120" y1="304" x2="120" y2="330" stroke="#2a1838" stroke-width="2.5"/>
+    <line x1="190" y1="300" x2="190" y2="330" stroke="#2a1838" stroke-width="2.5"/>
+    <!-- Train -->
+    <rect x="70" y="302" width="60" height="8" rx="3" fill="#2a1838"/>
+    <rect x="130" y="301" width="50" height="8" rx="3" fill="#2a1838"/>
+  </g>
+  <!-- Ground -->
+  <path d="M0 300 Q200 295 400 298 Q600 292 800 296 L800 450 L0 450Z" fill="#2a1830" opacity="0.45"/>
+  <!-- City lights -->
+  <g opacity="0.5">
+    <circle cx="100" cy="310" r="1.5" fill="#ffd060"/>
+    <circle cx="150" cy="315" r="1" fill="#ffe080"/>
+    <circle cx="220" cy="308" r="1.5" fill="#ffc850"/>
+    <circle cx="300" cy="312" r="1.2" fill="#ffd060"/>
+    <circle cx="350" cy="305" r="1.5" fill="#ffe080"/>
+    <circle cx="450" cy="310" r="1.3" fill="#ffc850"/>
+    <circle cx="520" cy="308" r="1.5" fill="#ffd060"/>
+    <circle cx="560" cy="315" r="1" fill="#ffe080"/>
+    <circle cx="620" cy="305" r="1.4" fill="#ffd060"/>
+    <circle cx="700" cy="310" r="1.2" fill="#ffc850"/>
+    <circle cx="750" cy="308" r="1.5" fill="#ffe080"/>
+    <circle cx="280" cy="318" r="1" fill="#ffd870"/>
+    <circle cx="480" cy="320" r="1.3" fill="#ffd060"/>
+    <circle cx="650" cy="318" r="1" fill="#ffe080"/>
+  </g>
+  <!-- Foreground -->
+  <path d="M0 380 Q200 374 400 378 Q600 372 800 376 L800 450 L0 450Z" fill="#1a0828" opacity="0.35"/>
+  <path d="M0 420 Q200 416 400 418 Q600 414 800 416 L800 450 L0 450Z" fill="#150620" opacity="0.3"/>
+  <!-- Birds -->
+  <g stroke="#6a4868" stroke-width="1.3" fill="none" opacity="0.3">
+    <path d="M350 140 Q355 134 360 140 Q365 134 370 140"/>
+    <path d="M390 128 Q394 123 398 128 Q402 123 406 128"/>
+    <path d="M420 142 Q424 137 428 142 Q432 137 436 142"/>
+    <path d="M330 155 Q334 150 338 155 Q342 150 346 155"/>
+    <path d="M450 135 Q453 131 456 135 Q459 131 462 135"/>
+  </g>
+</svg>

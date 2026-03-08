@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="ksky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8956a"/>
+      <stop offset="40%" stop-color="#e8b87a"/>
+      <stop offset="70%" stop-color="#c8d8a0"/>
+      <stop offset="100%" stop-color="#6aaa80"/>
+    </linearGradient>
+    <radialGradient id="ksun" cx="0.25" cy="0.3" r="0.2">
+      <stop offset="0%" stop-color="#fff5dd" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#ffe8b0" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ffe8b0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#ksky)"/>
+  <rect width="800" height="450" fill="url(#ksun)"/>
+  <!-- Backwater / lagoon -->
+  <path d="M0 280 Q200 270 400 275 Q600 268 800 274 L800 450 L0 450Z" fill="#5a9a7a" opacity="0.35"/>
+  <!-- Water reflections -->
+  <g opacity="0.15">
+    <path d="M100 310 Q200 306 300 310 Q400 305 500 310" stroke="#fff" stroke-width="1.5" fill="none"/>
+    <path d="M200 340 Q300 336 400 340 Q500 335 600 340" stroke="#fff" stroke-width="1" fill="none"/>
+    <path d="M50 365 Q180 360 320 365 Q450 358 600 365" stroke="#fff" stroke-width="1" fill="none"/>
+  </g>
+  <!-- Far palm trees -->
+  <g opacity="0.35">
+    <line x1="680" y1="270" x2="680" y2="210" stroke="#3a6a48" stroke-width="3"/>
+    <path d="M680 210 Q660 200 645 210" stroke="#3a6a48" stroke-width="2.5" fill="none"/>
+    <path d="M680 210 Q695 195 710 205" stroke="#3a6a48" stroke-width="2.5" fill="none"/>
+    <path d="M680 215 Q665 208 655 220" stroke="#3a6a48" stroke-width="2" fill="none"/>
+    <path d="M680 215 Q700 205 712 215" stroke="#3a6a48" stroke-width="2" fill="none"/>
+    <line x1="720" y1="272" x2="720" y2="220" stroke="#3a6a48" stroke-width="2.5"/>
+    <path d="M720 220 Q700 212 690 222" stroke="#3a6a48" stroke-width="2" fill="none"/>
+    <path d="M720 220 Q735 208 748 218" stroke="#3a6a48" stroke-width="2" fill="none"/>
+  </g>
+  <!-- Houseboat silhouette -->
+  <g transform="translate(320, 290)" opacity="0.5">
+    <!-- Hull -->
+    <path d="M-60 10 Q-65 20 -55 22 L55 22 Q65 20 60 10 Z" fill="#5a4030"/>
+    <!-- Cabin -->
+    <rect x="-30" y="-12" width="60" height="22" rx="3" fill="#6a5040"/>
+    <!-- Roof (curved) -->
+    <path d="M-35 -12 Q0 -28 35 -12" fill="#4a3525" stroke="#4a3525" stroke-width="1"/>
+    <!-- Front curve -->
+    <path d="M55 22 Q75 16 70 10 Q68 5 60 10" fill="#5a4030"/>
+  </g>
+  <!-- Left bank vegetation -->
+  <path d="M0 275 Q30 260 60 268 Q90 258 120 265 L120 290 Q80 285 40 288 L0 285Z" fill="#4a8a5a" opacity="0.5"/>
+  <!-- Right bank -->
+  <path d="M650 270 Q700 258 750 264 Q780 255 800 262 L800 290 Q760 282 710 285 L650 280Z" fill="#4a8a5a" opacity="0.5"/>
+  <!-- Near palm trees (left) -->
+  <g opacity="0.55">
+    <line x1="60" y1="268" x2="55" y2="175" stroke="#2a5a35" stroke-width="4" stroke-linecap="round"/>
+    <path d="M55 175 Q30 160 15 172" stroke="#2a6a38" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M55 175 Q70 158 88 165" stroke="#2a6a38" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M55 175 Q40 168 28 180" stroke="#2a6a38" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M55 175 Q68 165 82 175" stroke="#2a6a38" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M55 178 Q48 170 38 182" stroke="#358045" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M55 178 Q65 172 75 182" stroke="#358045" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- Water shimmer -->
+  <g opacity="0.12">
+    <ellipse cx="400" cy="350" rx="120" ry="3" fill="#fff"/>
+    <ellipse cx="250" cy="380" rx="80" ry="2" fill="#fff"/>
+    <ellipse cx="550" cy="400" rx="100" ry="2.5" fill="#fff"/>
+  </g>
+  <!-- Foreground water -->
+  <path d="M0 420 Q200 412 400 418 Q600 410 800 416 L800 450 L0 450Z" fill="#3a7a58" opacity="0.3"/>
+  <!-- Birds -->
+  <g stroke="#4a6a4a" stroke-width="1.3" fill="none" opacity="0.25">
+    <path d="M160 140 Q165 133 170 140 Q175 133 180 140"/>
+    <path d="M200 125 Q204 119 208 125 Q212 119 216 125"/>
+    <path d="M140 158 Q144 152 148 158 Q152 152 156 158"/>
+  </g>
+</svg>

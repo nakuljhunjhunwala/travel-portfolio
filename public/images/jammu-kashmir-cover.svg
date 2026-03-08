@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="jksky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c9a0d4"/>
+      <stop offset="40%" stop-color="#e4b0c8"/>
+      <stop offset="75%" stop-color="#f2c9b0"/>
+      <stop offset="100%" stop-color="#f7ddc4"/>
+    </linearGradient>
+    <linearGradient id="jklake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4a8c0" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#8b7ea0" stop-opacity="0.8"/>
+    </linearGradient>
+    <radialGradient id="jksunglow" cx="0.5" cy="0.35" r="0.3">
+      <stop offset="0%" stop-color="#ffe8d0" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffe8d0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="jkmtn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#d0c0d8"/>
+      <stop offset="100%" stop-color="#a090b0"/>
+    </linearGradient>
+    <linearGradient id="jkmtn2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8dce8"/>
+      <stop offset="100%" stop-color="#b0a0c0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#jksky)"/>
+  <rect width="800" height="450" fill="url(#jksunglow)"/>
+
+  <!-- Far snow mountains -->
+  <path d="M0 180 L60 120 L100 145 L160 85 L200 110 L260 70 L310 100 L350 75 L400 105 L450 60 L500 90 L540 65 L580 95 L630 55 L680 80 L720 60 L760 90 L800 70 L800 200 L0 200Z" fill="url(#jkmtn)" opacity="0.7"/>
+
+  <!-- Mid snow mountains -->
+  <path d="M0 200 L70 160 L130 180 L190 140 L250 165 L320 130 L380 155 L430 125 L490 150 L550 120 L610 148 L670 115 L730 145 L780 128 L800 140 L800 230 L0 230Z" fill="url(#jkmtn2)" opacity="0.8"/>
+
+  <!-- Mughal garden terraces on hillside (left) -->
+  <g fill="#7a9070" opacity="0.5">
+    <path d="M0 230 L0 260 L120 260 L120 250 L100 250 L100 240 L80 240 L80 230 L60 230 L60 225 L40 225 L40 220 L20 220Z"/>
+    <ellipse cx="30" cy="218" rx="10" ry="6"/>
+    <ellipse cx="55" cy="222" rx="8" ry="5"/>
+    <ellipse cx="75" cy="228" rx="9" ry="5"/>
+    <ellipse cx="95" cy="238" rx="8" ry="5"/>
+  </g>
+
+  <!-- Chinar tree silhouettes on shore (left) -->
+  <g fill="#5a7050" opacity="0.5">
+    <rect x="140" y="230" width="4" height="30"/>
+    <ellipse cx="142" cy="222" rx="18" ry="16"/>
+    <rect x="175" y="235" width="3" height="25"/>
+    <ellipse cx="176" cy="228" rx="14" ry="12"/>
+  </g>
+
+  <!-- Chinar tree silhouettes on shore (right) -->
+  <g fill="#5a7050" opacity="0.45">
+    <rect x="660" y="232" width="4" height="28"/>
+    <ellipse cx="662" cy="225" rx="16" ry="14"/>
+    <rect x="710" y="238" width="3" height="22"/>
+    <ellipse cx="711" cy="232" rx="12" ry="10"/>
+    <rect x="748" y="234" width="4" height="26"/>
+    <ellipse cx="750" cy="226" rx="15" ry="13"/>
+  </g>
+
+  <!-- Shoreline -->
+  <path d="M0 260 Q100 255 200 262 Q350 258 500 265 Q650 260 800 268 L800 270 Q650 264 500 269 Q350 263 200 268 Q100 262 0 265Z" fill="#8a9878" opacity="0.4"/>
+
+  <!-- Lake surface -->
+  <rect x="0" y="265" width="800" height="185" fill="url(#jklake)"/>
+
+  <!-- Mountain reflections in lake -->
+  <g opacity="0.15">
+    <path d="M0 310 L60 370 L100 345 L160 405 L200 380 L260 420 L310 390 L350 415 L400 385 L450 430 L500 400 L540 425 L580 395 L630 435 L680 410 L720 430 L760 400 L800 420 L800 290 L0 290Z" fill="#b0a0c0"/>
+  </g>
+
+  <!-- Houseboat 1 (mid-ground left) -->
+  <g transform="translate(200, 290)" opacity="0.6">
+    <path d="M-30 10 Q-35 5 -30 0 L50 0 Q55 5 50 10Z" fill="#6a5545"/>
+    <rect x="-20" y="-15" width="55" height="15" rx="2" fill="#7a6555"/>
+    <path d="M-20 -15 L7 -28 L35 -15Z" fill="#8a7060"/>
+    <rect x="10" y="-10" width="8" height="8" rx="1" fill="#c8b8a0" opacity="0.5"/>
+    <rect x="25" y="-10" width="8" height="8" rx="1" fill="#c8b8a0" opacity="0.5"/>
+  </g>
+
+  <!-- Houseboat 2 (mid-ground right) -->
+  <g transform="translate(560, 295)" opacity="0.55">
+    <path d="M-25 8 Q-30 4 -25 0 L45 0 Q50 4 45 8Z" fill="#6a5545"/>
+    <rect x="-18" y="-12" width="48" height="12" rx="2" fill="#7a6555"/>
+    <path d="M-18 -12 L6 -24 L30 -12Z" fill="#8a7060"/>
+    <rect x="8" y="-8" width="7" height="7" rx="1" fill="#c8b8a0" opacity="0.5"/>
+  </g>
+
+  <!-- Shikara 1 (foreground, left) -->
+  <g transform="translate(120, 350)" opacity="0.7">
+    <path d="M-20 8 Q-24 3 -18 0 L22 0 Q26 3 22 8Z" fill="#4a3a30"/>
+    <path d="M-18 0 Q-14 -3 -10 0" fill="none" stroke="#4a3a30" stroke-width="1.5"/>
+    <!-- canopy -->
+    <path d="M-10 0 Q-8 -18 2 -20 Q12 -18 14 0Z" fill="#9a4050" opacity="0.7"/>
+    <!-- person silhouette -->
+    <ellipse cx="-15" cy="-4" rx="2.5" ry="3" fill="#3a2a20"/>
+    <line x1="-15" y1="-1" x2="-15" y2="0" stroke="#3a2a20" stroke-width="2"/>
+    <!-- paddle -->
+    <line x1="-20" y1="-8" x2="-28" y2="6" stroke="#4a3a30" stroke-width="1.5"/>
+    <ellipse cx="-29" cy="7" rx="2" ry="4" fill="#4a3a30" transform="rotate(-20,-29,7)"/>
+  </g>
+
+  <!-- Shikara 2 (foreground, center-right) -->
+  <g transform="translate(480, 360)" opacity="0.65">
+    <path d="M-18 7 Q-22 2 -16 0 L20 0 Q24 2 20 7Z" fill="#3a2a20"/>
+    <path d="M-8 0 Q-6 -16 3 -18 Q12 -16 14 0Z" fill="#c06040" opacity="0.6"/>
+    <ellipse cx="-12" cy="-3" rx="2" ry="2.5" fill="#2a1a10"/>
+    <line x1="-12" y1="-0.5" x2="-12" y2="0" stroke="#2a1a10" stroke-width="1.8"/>
+    <line x1="22" y1="-6" x2="28" y2="5" stroke="#3a2a20" stroke-width="1.5"/>
+    <ellipse cx="29" cy="6" rx="2" ry="3.5" fill="#3a2a20" transform="rotate(15,29,6)"/>
+  </g>
+
+  <!-- Shikara 3 (far, small) -->
+  <g transform="translate(370, 310)" opacity="0.35">
+    <path d="M-10 4 Q-12 1 -8 0 L10 0 Q13 1 10 4Z" fill="#5a4a40"/>
+    <path d="M-4 0 Q-3 -10 1 -11 Q5 -10 6 0Z" fill="#a05050" opacity="0.5"/>
+  </g>
+
+  <!-- Water lily patches -->
+  <g fill="#7a9070" opacity="0.3">
+    <ellipse cx="300" cy="380" rx="12" ry="4"/>
+    <ellipse cx="320" cy="385" rx="8" ry="3"/>
+    <ellipse cx="290" cy="388" rx="6" ry="2.5"/>
+  </g>
+  <g fill="#d8a0b0" opacity="0.25">
+    <circle cx="305" cy="378" r="2.5"/>
+    <circle cx="315" cy="383" r="2"/>
+    <circle cx="295" cy="386" r="1.8"/>
+  </g>
+
+  <!-- More water lilies -->
+  <g fill="#7a9070" opacity="0.25">
+    <ellipse cx="600" cy="395" rx="10" ry="3.5"/>
+    <ellipse cx="615" cy="400" rx="7" ry="2.5"/>
+  </g>
+  <g fill="#d8a0b0" opacity="0.2">
+    <circle cx="605" cy="393" r="2"/>
+    <circle cx="612" cy="398" r="1.5"/>
+  </g>
+
+  <!-- Water ripples -->
+  <g stroke="#ffffff" stroke-width="0.5" fill="none" opacity="0.1">
+    <ellipse cx="200" cy="340" rx="25" ry="3"/>
+    <ellipse cx="400" cy="370" rx="30" ry="3"/>
+    <ellipse cx="550" cy="350" rx="20" ry="2.5"/>
+    <ellipse cx="150" cy="400" rx="35" ry="3"/>
+    <ellipse cx="650" cy="380" rx="28" ry="2.8"/>
+    <ellipse cx="350" cy="420" rx="22" ry="2"/>
+  </g>
+
+  <!-- Gentle light rays from sky -->
+  <g opacity="0.06">
+    <polygon points="350,0 380,265 320,265" fill="#ffffff"/>
+    <polygon points="450,0 475,265 425,265" fill="#ffffff"/>
+    <polygon points="550,0 570,265 530,265" fill="#ffffff"/>
+  </g>
+</svg>

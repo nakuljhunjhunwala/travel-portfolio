@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="hsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a7a9b"/>
+      <stop offset="45%" stop-color="#7aafc0"/>
+      <stop offset="100%" stop-color="#b8d8d8"/>
+    </linearGradient>
+    <linearGradient id="snow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0f4f5"/>
+      <stop offset="100%" stop-color="#d8e4e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#hsky)"/>
+  <!-- Clouds -->
+  <g opacity="0.15" fill="white">
+    <ellipse cx="150" cy="80" rx="70" ry="22"/>
+    <ellipse cx="190" cy="75" rx="50" ry="18"/>
+    <ellipse cx="600" cy="60" rx="60" ry="20"/>
+    <ellipse cx="640" cy="55" rx="45" ry="16"/>
+  </g>
+  <!-- Snow peaks (far) -->
+  <path d="M0 240 L80 140 L150 200 L240 110 L320 180 L400 90 L480 170 L560 100 L640 165 L720 120 L800 190 L800 280 L0 280Z" fill="url(#snow)" opacity="0.7"/>
+  <!-- Snow highlights -->
+  <path d="M240 110 L270 145 L255 145 L280 180 Z" fill="white" opacity="0.4"/>
+  <path d="M400 90 L430 130 L415 130 L440 165 Z" fill="white" opacity="0.4"/>
+  <path d="M560 100 L590 140 L575 140 L600 165 Z" fill="white" opacity="0.4"/>
+  <!-- Mountain range (mid) -->
+  <path d="M0 300 L60 230 L130 270 L200 210 L290 265 L370 220 L450 260 L530 215 L610 258 L700 225 L800 270 L800 340 L0 340Z" fill="#5a8a6a"/>
+  <!-- Pine trees layer (dark) -->
+  <path d="M0 340 L40 300 L80 330 L120 290 L160 325 L200 285 L250 318 L300 280 L350 315 L400 278 L450 312 L500 275 L550 310 L600 280 L650 315 L700 285 L750 320 L800 290 L800 380 L0 380Z" fill="#3d6b4e"/>
+  <!-- Pine tree silhouettes -->
+  <g fill="#2d5540" opacity="0.7">
+    <polygon points="100,310 108,280 110,290 118,260 120,275 128,250 120,270 122,260 114,285 116,278 108,300"/>
+    <polygon points="250,305 258,275 260,285 268,255 270,270 278,245 270,265 272,255 264,280 266,273 258,295"/>
+    <polygon points="450,300 458,270 460,280 468,250 470,265 478,240 470,260 472,250 464,275 466,268 458,290"/>
+    <polygon points="650,308 658,278 660,288 668,258 670,273 678,248 670,268 672,258 664,283 666,276 658,298"/>
+    <polygon points="350,315 356,290 358,298 364,272 366,284 370,262 366,280 368,272 360,294 362,288 356,308"/>
+    <polygon points="550,312 556,287 558,295 564,269 566,281 570,259 566,277 568,269 560,291 562,285 556,305"/>
+  </g>
+  <!-- Valley/river -->
+  <path d="M0 380 Q100 368 200 374 Q350 360 500 370 Q650 358 800 368 L800 450 L0 450Z" fill="#4a7a5a"/>
+  <!-- River -->
+  <path d="M200 395 Q300 388 400 392 Q500 385 600 390 Q700 384 750 388" stroke="#7ab8c0" stroke-width="3" fill="none" opacity="0.4" stroke-linecap="round"/>
+  <path d="M180 405 Q280 398 380 402 Q480 395 580 400 Q680 394 770 398" stroke="#7ab8c0" stroke-width="2" fill="none" opacity="0.25" stroke-linecap="round"/>
+  <!-- Foreground -->
+  <path d="M0 420 Q150 408 350 415 Q550 405 800 415 L800 450 L0 450Z" fill="#3a6248" opacity="0.6"/>
+  <!-- Birds -->
+  <g stroke="#345" stroke-width="1.2" fill="none" opacity="0.25">
+    <path d="M480 120 Q485 114 490 120 Q495 114 500 120"/>
+    <path d="M520 108 Q524 103 528 108 Q532 103 536 108"/>
+    <path d="M460 135 Q464 130 468 135 Q472 130 476 135"/>
+  </g>
+</svg>

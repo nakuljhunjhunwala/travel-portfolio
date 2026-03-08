@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="upsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8ab8d8"/>
+      <stop offset="20%" stop-color="#c8d8e8"/>
+      <stop offset="45%" stop-color="#f0c8a0"/>
+      <stop offset="70%" stop-color="#f8d8b0"/>
+      <stop offset="100%" stop-color="#e8d0b8"/>
+    </linearGradient>
+    <radialGradient id="upsun" cx="0.5" cy="0.28" r="0.22">
+      <stop offset="0%" stop-color="#fff0c0" stop-opacity="0.85"/>
+      <stop offset="40%" stop-color="#ffd898" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ffd898" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="upriver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a0b8c8"/>
+      <stop offset="40%" stop-color="#90a8b8"/>
+      <stop offset="100%" stop-color="#8098a8"/>
+    </linearGradient>
+    <linearGradient id="upreflect" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8b098"/>
+      <stop offset="100%" stop-color="#90a0b0"/>
+    </linearGradient>
+  </defs>
+  <!-- Misty sunrise sky -->
+  <rect width="800" height="450" fill="url(#upsky)"/>
+  <rect width="800" height="450" fill="url(#upsun)"/>
+  <!-- Mist layers -->
+  <rect x="0" y="160" width="800" height="50" fill="#e8d8c8" opacity="0.15"/>
+  <rect x="0" y="200" width="800" height="40" fill="#d8c8b8" opacity="0.12"/>
+  <rect x="0" y="235" width="800" height="30" fill="#c8b8a8" opacity="0.1"/>
+  <!-- Taj Mahal silhouette -->
+  <g fill="#9a8878" opacity="0.75" transform="translate(400, 0)">
+    <!-- Main platform -->
+    <rect x="-75" y="215" width="150" height="25" rx="2"/>
+    <!-- Main building body -->
+    <rect x="-50" y="175" width="100" height="42" rx="3"/>
+    <!-- Main dome -->
+    <path d="M-30 178 Q-32 150 0 118 Q32 150 30 178Z"/>
+    <!-- Dome finial -->
+    <line x1="0" y1="118" x2="0" y2="105" stroke="#9a8878" stroke-width="2.5"/>
+    <ellipse cx="0" cy="103" rx="3" ry="4" fill="#9a8878"/>
+    <line x1="0" y1="99" x2="0" y2="94" stroke="#9a8878" stroke-width="1.5"/>
+    <!-- Small domes (chattris) -->
+    <path d="M-45 178 Q-45 165 -38 158 Q-31 165 -31 178Z"/>
+    <path d="M31 178 Q31 165 38 158 Q45 165 45 178Z"/>
+    <!-- Smaller chattris -->
+    <path d="M-58 178 Q-58 170 -54 164 Q-50 170 -50 178Z"/>
+    <path d="M50 178 Q50 170 54 164 Q58 170 58 178Z"/>
+    <!-- Four minarets -->
+    <rect x="-80" y="148" width="8" height="92" rx="2"/>
+    <rect x="72" y="148" width="8" height="92" rx="2"/>
+    <!-- Minaret tops -->
+    <path d="M-80 150 Q-76 138 -72 150Z"/>
+    <path d="M72 150 Q76 138 80 150Z"/>
+    <ellipse cx="-76" cy="138" rx="4" ry="3"/>
+    <ellipse cx="76" cy="138" rx="4" ry="3"/>
+    <!-- Arches -->
+    <path d="M-12 217 L-12 195 Q0 182 12 195 L12 217Z" fill="#a89888"/>
+    <path d="M-35 217 L-35 200 Q-28 192 -21 200 L-21 217Z" fill="#a89888"/>
+    <path d="M21 217 L21 200 Q28 192 35 200 L35 217Z" fill="#a89888"/>
+  </g>
+  <!-- Yamuna river -->
+  <path d="M0 290 Q200 282 400 288 Q600 280 800 286 L800 450 L0 450Z" fill="url(#upriver)" opacity="0.6"/>
+  <!-- Taj reflection in river -->
+  <g opacity="0.18" transform="translate(400, 0)">
+    <path d="M-50 305 L-50 340 L50 340 L50 305Z" fill="#a09080"/>
+    <path d="M-30 305 Q0 365 30 305Z" fill="#a09080"/>
+    <line x1="0" y1="305" x2="0" y2="290" stroke="#a09080" stroke-width="2"/>
+  </g>
+  <!-- Ghat steps (left side) -->
+  <g fill="#b8a088" opacity="0.55">
+    <rect x="0" y="270" width="120" height="8" rx="1"/>
+    <rect x="5" y="278" width="115" height="7" rx="1"/>
+    <rect x="10" y="285" width="110" height="7" rx="1"/>
+    <rect x="15" y="292" width="105" height="7" rx="1"/>
+    <rect x="18" y="299" width="102" height="7" rx="1"/>
+    <rect x="20" y="306" width="100" height="7" rx="1"/>
+    <rect x="22" y="313" width="98" height="8" rx="1"/>
+  </g>
+  <!-- Ghat structures -->
+  <g fill="#a89070" opacity="0.4">
+    <rect x="20" y="248" width="30" height="22" rx="2"/>
+    <path d="M18 248 Q35 235 52 248" fill="#a89070"/>
+    <rect x="65" y="252" width="25" height="18" rx="2"/>
+    <path d="M63 252 Q77 242 92 252" fill="#a89070"/>
+  </g>
+  <!-- Boats on river -->
+  <g opacity="0.5">
+    <!-- Boat 1 -->
+    <path d="M230 310 Q225 320 235 322 L285 322 Q295 320 290 310Z" fill="#7a6040"/>
+    <line x1="260" y1="322" x2="260" y2="295" stroke="#6a5030" stroke-width="2"/>
+    <!-- Boat 2 -->
+    <path d="M580 305 Q576 314 582 316 L618 316 Q624 314 620 305Z" fill="#7a6040" opacity="0.7"/>
+    <line x1="600" y1="316" x2="600" y2="292" stroke="#6a5030" stroke-width="1.5"/>
+    <!-- Boat 3 (smaller, far) -->
+    <path d="M450 298 Q448 304 451 305 L469 305 Q472 304 470 298Z" fill="#7a6040" opacity="0.4"/>
+  </g>
+  <!-- Water shimmer -->
+  <g opacity="0.1">
+    <ellipse cx="400" cy="340" rx="150" ry="3" fill="#fff"/>
+    <ellipse cx="250" cy="370" rx="100" ry="2" fill="#fff"/>
+    <ellipse cx="600" cy="360" rx="110" ry="2.5" fill="#fff"/>
+    <ellipse cx="350" cy="400" rx="80" ry="2" fill="#ffd898"/>
+  </g>
+  <!-- Foreground water -->
+  <path d="M0 400 Q200 394 400 398 Q600 392 800 396 L800 450 L0 450Z" fill="#708898" opacity="0.35"/>
+  <path d="M0 425 Q200 420 400 423 Q600 418 800 422 L800 450 L0 450Z" fill="#607888" opacity="0.25"/>
+  <!-- Mist over water -->
+  <rect x="0" y="280" width="800" height="30" fill="#d8c8b8" opacity="0.12"/>
+  <!-- Birds flying near dome -->
+  <g stroke="#8a7868" stroke-width="1.3" fill="none" opacity="0.35">
+    <path d="M420 100 Q425 94 430 100 Q435 94 440 100"/>
+    <path d="M450 88 Q454 83 458 88 Q462 83 466 88"/>
+    <path d="M380 108 Q384 103 388 108 Q392 103 396 108"/>
+    <path d="M405 92 Q408 88 411 92 Q414 88 417 92"/>
+    <path d="M360 115 Q363 111 366 115 Q369 111 372 115"/>
+    <path d="M465 96 Q468 92 471 96 Q474 92 477 96"/>
+  </g>
+  <!-- Distant trees on far bank -->
+  <g opacity="0.25">
+    <ellipse cx="200" cy="272" rx="15" ry="10" fill="#8a9878"/>
+    <ellipse cx="240" cy="270" rx="12" ry="9" fill="#8a9878"/>
+    <ellipse cx="600" cy="275" rx="14" ry="10" fill="#8a9878"/>
+    <ellipse cx="650" cy="273" rx="11" ry="8" fill="#8a9878"/>
+    <ellipse cx="700" cy="276" rx="13" ry="9" fill="#8a9878"/>
+  </g>
+</svg>

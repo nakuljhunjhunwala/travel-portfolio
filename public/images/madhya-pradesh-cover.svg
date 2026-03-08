@@ -1,0 +1,241 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="mpsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a3a28"/>
+      <stop offset="30%" stop-color="#2a4a30"/>
+      <stop offset="60%" stop-color="#305838"/>
+      <stop offset="100%" stop-color="#1a3a20"/>
+    </linearGradient>
+    <radialGradient id="mpdapple1" cx="0.3" cy="0.2" r="0.15">
+      <stop offset="0%" stop-color="#80a860" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#80a860" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mpdapple2" cx="0.6" cy="0.3" r="0.12">
+      <stop offset="0%" stop-color="#90b870" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#90b870" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mpdapple3" cx="0.8" cy="0.15" r="0.1">
+      <stop offset="0%" stop-color="#80a860" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#80a860" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mpwater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a6a50"/>
+      <stop offset="100%" stop-color="#2a5a40"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dense forest background -->
+  <rect width="800" height="450" fill="url(#mpsky)"/>
+
+  <!-- Dappled light spots -->
+  <rect width="800" height="450" fill="url(#mpdapple1)"/>
+  <rect width="800" height="450" fill="url(#mpdapple2)"/>
+  <rect width="800" height="450" fill="url(#mpdapple3)"/>
+
+  <!-- Far canopy layer -->
+  <g fill="#143820" opacity="0.5">
+    <ellipse cx="50" cy="60" rx="45" ry="35"/>
+    <ellipse cx="130" cy="50" rx="50" ry="40"/>
+    <ellipse cx="220" cy="55" rx="45" ry="35"/>
+    <ellipse cx="310" cy="45" rx="50" ry="38"/>
+    <ellipse cx="400" cy="50" rx="48" ry="36"/>
+    <ellipse cx="490" cy="42" rx="50" ry="38"/>
+    <ellipse cx="580" cy="48" rx="45" ry="35"/>
+    <ellipse cx="670" cy="55" rx="50" ry="38"/>
+    <ellipse cx="760" cy="50" rx="45" ry="35"/>
+  </g>
+
+  <!-- Khajuraho-style temple spire in background -->
+  <g fill="#2a4a2a" opacity="0.4" transform="translate(620, 80) scale(0.7)">
+    <!-- Base -->
+    <rect x="-25" y="20" width="50" height="25" rx="2"/>
+    <!-- Mandapa -->
+    <rect x="-20" y="0" width="40" height="25" rx="1"/>
+    <!-- Shikhara (curved tower) -->
+    <path d="M-15 0 Q-16 -30 -10 -55 Q-5 -75 0 -85 Q5 -75 10 -55 Q16 -30 15 0Z"/>
+    <!-- Amalaka (ribbed disk) -->
+    <ellipse cx="0" cy="-78" rx="6" ry="3"/>
+    <!-- Kalash (finial) -->
+    <rect x="-1.5" y="-90" width="3" height="8" rx="1"/>
+    <circle cx="0" cy="-92" r="2.5"/>
+    <!-- Horizontal bands -->
+    <line x1="-13" y1="-15" x2="13" y2="-15" stroke="#1a3a1a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="-11" y1="-30" x2="11" y2="-30" stroke="#1a3a1a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="-9" y1="-45" x2="9" y2="-45" stroke="#1a3a1a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="-6" y1="-60" x2="6" y2="-60" stroke="#1a3a1a" stroke-width="0.8" opacity="0.5"/>
+  </g>
+
+  <!-- Sal/teak forest - left side tall trees -->
+  <g opacity="0.7">
+    <!-- Tree trunks -->
+    <rect x="40" y="80" width="8" height="200" fill="#3a2a18" opacity="0.6"/>
+    <rect x="110" y="60" width="9" height="220" fill="#3a2a18" opacity="0.6"/>
+    <rect x="185" y="75" width="8" height="210" fill="#3a2a18" opacity="0.55"/>
+    <rect x="680" y="70" width="9" height="215" fill="#3a2a18" opacity="0.55"/>
+    <rect x="750" y="85" width="8" height="200" fill="#3a2a18" opacity="0.6"/>
+    <!-- Canopy -->
+    <ellipse cx="44" cy="78" rx="30" ry="25" fill="#1e4828" opacity="0.7"/>
+    <ellipse cx="114" cy="58" rx="35" ry="28" fill="#1e4828" opacity="0.7"/>
+    <ellipse cx="189" cy="73" rx="30" ry="24" fill="#1e4828" opacity="0.65"/>
+    <ellipse cx="684" cy="68" rx="32" ry="26" fill="#1e4828" opacity="0.65"/>
+    <ellipse cx="754" cy="83" rx="30" ry="25" fill="#1e4828" opacity="0.7"/>
+  </g>
+
+  <!-- Bamboo grove silhouettes - right side -->
+  <g stroke="#2a4a28" fill="none" opacity="0.5">
+    <!-- Bamboo stalks -->
+    <line x1="720" y1="450" x2="715" y2="120" stroke-width="3"/>
+    <line x1="735" y1="450" x2="738" y2="130" stroke-width="2.5"/>
+    <line x1="748" y1="450" x2="744" y2="115" stroke-width="3"/>
+    <line x1="762" y1="450" x2="766" y2="125" stroke-width="2.5"/>
+    <line x1="775" y1="450" x2="772" y2="110" stroke-width="3"/>
+    <line x1="790" y1="450" x2="793" y2="120" stroke-width="2.5"/>
+    <!-- Bamboo nodes -->
+    <g stroke-width="0.8" opacity="0.4">
+      <line x1="712" y1="200" x2="718" y2="200"/>
+      <line x1="712" y1="280" x2="718" y2="280"/>
+      <line x1="712" y1="360" x2="718" y2="360"/>
+      <line x1="735" y1="220" x2="741" y2="220"/>
+      <line x1="735" y1="310" x2="741" y2="310"/>
+      <line x1="741" y1="180" x2="747" y2="180"/>
+      <line x1="741" y1="260" x2="747" y2="260"/>
+      <line x1="741" y1="340" x2="747" y2="340"/>
+    </g>
+    <!-- Bamboo leaves -->
+    <g fill="#2a5a30" opacity="0.4">
+      <path d="M715 135 Q700 125 695 130 Q705 128 715 135Z"/>
+      <path d="M715 140 Q700 145 695 140 Q705 142 715 140Z"/>
+      <path d="M738 145 Q750 135 755 140 Q748 138 738 145Z"/>
+      <path d="M744 128 Q730 118 725 123 Q733 121 744 128Z"/>
+      <path d="M766 140 Q780 130 785 135 Q778 133 766 140Z"/>
+      <path d="M772 122 Q758 112 753 117 Q761 115 772 122Z"/>
+      <path d="M793 132 Q805 122 808 127 Q803 125 793 132Z"/>
+    </g>
+  </g>
+
+  <!-- Bamboo grove - left side (thinner) -->
+  <g stroke="#2a4a28" fill="none" opacity="0.4">
+    <line x1="20" y1="450" x2="18" y2="130" stroke-width="2.5"/>
+    <line x1="35" y1="450" x2="38" y2="140" stroke-width="2"/>
+    <line x1="50" y1="450" x2="47" y2="125" stroke-width="2.5"/>
+    <g fill="#2a5a30" opacity="0.4">
+      <path d="M18 145 Q5 135 2 140 Q10 138 18 145Z"/>
+      <path d="M38 155 Q50 145 55 150 Q48 148 38 155Z"/>
+      <path d="M47 138 Q34 128 30 133 Q38 131 47 138Z"/>
+    </g>
+  </g>
+
+  <!-- Mid-ground forest floor -->
+  <path d="M0 280 Q100 270 200 275 Q300 265 400 272 Q500 262 600 270 Q700 260 800 268 L800 320 L0 320Z" fill="#1a4020"/>
+
+  <!-- Underbrush -->
+  <g fill="#1e4825" opacity="0.5">
+    <ellipse cx="100" cy="285" rx="25" ry="10"/>
+    <ellipse cx="200" cy="278" rx="20" ry="8"/>
+    <ellipse cx="350" cy="272" rx="22" ry="9"/>
+    <ellipse cx="500" cy="268" rx="25" ry="10"/>
+    <ellipse cx="650" cy="265" rx="20" ry="8"/>
+  </g>
+
+  <!-- Waterhole/river in foreground -->
+  <path d="M100 370 Q200 358 350 365 Q480 355 600 362 Q650 358 680 365 L680 400 Q600 395 480 398 Q350 392 200 398 Q140 395 100 400Z" fill="url(#mpwater)" opacity="0.6"/>
+
+  <!-- Water reflections -->
+  <g stroke="#4a8a60" stroke-width="0.6" opacity="0.3" fill="none">
+    <path d="M150 375 Q250 370 350 374"/>
+    <path d="M380 370 Q460 366 540 370"/>
+    <path d="M200 385 Q300 381 400 384"/>
+    <path d="M440 382 Q520 378 600 382"/>
+    <path d="M160 392 Q260 389 360 392"/>
+  </g>
+
+  <!-- Tiger silhouette walking through clearing (subtle, artistic) -->
+  <g fill="#2a4020" opacity="0.5" transform="translate(370, 325) scale(0.5)">
+    <!-- Body -->
+    <ellipse cx="0" cy="0" rx="40" ry="15"/>
+    <!-- Head -->
+    <ellipse cx="-38" cy="-8" rx="14" ry="11"/>
+    <!-- Ears -->
+    <circle cx="-44" cy="-18" r="4"/>
+    <circle cx="-34" cy="-18" r="4"/>
+    <!-- Legs (walking pose) -->
+    <path d="M-20 13 L-24 38 L-20 38" stroke="#2a4020" stroke-width="4" fill="none"/>
+    <path d="M-8 13 L-4 38 L0 38" stroke="#2a4020" stroke-width="4" fill="none"/>
+    <path d="M10 13 L14 38 L18 38" stroke="#2a4020" stroke-width="4" fill="none"/>
+    <path d="M25 13 L22 38 L18 38" stroke="#2a4020" stroke-width="4" fill="none"/>
+    <!-- Tail (curved up) -->
+    <path d="M38 -5 Q50 -20 55 -30 Q58 -35 56 -38" stroke="#2a4020" stroke-width="3.5" fill="none"/>
+    <!-- Subtle stripe hints -->
+    <g stroke="#1a3018" stroke-width="1.2" opacity="0.3">
+      <line x1="-15" y1="-12" x2="-12" y2="10"/>
+      <line x1="-5" y1="-13" x2="-2" y2="11"/>
+      <line x1="5" y1="-13" x2="8" y2="11"/>
+      <line x1="15" y1="-12" x2="18" y2="10"/>
+      <line x1="25" y1="-10" x2="28" y2="8"/>
+    </g>
+  </g>
+
+  <!-- Forest floor -->
+  <path d="M0 340 Q100 332 200 336 Q300 328 400 334 Q500 326 600 332 Q700 324 800 330 L800 370 L0 370Z" fill="#163818"/>
+
+  <!-- Ground cover / leaf litter -->
+  <path d="M0 400 Q200 394 400 398 Q600 392 800 396 L800 450 L0 450Z" fill="#122e14"/>
+
+  <!-- Fallen leaves texture -->
+  <g fill="#3a5a30" opacity="0.2">
+    <ellipse cx="50" cy="420" rx="8" ry="3" transform="rotate(20 50 420)"/>
+    <ellipse cx="150" cy="430" rx="7" ry="2.5" transform="rotate(-15 150 430)"/>
+    <ellipse cx="280" cy="418" rx="8" ry="3" transform="rotate(30 280 418)"/>
+    <ellipse cx="420" cy="425" rx="7" ry="2.5" transform="rotate(-10 420 425)"/>
+    <ellipse cx="550" cy="415" rx="8" ry="3" transform="rotate(25 550 415)"/>
+    <ellipse cx="680" cy="422" rx="7" ry="2.5" transform="rotate(-20 680 422)"/>
+  </g>
+
+  <!-- Fireflies / light spots -->
+  <g opacity="0.6">
+    <circle cx="200" cy="250" r="2" fill="#c8e880">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="350" cy="220" r="1.5" fill="#d0f088">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="500" cy="260" r="2" fill="#c8e880">
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="150" cy="300" r="1.5" fill="#d0f088">
+      <animate attributeName="opacity" values="0.5;0.9;0.5" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="600" cy="240" r="1.5" fill="#c8e880">
+      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="420" cy="290" r="2" fill="#d0f088">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="280" cy="310" r="1.5" fill="#c8e880">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="550" cy="300" r="2" fill="#d0f088">
+      <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="100" cy="200" r="1.5" fill="#c8e880">
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="3.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="460" cy="180" r="1.5" fill="#d0f088">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Dappled light patches on forest floor -->
+  <g fill="#5a8a48" opacity="0.1">
+    <ellipse cx="250" cy="350" rx="30" ry="10"/>
+    <ellipse cx="450" cy="340" rx="25" ry="8"/>
+    <ellipse cx="550" cy="355" rx="20" ry="7"/>
+    <ellipse cx="150" cy="360" rx="22" ry="8"/>
+  </g>
+
+  <!-- Foreground undergrowth ferns -->
+  <g fill="#1e4a22" opacity="0.6">
+    <path d="M0 430 Q20 415 40 425 Q55 410 70 420 Q85 408 100 418 L100 450 L0 450Z"/>
+    <path d="M700 425 Q720 412 740 420 Q755 405 770 416 Q785 402 800 412 L800 450 L700 450Z"/>
+  </g>
+</svg>

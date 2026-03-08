@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="ssky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a4a8a"/>
+      <stop offset="35%" stop-color="#4a8ac8"/>
+      <stop offset="65%" stop-color="#8ab8d8"/>
+      <stop offset="100%" stop-color="#c8dce8"/>
+    </linearGradient>
+    <linearGradient id="ssnow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#e8eef5"/>
+      <stop offset="100%" stop-color="#c8d4e0"/>
+    </linearGradient>
+    <linearGradient id="sridge1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a8aaa"/>
+      <stop offset="100%" stop-color="#4a6a8a"/>
+    </linearGradient>
+    <linearGradient id="sridge2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a6a5a"/>
+      <stop offset="100%" stop-color="#2a5a4a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#ssky)"/>
+
+  <!-- Clouds wrapping around peaks -->
+  <g opacity="0.35" fill="white">
+    <ellipse cx="300" cy="110" rx="80" ry="14"/>
+    <ellipse cx="360" cy="105" rx="50" ry="10"/>
+    <ellipse cx="240" cy="108" rx="45" ry="12"/>
+    <ellipse cx="550" cy="125" rx="60" ry="10"/>
+    <ellipse cx="600" cy="120" rx="40" ry="8"/>
+    <ellipse cx="150" cy="140" rx="70" ry="12"/>
+    <ellipse cx="700" cy="135" rx="55" ry="10"/>
+  </g>
+
+  <!-- Kanchenjunga main peak -->
+  <path d="M250 80 L320 170 Q340 175 360 170 L420 95 L460 165 Q480 170 500 165 L540 110 L600 185 L200 185Z" fill="url(#ssnow)"/>
+
+  <!-- Snow details / ridges on peak -->
+  <g fill="#c0d0e0" opacity="0.4">
+    <path d="M280 130 L310 170 L330 170 L300 125Z"/>
+    <path d="M430 120 L460 165 L475 165 L445 115Z"/>
+    <path d="M520 130 L550 170 L570 175 L540 125Z"/>
+  </g>
+
+  <!-- Shadow crevasses -->
+  <g stroke="#8aa0b8" stroke-width="1" opacity="0.3" fill="none">
+    <path d="M300 110 Q310 130 320 155"/>
+    <path d="M380 105 Q390 130 400 160"/>
+    <path d="M470 120 Q480 140 490 165"/>
+    <path d="M540 125 Q548 145 555 170"/>
+  </g>
+
+  <!-- Far mountain ridge 1 -->
+  <path d="M0 200 Q60 170 130 188 Q200 160 280 180 Q330 168 380 185 L400 185 Q480 170 560 185 Q620 165 700 182 Q750 170 800 178 L800 250 L0 250Z" fill="url(#sridge1)" opacity="0.6"/>
+
+  <!-- Cloud wisps at mountain base -->
+  <g opacity="0.2" fill="white">
+    <ellipse cx="200" cy="195" rx="80" ry="8"/>
+    <ellipse cx="500" cy="190" rx="90" ry="10"/>
+    <ellipse cx="700" cy="198" rx="60" ry="7"/>
+  </g>
+
+  <!-- Mountain ridge 2 (closer, darker) -->
+  <path d="M0 240 Q80 215 170 230 Q260 208 360 225 Q440 210 540 228 Q620 212 720 226 Q770 215 800 222 L800 300 L0 300Z" fill="url(#sridge2)" opacity="0.7"/>
+
+  <!-- Buddhist monastery on hillside -->
+  <g fill="#5a3a2a" opacity="0.55" transform="translate(580, 240) scale(0.6)">
+    <!-- Main building -->
+    <rect x="-25" y="-20" width="50" height="30" rx="2"/>
+    <!-- Roof tiers -->
+    <path d="M-30 -20 L0 -35 L30 -20Z" fill="#6a3030"/>
+    <path d="M-20 -30 L0 -42 L20 -30Z" fill="#6a3030"/>
+    <!-- Pinnacle -->
+    <rect x="-2" y="-50" width="4" height="10" rx="1"/>
+    <circle cx="0" cy="-52" r="3" fill="#c8a030"/>
+    <!-- Windows -->
+    <rect x="-18" y="-14" width="6" height="8" rx="1" fill="#2a1a10"/>
+    <rect x="-6" y="-14" width="6" height="8" rx="1" fill="#2a1a10"/>
+    <rect x="6" y="-14" width="6" height="8" rx="1" fill="#2a1a10"/>
+    <rect x="18" y="-14" width="6" height="8" rx="1" fill="#2a1a10"/>
+    <!-- Steps -->
+    <rect x="-15" y="10" width="30" height="4" rx="1"/>
+    <rect x="-12" y="14" width="24" height="4" rx="1"/>
+  </g>
+
+  <!-- Forested hillside -->
+  <path d="M0 300 Q100 280 200 290 Q300 275 400 288 Q500 272 600 285 Q700 270 800 282 L800 350 L0 350Z" fill="#2a5a3a"/>
+
+  <!-- Forest tree canopy texture -->
+  <g fill="#1e4a2e" opacity="0.6">
+    <circle cx="40" cy="295" r="10"/>
+    <circle cx="65" cy="290" r="12"/>
+    <circle cx="95" cy="288" r="10"/>
+    <circle cx="125" cy="292" r="11"/>
+    <circle cx="160" cy="286" r="12"/>
+    <circle cx="195" cy="288" r="10"/>
+    <circle cx="225" cy="282" r="11"/>
+    <circle cx="260" cy="280" r="12"/>
+    <circle cx="295" cy="278" r="10"/>
+    <circle cx="330" cy="282" r="11"/>
+    <circle cx="365" cy="280" r="12"/>
+    <circle cx="400" cy="276" r="10"/>
+    <circle cx="435" cy="274" r="11"/>
+    <circle cx="470" cy="276" r="12"/>
+    <circle cx="505" cy="274" r="10"/>
+    <circle cx="540" cy="278" r="11"/>
+    <circle cx="575" cy="280" r="10"/>
+    <circle cx="610" cy="276" r="11"/>
+    <circle cx="645" cy="274" r="12"/>
+    <circle cx="680" cy="272" r="10"/>
+    <circle cx="715" cy="276" r="11"/>
+    <circle cx="750" cy="274" r="10"/>
+    <circle cx="785" cy="278" r="10"/>
+  </g>
+
+  <!-- Rhododendron bushes (pink-red touches) -->
+  <g opacity="0.55">
+    <circle cx="120" cy="318" r="8" fill="#c44868"/>
+    <circle cx="135" cy="322" r="7" fill="#b84060"/>
+    <circle cx="108" cy="322" r="6" fill="#d05070"/>
+    <circle cx="320" cy="312" r="7" fill="#c44868"/>
+    <circle cx="335" cy="316" r="6" fill="#b84060"/>
+    <circle cx="308" cy="316" r="5" fill="#d05070"/>
+    <circle cx="520" cy="308" r="8" fill="#c44868"/>
+    <circle cx="535" cy="312" r="7" fill="#b84060"/>
+    <circle cx="508" cy="312" r="6" fill="#d05070"/>
+    <circle cx="700" cy="306" r="7" fill="#c44868"/>
+    <circle cx="712" cy="310" r="6" fill="#b84060"/>
+  </g>
+
+  <!-- Prayer flags strung across foreground -->
+  <g>
+    <!-- String line -->
+    <path d="M60 340 Q200 360 400 345 Q600 355 740 335" stroke="#4a3a2a" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <!-- Individual flags -->
+    <g opacity="0.7">
+      <!-- Blue flags -->
+      <path d="M120 348 L120 362 L135 358 L135 344Z" fill="#4a80c0"/>
+      <path d="M290 352 L290 366 L305 362 L305 348Z" fill="#4a80c0"/>
+      <path d="M510 350 L510 364 L525 360 L525 346Z" fill="#4a80c0"/>
+      <path d="M660 340 L660 354 L675 350 L675 336Z" fill="#4a80c0"/>
+      <!-- White flags -->
+      <path d="M150 350 L150 364 L165 360 L165 346Z" fill="#e8e8e8"/>
+      <path d="M330 350 L330 364 L345 360 L345 346Z" fill="#e8e8e8"/>
+      <path d="M550 348 L550 362 L565 358 L565 344Z" fill="#e8e8e8"/>
+      <!-- Red flags -->
+      <path d="M180 354 L180 368 L195 364 L195 350Z" fill="#c04040"/>
+      <path d="M370 348 L370 362 L385 358 L385 344Z" fill="#c04040"/>
+      <path d="M590 346 L590 360 L605 356 L605 342Z" fill="#c04040"/>
+      <!-- Green flags -->
+      <path d="M210 356 L210 370 L225 366 L225 352Z" fill="#40a060"/>
+      <path d="M410 346 L410 360 L425 356 L425 342Z" fill="#40a060"/>
+      <path d="M630 342 L630 356 L645 352 L645 338Z" fill="#40a060"/>
+      <!-- Yellow flags -->
+      <path d="M250 354 L250 368 L265 364 L265 350Z" fill="#d8b040"/>
+      <path d="M450 348 L450 362 L465 358 L465 344Z" fill="#d8b040"/>
+      <path d="M700 338 L700 352 L715 348 L715 334Z" fill="#d8b040"/>
+    </g>
+  </g>
+
+  <!-- Foreground hills -->
+  <path d="M0 370 Q150 358 300 365 Q450 355 600 362 Q700 354 800 360 L800 420 L0 420Z" fill="#1e4a2e" opacity="0.6"/>
+
+  <!-- Ground foreground -->
+  <path d="M0 410 Q200 400 400 405 Q600 398 800 402 L800 450 L0 450Z" fill="#183a22"/>
+
+  <!-- Foreground grass/shrubs -->
+  <g fill="#1e4828" opacity="0.5">
+    <ellipse cx="50" cy="420" rx="20" ry="8"/>
+    <ellipse cx="150" cy="415" rx="18" ry="7"/>
+    <ellipse cx="300" cy="412" rx="22" ry="8"/>
+    <ellipse cx="500" cy="410" rx="20" ry="7"/>
+    <ellipse cx="650" cy="408" rx="18" ry="8"/>
+    <ellipse cx="770" cy="412" rx="20" ry="7"/>
+  </g>
+</svg>

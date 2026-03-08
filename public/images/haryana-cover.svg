@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="hrsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d85830"/>
+      <stop offset="25%" stop-color="#e88040"/>
+      <stop offset="50%" stop-color="#f0a850"/>
+      <stop offset="75%" stop-color="#f8c868"/>
+      <stop offset="100%" stop-color="#f0d888"/>
+    </linearGradient>
+    <radialGradient id="hrsun" cx="0.6" cy="0.32" r="0.2">
+      <stop offset="0%" stop-color="#fff8d0" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#ffe0a0" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ffe0a0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hrfield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8b830"/>
+      <stop offset="50%" stop-color="#c8a828"/>
+      <stop offset="100%" stop-color="#b89820"/>
+    </linearGradient>
+  </defs>
+  <!-- Warm golden sunset sky -->
+  <rect width="800" height="450" fill="url(#hrsky)"/>
+  <rect width="800" height="450" fill="url(#hrsun)"/>
+  <!-- Dramatic cloud formations -->
+  <g opacity="0.35">
+    <ellipse cx="200" cy="60" rx="140" ry="30" fill="#f0c870"/>
+    <ellipse cx="260" cy="55" rx="90" ry="22" fill="#f8d888" opacity="0.8"/>
+    <ellipse cx="150" cy="68" rx="70" ry="18" fill="#f0c060" opacity="0.6"/>
+    <ellipse cx="580" cy="45" rx="120" ry="28" fill="#f0c870" opacity="0.5"/>
+    <ellipse cx="640" cy="40" rx="80" ry="20" fill="#f8d888" opacity="0.6"/>
+    <ellipse cx="400" cy="85" rx="100" ry="22" fill="#e8b858" opacity="0.3"/>
+    <ellipse cx="700" cy="80" rx="65" ry="16" fill="#f0c060" opacity="0.4"/>
+  </g>
+  <!-- Cloud shadows (darker underside) -->
+  <g opacity="0.15">
+    <ellipse cx="200" cy="72" rx="120" ry="12" fill="#c88030"/>
+    <ellipse cx="580" cy="58" rx="100" ry="10" fill="#c88030"/>
+  </g>
+  <!-- Flat horizon line -->
+  <path d="M0 280 L800 280 L800 450 L0 450Z" fill="#c8a820" opacity="0.25"/>
+  <!-- Wind turbines on horizon -->
+  <g opacity="0.4">
+    <!-- Turbine 1 -->
+    <line x1="120" y1="280" x2="120" y2="215" stroke="#7a6830" stroke-width="2.5"/>
+    <line x1="120" y1="215" x2="105" y2="192" stroke="#7a6830" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="120" y1="215" x2="140" y2="200" stroke="#7a6830" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="120" y1="215" x2="115" y2="240" stroke="#7a6830" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="120" cy="215" r="2.5" fill="#7a6830"/>
+    <!-- Turbine 2 -->
+    <line x1="200" y1="280" x2="200" y2="222" stroke="#7a6830" stroke-width="2.2"/>
+    <line x1="200" y1="222" x2="186" y2="201" stroke="#7a6830" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="200" y1="222" x2="218" y2="208" stroke="#7a6830" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="200" y1="222" x2="196" y2="245" stroke="#7a6830" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="200" cy="222" r="2.2" fill="#7a6830"/>
+    <!-- Turbine 3 (far) -->
+    <line x1="680" y1="280" x2="680" y2="235" stroke="#8a7838" stroke-width="2"/>
+    <line x1="680" y1="235" x2="668" y2="218" stroke="#8a7838" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="680" y1="235" x2="695" y2="223" stroke="#8a7838" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="680" y1="235" x2="676" y2="254" stroke="#8a7838" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="680" cy="235" r="2" fill="#8a7838"/>
+  </g>
+  <!-- Mustard fields (golden yellow) - far layer -->
+  <path d="M0 285 Q100 278 200 282 Q350 275 500 280 Q650 273 800 278 L800 330 L0 330Z" fill="#d8b830" opacity="0.6"/>
+  <!-- Mustard field texture (far) -->
+  <g opacity="0.2">
+    <circle cx="100" cy="295" r="3" fill="#e8c830"/>
+    <circle cx="140" cy="290" r="2.5" fill="#e8c830"/>
+    <circle cx="200" cy="293" r="3" fill="#e8c830"/>
+    <circle cx="280" cy="288" r="2.8" fill="#e8c830"/>
+    <circle cx="350" cy="292" r="3" fill="#e8c830"/>
+    <circle cx="450" cy="287" r="2.5" fill="#e8c830"/>
+    <circle cx="530" cy="290" r="3" fill="#e8c830"/>
+    <circle cx="620" cy="285" r="2.8" fill="#e8c830"/>
+    <circle cx="720" cy="288" r="2.5" fill="#e8c830"/>
+  </g>
+  <!-- Rural road disappearing into distance -->
+  <path d="M395 280 L370 450 L430 450 L405 280Z" fill="#a08848" opacity="0.45"/>
+  <path d="M397 280 L375 450 L385 450 L399 280Z" fill="#b89848" opacity="0.15"/>
+  <path d="M403 280 L415 450 L425 450 L401 280Z" fill="#b89848" opacity="0.15"/>
+  <!-- Mustard fields - mid layer -->
+  <path d="M0 330 Q150 320 300 326 Q480 315 650 322 Q740 318 800 320 L800 380 L0 380Z" fill="url(#hrfield)" opacity="0.65"/>
+  <!-- Mustard flowers texture (mid) -->
+  <g opacity="0.3">
+    <circle cx="80" cy="340" r="2.5" fill="#f0d030"/>
+    <circle cx="120" cy="335" r="2" fill="#f0d030"/>
+    <circle cx="180" cy="338" r="2.5" fill="#f0d030"/>
+    <circle cx="240" cy="332" r="3" fill="#f0d030"/>
+    <circle cx="310" cy="336" r="2.5" fill="#f0d030"/>
+    <circle cx="500" cy="330" r="2.5" fill="#f0d030"/>
+    <circle cx="570" cy="334" r="3" fill="#f0d030"/>
+    <circle cx="640" cy="328" r="2.5" fill="#f0d030"/>
+    <circle cx="720" cy="332" r="2" fill="#f0d030"/>
+    <circle cx="760" cy="326" r="2.5" fill="#f0d030"/>
+  </g>
+  <!-- Scattered trees -->
+  <g opacity="0.5">
+    <!-- Tree near road left -->
+    <line x1="300" y1="310" x2="298" y2="270" stroke="#6a5818" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="298" cy="262" rx="18" ry="14" fill="#6a5818"/>
+    <ellipse cx="288" cy="268" rx="12" ry="10" fill="#5a4810"/>
+    <ellipse cx="310" cy="266" rx="13" ry="11" fill="#5a4810"/>
+    <!-- Tree far right -->
+    <line x1="580" y1="305" x2="580" y2="275" stroke="#6a5818" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="580" cy="270" rx="14" ry="10" fill="#6a5818"/>
+    <!-- Tree far left -->
+    <line x1="50" y1="308" x2="50" y2="282" stroke="#6a5818" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="50" cy="277" rx="13" ry="10" fill="#6a5818"/>
+  </g>
+  <!-- Near mustard fields -->
+  <path d="M0 380 Q200 370 400 376 Q600 368 800 374 L800 420 L0 420Z" fill="#b89820" opacity="0.55"/>
+  <!-- Near flowers -->
+  <g opacity="0.35">
+    <circle cx="60" cy="388" r="3" fill="#f0d030"/>
+    <circle cx="130" cy="384" r="3.5" fill="#f0d030"/>
+    <circle cx="220" cy="380" r="3" fill="#f0d030"/>
+    <circle cx="320" cy="382" r="3.5" fill="#f0d030"/>
+    <circle cx="500" cy="378" r="3" fill="#f0d030"/>
+    <circle cx="600" cy="374" r="3.5" fill="#f0d030"/>
+    <circle cx="700" cy="380" r="3" fill="#f0d030"/>
+  </g>
+  <!-- Foreground -->
+  <path d="M0 420 Q200 414 400 418 Q600 412 800 416 L800 450 L0 450Z" fill="#a88818" opacity="0.4"/>
+  <!-- Birds -->
+  <g stroke="#8a6020" stroke-width="1.3" fill="none" opacity="0.3">
+    <path d="M500 120 Q505 114 510 120 Q515 114 520 120"/>
+    <path d="M540 108 Q544 103 548 108 Q552 103 556 108"/>
+    <path d="M480 135 Q484 130 488 135 Q492 130 496 135"/>
+  </g>
+</svg>

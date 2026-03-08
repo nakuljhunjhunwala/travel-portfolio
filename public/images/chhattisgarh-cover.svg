@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="cgsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a8848"/>
+      <stop offset="30%" stop-color="#68a058"/>
+      <stop offset="60%" stop-color="#88b870"/>
+      <stop offset="100%" stop-color="#a8c888"/>
+    </linearGradient>
+    <linearGradient id="cglight" x1="0.4" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#f0e0a0" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#f0d880" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#f0e0a0" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="cgwater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#88b890" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#608870" stop-opacity="0.9"/>
+    </linearGradient>
+    <radialGradient id="cgmist" cx="0.5" cy="0.65" r="0.3">
+      <stop offset="0%" stop-color="#d0e8d0" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#d0e8d0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Sky / canopy glow -->
+  <rect width="800" height="450" fill="url(#cgsky)"/>
+  <!-- Warm light breaking through -->
+  <rect width="800" height="450" fill="url(#cglight)"/>
+  <rect width="800" height="450" fill="url(#cgmist)"/>
+
+  <!-- Light rays from above -->
+  <g opacity="0.08">
+    <polygon points="300,0 330,300 270,300" fill="#f0e8a0"/>
+    <polygon points="420,0 445,280 395,280" fill="#f0e8a0"/>
+    <polygon points="520,0 540,300 500,300" fill="#f0e8a0"/>
+  </g>
+
+  <!-- Dense forest background layer 1 -->
+  <path d="M0 80 Q30 55 60 80 Q90 50 120 80 Q150 45 180 80 Q210 50 240 80 Q270 48 300 80 Q330 52 360 80 Q390 48 420 80 Q450 55 480 80 Q510 48 540 80 Q570 52 600 80 Q630 50 660 80 Q690 48 720 80 Q750 55 780 80 L800 80 L800 150 L0 150Z" fill="#2a6828" opacity="0.4"/>
+
+  <!-- Forest layer 2 -->
+  <path d="M0 130 Q25 105 50 130 Q75 100 100 130 Q125 95 150 130 Q175 100 200 130 Q225 98 250 130 Q275 102 300 130 Q325 98 350 130 Q375 105 400 130 Q425 98 450 130 Q475 102 500 130 Q525 95 550 130 Q575 100 600 130 Q625 98 650 130 Q675 105 700 130 Q725 98 750 130 Q775 102 800 130 L800 200 L0 200Z" fill="#1e5820" opacity="0.5"/>
+
+  <!-- Rocky cliff left -->
+  <path d="M150 180 L180 170 L220 175 L260 160 L300 168 L340 155 L380 165 L400 158 L400 280 L380 285 L340 275 L300 290 L260 278 L220 288 L180 280 L150 285Z" fill="#6a7a58" opacity="0.7"/>
+
+  <!-- Rocky cliff right -->
+  <path d="M400 158 L420 162 L460 155 L500 165 L540 152 L580 160 L620 148 L650 158 L650 280 L620 288 L580 275 L540 285 L500 278 L460 290 L420 282 L400 280Z" fill="#5a7050" opacity="0.7"/>
+
+  <!-- Chitrakote waterfall (wide horseshoe) -->
+  <g opacity="0.75">
+    <!-- Water flow lines -->
+    <g fill="#b8d8c8" opacity="0.5">
+      <rect x="160" y="180" width="8" height="100" rx="3"/>
+      <rect x="180" y="175" width="10" height="105" rx="4"/>
+      <rect x="200" y="178" width="8" height="102" rx="3"/>
+      <rect x="218" y="172" width="10" height="108" rx="4"/>
+      <rect x="238" y="168" width="8" height="112" rx="3"/>
+      <rect x="258" y="165" width="10" height="115" rx="4"/>
+      <rect x="278" y="170" width="8" height="110" rx="3"/>
+      <rect x="298" y="168" width="10" height="112" rx="4"/>
+      <rect x="318" y="162" width="8" height="118" rx="3"/>
+      <rect x="338" y="158" width="10" height="122" rx="4"/>
+      <rect x="358" y="160" width="8" height="120" rx="3"/>
+      <rect x="378" y="165" width="10" height="115" rx="4"/>
+      <rect x="398" y="160" width="8" height="120" rx="3"/>
+      <rect x="418" y="163" width="10" height="117" rx="4"/>
+      <rect x="438" y="158" width="8" height="122" rx="3"/>
+      <rect x="458" y="155" width="10" height="125" rx="4"/>
+      <rect x="478" y="160" width="8" height="120" rx="3"/>
+      <rect x="498" y="165" width="10" height="115" rx="4"/>
+      <rect x="518" y="158" width="8" height="122" rx="3"/>
+      <rect x="538" y="155" width="10" height="125" rx="4"/>
+      <rect x="558" y="160" width="8" height="120" rx="3"/>
+      <rect x="578" y="162" width="10" height="118" rx="4"/>
+      <rect x="598" y="158" width="8" height="122" rx="3"/>
+      <rect x="618" y="155" width="10" height="125" rx="4"/>
+      <rect x="638" y="160" width="8" height="120" rx="3"/>
+    </g>
+
+    <!-- Mist at base of falls -->
+    <ellipse cx="400" cy="290" rx="260" ry="25" fill="#d8ead0" opacity="0.35"/>
+    <ellipse cx="400" cy="285" rx="200" ry="18" fill="#e0f0e0" opacity="0.25"/>
+  </g>
+
+  <!-- River below falls -->
+  <path d="M200 300 Q300 290 400 295 Q500 288 600 298 L620 310 Q500 320 400 315 Q300 322 180 312Z" fill="url(#cgwater)"/>
+  <path d="M180 315 Q300 325 400 320 Q500 328 620 318 L640 340 Q500 355 400 348 Q300 358 160 345Z" fill="#508868" opacity="0.7"/>
+
+  <!-- River continuing down -->
+  <path d="M300 350 Q350 345 400 348 Q450 342 500 350 L520 400 Q450 410 400 405 Q350 412 280 402Z" fill="#508868" opacity="0.6"/>
+
+  <!-- Tribal art pattern border (subtle, bottom) -->
+  <g stroke="#3a5830" stroke-width="1.5" fill="none" opacity="0.2">
+    <!-- Geometric triangles -->
+    <path d="M0 435 L15 425 L30 435 L45 425 L60 435 L75 425 L90 435 L105 425 L120 435 L135 425 L150 435 L165 425 L180 435 L195 425 L210 435 L225 425 L240 435 L255 425 L270 435 L285 425 L300 435 L315 425 L330 435 L345 425 L360 435 L375 425 L390 435 L405 425 L420 435 L435 425 L450 435 L465 425 L480 435 L495 425 L510 435 L525 425 L540 435 L555 425 L570 435 L585 425 L600 435 L615 425 L630 435 L645 425 L660 435 L675 425 L690 435 L705 425 L720 435 L735 425 L750 435 L765 425 L780 435 L795 425 L800 430"/>
+    <!-- Dots between -->
+    <circle cx="15" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="45" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="75" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="105" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="135" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="165" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="195" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="225" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="255" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="285" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="315" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="345" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="375" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="405" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="435" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="465" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="495" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="525" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="555" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="585" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="615" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="645" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="675" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="705" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="735" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="765" cy="442" r="1.5" fill="#3a5830"/>
+    <circle cx="795" cy="442" r="1.5" fill="#3a5830"/>
+  </g>
+
+  <!-- Dense forest sides (framing the falls) -->
+  <g fill="#1a4818" opacity="0.6">
+    <path d="M0 160 Q15 135 30 160 Q45 130 60 160 Q75 128 90 160 Q105 132 120 160 Q135 130 150 160 L150 320 L0 320Z"/>
+    <path d="M650 155 Q665 130 680 155 Q695 125 710 155 Q725 128 740 155 Q755 130 770 155 Q785 128 800 155 L800 315 L650 315Z"/>
+  </g>
+
+  <!-- Foreground vegetation -->
+  <path d="M0 360 Q100 345 200 355 Q300 338 400 350 Q500 335 600 348 Q700 335 800 342 L800 450 L0 450Z" fill="#2a5820" opacity="0.7"/>
+  <path d="M0 390 Q200 378 400 385 Q600 375 800 380 L800 450 L0 450Z" fill="#1e4818" opacity="0.6"/>
+
+  <!-- Butterflies/fireflies -->
+  <g opacity="0.5">
+    <circle cx="180" cy="250" r="2" fill="#f0e8a0"/>
+    <circle cx="180" cy="250" r="5" fill="#f0e8a0" opacity="0.15"/>
+    <circle cx="620" cy="240" r="2" fill="#f0e8a0"/>
+    <circle cx="620" cy="240" r="5" fill="#f0e8a0" opacity="0.15"/>
+    <circle cx="300" cy="180" r="1.5" fill="#f0e8a0"/>
+    <circle cx="300" cy="180" r="4" fill="#f0e8a0" opacity="0.12"/>
+    <circle cx="520" cy="200" r="1.5" fill="#f0e8a0"/>
+    <circle cx="520" cy="200" r="4" fill="#f0e8a0" opacity="0.12"/>
+    <circle cx="100" cy="300" r="2" fill="#f0e8a0"/>
+    <circle cx="100" cy="300" r="5" fill="#f0e8a0" opacity="0.15"/>
+    <circle cx="700" cy="280" r="1.8" fill="#f0e8a0"/>
+    <circle cx="700" cy="280" r="4.5" fill="#f0e8a0" opacity="0.13"/>
+    <circle cx="250" cy="140" r="1.5" fill="#f0e8a0"/>
+    <circle cx="550" cy="130" r="1.5" fill="#f0e8a0"/>
+    <circle cx="400" cy="110" r="1.5" fill="#f0e8a0"/>
+    <circle cx="150" cy="350" r="2" fill="#f0e8a0"/>
+    <circle cx="650" cy="340" r="1.8" fill="#f0e8a0"/>
+  </g>
+
+  <!-- Rocky cliff edges detail -->
+  <g fill="#5a6a48" opacity="0.3">
+    <path d="M150 200 Q155 195 160 200 Q165 192 170 200 L170 280 L150 280Z"/>
+    <path d="M630 195 Q635 190 640 195 Q645 188 650 195 L650 275 L630 275Z"/>
+  </g>
+</svg>

@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="psky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a9fd4"/>
+      <stop offset="35%" stop-color="#8ec5e8"/>
+      <stop offset="65%" stop-color="#f0d080"/>
+      <stop offset="100%" stop-color="#e8b848"/>
+    </linearGradient>
+    <radialGradient id="psun" cx="0.65" cy="0.28" r="0.22">
+      <stop offset="0%" stop-color="#fffbe8" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#ffe88a" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ffe88a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pwheat1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4a830"/>
+      <stop offset="100%" stop-color="#b8922a"/>
+    </linearGradient>
+    <linearGradient id="pwheat2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c49828"/>
+      <stop offset="100%" stop-color="#a88020"/>
+    </linearGradient>
+    <linearGradient id="pwheat3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b08518"/>
+      <stop offset="100%" stop-color="#8a6a15"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#psky)"/>
+  <rect width="800" height="450" fill="url(#psun)"/>
+
+  <!-- Clouds -->
+  <g opacity="0.3" fill="white">
+    <ellipse cx="150" cy="80" rx="70" ry="22"/>
+    <ellipse cx="195" cy="75" rx="50" ry="18"/>
+    <ellipse cx="120" cy="78" rx="40" ry="16"/>
+    <ellipse cx="550" cy="55" rx="55" ry="16"/>
+    <ellipse cx="590" cy="50" rx="40" ry="14"/>
+    <ellipse cx="360" cy="100" rx="45" ry="14"/>
+    <ellipse cx="700" cy="90" rx="50" ry="15"/>
+    <ellipse cx="735" cy="85" rx="35" ry="12"/>
+  </g>
+
+  <!-- Far horizon field -->
+  <path d="M0 270 Q200 260 400 265 Q600 258 800 268 L800 300 Q600 290 400 295 Q200 288 0 298Z" fill="#c8a840" opacity="0.4"/>
+
+  <!-- Gurdwara dome silhouette on horizon -->
+  <g fill="#9a8035" opacity="0.45">
+    <!-- Main building -->
+    <rect x="600" y="248" width="60" height="30" rx="2"/>
+    <!-- Central dome -->
+    <ellipse cx="630" cy="248" rx="18" ry="14"/>
+    <!-- Dome pinnacle -->
+    <rect x="628" y="230" width="4" height="18" rx="1"/>
+    <circle cx="630" cy="228" r="3"/>
+    <!-- Side smaller domes -->
+    <ellipse cx="608" cy="254" rx="8" ry="6"/>
+    <ellipse cx="652" cy="254" rx="8" ry="6"/>
+    <!-- Base platform -->
+    <rect x="592" y="276" width="76" height="6" rx="1"/>
+    <!-- Reflected pool hint -->
+    <rect x="604" y="282" width="52" height="4" rx="1" opacity="0.3" fill="#7a9fc0"/>
+  </g>
+
+  <!-- Mid-distance wheat field -->
+  <path d="M0 300 Q100 288 200 295 Q350 282 500 292 Q650 280 800 290 L800 340 L0 340Z" fill="url(#pwheat1)"/>
+
+  <!-- Crop rows mid - creating depth -->
+  <g stroke="#b89025" stroke-width="0.8" opacity="0.4">
+    <path d="M0 298 Q200 286 400 293 Q600 282 800 291" fill="none"/>
+    <path d="M0 304 Q200 294 400 299 Q600 288 800 297" fill="none"/>
+    <path d="M0 310 Q200 302 400 306 Q600 296 800 304" fill="none"/>
+    <path d="M0 316 Q200 310 400 313 Q600 304 800 310" fill="none"/>
+    <path d="M0 322 Q200 317 400 319 Q600 312 800 317" fill="none"/>
+    <path d="M0 328 Q200 324 400 326 Q600 320 800 324" fill="none"/>
+    <path d="M0 334 Q200 331 400 332 Q600 328 800 331" fill="none"/>
+  </g>
+
+  <!-- Tractor silhouette in mid-ground -->
+  <g fill="#7a6520" opacity="0.5" transform="translate(280, 298) scale(0.5)">
+    <!-- Tractor body -->
+    <rect x="0" y="-20" width="40" height="25" rx="3"/>
+    <!-- Cabin -->
+    <rect x="5" y="-38" width="22" height="20" rx="2"/>
+    <!-- Exhaust pipe -->
+    <rect x="36" y="-32" width="3" height="14" rx="1"/>
+    <!-- Big rear wheel -->
+    <circle cx="10" cy="10" r="14" fill="none" stroke="#7a6520" stroke-width="4"/>
+    <circle cx="10" cy="10" r="6"/>
+    <!-- Front wheel -->
+    <circle cx="38" cy="10" r="8" fill="none" stroke="#7a6520" stroke-width="3"/>
+    <circle cx="38" cy="10" r="3"/>
+  </g>
+
+  <!-- Near wheat field -->
+  <path d="M0 340 Q150 332 300 338 Q500 328 700 335 Q760 330 800 334 L800 395 L0 395Z" fill="url(#pwheat2)"/>
+
+  <!-- Wheat stalk details near -->
+  <g stroke="#c9a030" stroke-width="1" opacity="0.5">
+    <line x1="50" y1="395" x2="48" y2="355"/><ellipse cx="48" cy="352" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="80" y1="395" x2="82" y2="358"/><ellipse cx="82" cy="355" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="120" y1="395" x2="118" y2="352"/><ellipse cx="118" cy="349" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="160" y1="395" x2="162" y2="356"/><ellipse cx="162" cy="353" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="210" y1="395" x2="208" y2="350"/><ellipse cx="208" cy="347" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="260" y1="395" x2="262" y2="354"/><ellipse cx="262" cy="351" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="310" y1="395" x2="308" y2="348"/><ellipse cx="308" cy="345" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="360" y1="395" x2="363" y2="352"/><ellipse cx="363" cy="349" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="420" y1="395" x2="418" y2="351"/><ellipse cx="418" cy="348" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="480" y1="395" x2="482" y2="355"/><ellipse cx="482" cy="352" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="530" y1="395" x2="528" y2="349"/><ellipse cx="528" cy="346" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="580" y1="395" x2="582" y2="353"/><ellipse cx="582" cy="350" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="640" y1="395" x2="638" y2="350"/><ellipse cx="638" cy="347" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="700" y1="395" x2="702" y2="354"/><ellipse cx="702" cy="351" rx="2.5" ry="6" fill="#c9a030"/>
+    <line x1="750" y1="395" x2="748" y2="348"/><ellipse cx="748" cy="345" rx="2.5" ry="6" fill="#c9a030"/>
+  </g>
+
+  <!-- Farmer silhouette -->
+  <g fill="#6a5518" opacity="0.5" transform="translate(480, 325) scale(0.45)">
+    <!-- Head -->
+    <circle cx="0" cy="-45" r="8"/>
+    <!-- Turban -->
+    <ellipse cx="0" cy="-50" rx="10" ry="7"/>
+    <ellipse cx="2" cy="-52" rx="6" ry="5"/>
+    <!-- Body -->
+    <path d="M-8 -37 L-12 0 L12 0 L8 -37Z"/>
+    <!-- Legs -->
+    <rect x="-10" y="0" width="6" height="22" rx="2"/>
+    <rect x="4" y="0" width="6" height="22" rx="2"/>
+    <!-- Arm with sickle -->
+    <path d="M8 -32 L24 -20 L26 -16" stroke="#6a5518" stroke-width="3" fill="none"/>
+    <path d="M26 -16 Q32 -10 28 -4" stroke="#6a5518" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- Crop row lines near field -->
+  <g stroke="#a07818" stroke-width="0.6" opacity="0.35">
+    <path d="M0 345 Q200 337 400 342 Q600 334 800 340" fill="none"/>
+    <path d="M0 355 Q200 349 400 352 Q600 346 800 350" fill="none"/>
+    <path d="M0 365 Q200 361 400 363 Q600 358 800 361" fill="none"/>
+    <path d="M0 375 Q200 372 400 374 Q600 370 800 372" fill="none"/>
+    <path d="M0 385 Q200 383 400 384 Q600 381 800 383" fill="none"/>
+  </g>
+
+  <!-- Foreground closest field -->
+  <path d="M0 395 Q200 388 400 392 Q600 386 800 390 L800 450 L0 450Z" fill="url(#pwheat3)"/>
+
+  <!-- Foreground wheat stalks (larger) -->
+  <g stroke="#a07818" stroke-width="1.5" opacity="0.6">
+    <line x1="30" y1="450" x2="26" y2="395"/><ellipse cx="26" cy="390" rx="3.5" ry="8" fill="#a07818"/>
+    <line x1="100" y1="450" x2="104" y2="398"/><ellipse cx="104" cy="393" rx="3.5" ry="8" fill="#a07818"/>
+    <line x1="180" y1="450" x2="176" y2="392"/><ellipse cx="176" cy="387" rx="3.5" ry="8" fill="#a07818"/>
+    <line x1="270" y1="450" x2="274" y2="396"/><ellipse cx="274" cy="391" rx="3.5" ry="8" fill="#a07818"/>
+    <line x1="350" y1="450" x2="347" y2="393"/><ellipse cx="347" cy="388" rx="3.5" ry="8" fill="#a07818"/>
+    <line x1="440" y1="450" x2="443" y2="397"/><ellipse cx="443" cy="392" rx="3.5" ry="8" fill="#a07818"/>
+    <line x1="520" y1="450" x2="517" y2="394"/><ellipse cx="517" cy="389" rx="3.5" ry="8" fill="#a07818"/>
+    <line x1="610" y1="450" x2="613" y2="396"/><ellipse cx="613" cy="391" rx="3.5" ry="8" fill="#a07818"/>
+    <line x1="690" y1="450" x2="687" y2="392"/><ellipse cx="687" cy="387" rx="3.5" ry="8" fill="#a07818"/>
+    <line x1="770" y1="450" x2="773" y2="395"/><ellipse cx="773" cy="390" rx="3.5" ry="8" fill="#a07818"/>
+  </g>
+
+  <!-- Birds -->
+  <g stroke="#5a4a20" stroke-width="1.3" fill="none" opacity="0.35">
+    <path d="M430 130 Q435 123 440 130 Q445 123 450 130"/>
+    <path d="M470 115 Q474 109 478 115 Q482 109 486 115"/>
+    <path d="M400 145 Q404 140 408 145 Q412 140 416 145"/>
+    <path d="M500 135 Q503 130 506 135 Q509 130 512 135"/>
+    <path d="M360 120 Q363 115 366 120 Q369 115 372 120"/>
+    <path d="M450 100 Q453 95 456 100 Q459 95 462 100"/>
+  </g>
+
+  <!-- Subtle golden haze at horizon -->
+  <rect x="0" y="250" width="800" height="40" fill="#e8c858" opacity="0.12"/>
+</svg>
