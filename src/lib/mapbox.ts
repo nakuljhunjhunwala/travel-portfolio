@@ -69,7 +69,7 @@ function encodeSignedValue(value: number): string {
  * Look up coordinates for a list of city names.
  * Unknown cities are silently skipped.
  */
-export function getTripRouteCoords(cities: string[]): [number, number][] {
+function getTripRouteCoords(cities: string[]): [number, number][] {
   const coords: [number, number][] = [];
 
   for (const city of cities) {

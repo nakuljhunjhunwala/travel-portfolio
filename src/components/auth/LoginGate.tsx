@@ -9,7 +9,6 @@ interface LoginGateProps {
 }
 
 export default function LoginGate({ tripId, readerCount }: LoginGateProps) {
-  // tripId will be used for analytics in Phase 4
   void tripId;
 
   return (

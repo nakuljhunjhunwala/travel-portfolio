@@ -692,7 +692,7 @@ export default function TripDetailContent({
                     {!loading && (
                       <LoginGate
                         tripId={trip.id}
-                        readerCount={23}
+                        readerCount={0}
                       />
                     )}
                   </motion.div>
