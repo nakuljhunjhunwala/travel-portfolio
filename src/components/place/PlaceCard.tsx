@@ -49,9 +49,12 @@ function WouldReturnBadge({ value }: { value: "yes" | "no" | "maybe" }) {
   );
 }
 
+const LOGIN_GATE_ENABLED =
+  process.env.NEXT_PUBLIC_ENABLE_LOGIN_GATE !== "false";
+
 export default function PlaceCard({ place, placeCity }: PlaceCardProps) {
   const { user } = useAuth();
-  const isLoggedIn = !!user;
+  const isLoggedIn = !!user || !LOGIN_GATE_ENABLED;
   const hasExtras = place.yourRating || place.wouldReturn || place.actualCost;
   const hasHonestData = place.honestNote && hasExtras;
 
