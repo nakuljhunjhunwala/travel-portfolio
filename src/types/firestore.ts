@@ -14,6 +14,7 @@ export interface Trip {
   budgetTier: "₹" | "₹₹" | "₹₹₹";
   totalCost: number;
   published: boolean;
+  status?: "published" | "coming_soon" | "draft";
   tripTheme: string;
   tripDNA: { nature: number; food: number; culture: number };
   bestMoment: string;
@@ -22,6 +23,22 @@ export interface Trip {
   hookLine: string;
   travelMode: string[];
   tripType: "solo" | "couple" | "group";
+  visitedHighlight?: string;
+  visitedDate?: string;
+}
+
+export interface Accommodation {
+  name: string;
+  phoneNumber?: string;
+  googleMapsUrl?: string;
+  costPerNight?: string;
+  totalCost?: string;
+  checkIn?: string;
+  checkOut?: string;
+  bookingUrl?: string;
+  rating?: number;
+  honestNote?: string;
+  photoUrl?: string;
 }
 
 export interface Day {
@@ -32,6 +49,7 @@ export interface Day {
   dayTitle: string;
   totalDuration: string;
   totalDistance: string;
+  accommodation?: Accommodation;
 }
 
 export interface Place {
@@ -49,6 +67,10 @@ export interface Place {
   wouldReturn?: "yes" | "no" | "maybe";
   honestNote?: string;
   travelToNext?: TravelConnector;
+  phoneNumber?: string;
+  websiteUrl?: string;
+  googleMapsUrl?: string;
+  placeCategory?: "attraction" | "restaurant" | "cafe" | "hotel" | "market" | "temple" | "beach" | "trek" | "transport";
 }
 
 export interface TravelConnector {
@@ -56,6 +78,10 @@ export interface TravelConnector {
   duration: string;
   distance: string;
   directionsUrl: string;
+  contactName?: string;
+  contactPhone?: string;
+  note?: string;
+  costEstimate?: string;
 }
 
 export interface GeminiPlaceCache {

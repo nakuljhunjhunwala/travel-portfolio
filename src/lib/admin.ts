@@ -12,7 +12,7 @@ export interface OverviewStats {
 export interface TripAnalyticsRow {
   tripSlug: string;
   tripTitle: string;
-  published: boolean;
+  status: "published" | "coming_soon" | "draft";
   totalViews: number;
   uniqueReaders: number;
   avgDaysRead: number;
@@ -58,11 +58,11 @@ export async function getAdminAnalytics(): Promise<AdminAnalytics> {
     id: doc.id,
     slug: doc.data().slug as string,
     title: doc.data().title as string,
-    published: doc.data().published as boolean,
+    status: (doc.data().status || (doc.data().published ? "published" : "draft")) as "published" | "coming_soon" | "draft",
   }));
 
   const totalTrips = trips.length;
-  const publishedTrips = trips.filter((t) => t.published).length;
+  const publishedTrips = trips.filter((t) => t.status === "published").length;
 
   // 2. Fetch analytics for each trip + collect unique UIDs
   const allReaderUids = new Set<string>();
@@ -124,7 +124,7 @@ export async function getAdminAnalytics(): Promise<AdminAnalytics> {
     tripAnalytics.push({
       tripSlug: trip.slug,
       tripTitle: trip.title,
-      published: trip.published,
+      status: trip.status,
       totalViews,
       uniqueReaders,
       avgDaysRead,

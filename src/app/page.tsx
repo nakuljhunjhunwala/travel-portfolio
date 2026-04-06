@@ -1,9 +1,9 @@
-import { getPublishedTrips } from "@/lib/trips";
+import { getVisibleTrips } from "@/lib/trips";
 import { OWNER } from "@/lib/constants";
 import HomeContent from "@/components/HomeContent";
 
 export default async function Home() {
-  const recentTrips = await getPublishedTrips();
+  const recentTrips = await getVisibleTrips();
 
   return (
     <>

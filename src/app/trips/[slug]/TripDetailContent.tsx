@@ -11,11 +11,17 @@ import TripSummary from "@/components/trip/TripSummary";
 import InteractiveTripMap from "@/components/map/InteractiveTripMap";
 import PlaceCard from "@/components/place/PlaceCard";
 import TravelConnector from "@/components/place/TravelConnector";
+import AccommodationCard from "@/components/place/AccommodationCard";
 import LoginGate from "@/components/auth/LoginGate";
 import BottomSheet from "@/components/ui/BottomSheet";
 import { useScrollTracking } from "@/hooks/useScrollTracking";
 import { useActiveDayObserver, scrollToDay } from "@/hooks/useActiveDayObserver";
 import { usePlaceCoordinates } from "@/hooks/usePlaceCoordinates";
+import {
+  generateItineraryText,
+  generateDayText,
+  generateShareUrl,
+} from "@/lib/share";
 
 interface TripDetailContentProps {
   trip: Trip;
@@ -178,6 +184,7 @@ function TransitArrivalCard({
 /* ──────────────────────── Day Accordion Section ──────────────────────── */
 
 function DaySection({
+  trip,
   day,
   dayIndex,
   prevDay,
@@ -185,6 +192,7 @@ function DaySection({
   placeCount,
   isPartial,
 }: {
+  trip: Trip;
   day: Day;
   dayIndex: number;
   prevDay: Day | null;
@@ -193,7 +201,32 @@ function DaySection({
   isPartial: boolean;
 }) {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [dayCopied, setDayCopied] = useState(false);
   const isNewCity = prevDay && prevDay.city !== day.city;
+
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+  const handleDayShare = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const text = generateDayText(trip, day, places, baseUrl);
+    const url = generateShareUrl(baseUrl, trip.slug, day.dayNumber);
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title: `${trip.title} — Day ${day.dayNumber}`, text, url });
+        return;
+      } catch {
+        // fall through to clipboard
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      setDayCopied(true);
+      setTimeout(() => setDayCopied(false), 1500);
+    } catch {
+      // clipboard unavailable
+    }
+  };
 
   return (
     <section
@@ -205,45 +238,67 @@ function DaySection({
         <hr className="border-border/60 my-6 md:my-8" />
       )}
 
-      {/* Day header — accordion toggle */}
-      <button
-        onClick={() => setIsExpanded((prev) => !prev)}
-        className="w-full flex items-start gap-2.5 text-left cursor-pointer group py-1"
-      >
-        {/* Chevron */}
-        <motion.svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-muted mt-1.5 flex-shrink-0"
-          animate={{ rotate: isExpanded ? 90 : 0 }}
-          transition={{ duration: 0.2 }}
+      {/* Day header — accordion toggle + per-day share */}
+      <div className="flex items-start gap-1">
+        <button
+          onClick={() => setIsExpanded((prev) => !prev)}
+          className="flex-1 min-w-0 flex items-start gap-2.5 text-left cursor-pointer group py-1"
         >
-          <path d="M9 18l6-6-6-6" />
-        </motion.svg>
+          {/* Chevron */}
+          <motion.svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-muted mt-1.5 flex-shrink-0"
+            animate={{ rotate: isExpanded ? 90 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <path d="M9 18l6-6-6-6" />
+          </motion.svg>
 
-        <div className="flex-1 min-w-0">
-          <h2 className="font-heading text-lg md:text-xl font-bold text-heading leading-tight">
-            {formatDayHeading(day.date)}
-          </h2>
-          <p className="font-body text-xs md:text-sm text-muted mt-0.5">
-            {day.dayTitle}
-            {placeCount > 0 && (
-              <span className="text-muted/60"> · {placeCount} places</span>
-            )}
-          </p>
-        </div>
+          <div className="flex-1 min-w-0">
+            <h2 className="font-heading text-lg md:text-xl font-bold text-heading leading-tight">
+              {formatDayHeading(day.date)}
+            </h2>
+            <p className="font-body text-xs md:text-sm text-muted mt-0.5">
+              {day.dayTitle}
+              {placeCount > 0 && (
+                <span className="text-muted/60"> · {placeCount} places</span>
+              )}
+            </p>
+          </div>
 
-        {/* Stats — right side */}
-        <span className="font-mono text-[11px] md:text-xs text-muted whitespace-nowrap mt-2 bg-[var(--color-travel-row)] rounded-md px-2 py-0.5 shrink-0 max-w-[40%] truncate">
-          {day.totalDuration} · {day.totalDistance}
-        </span>
-      </button>
+          {/* Stats — right side */}
+          <span className="font-mono text-[11px] md:text-xs text-muted whitespace-nowrap mt-2 bg-[var(--color-travel-row)] rounded-md px-2 py-0.5 shrink-0 max-w-[40%] truncate">
+            {day.totalDuration} · {day.totalDistance}
+          </span>
+        </button>
+
+        {/* Per-day share button */}
+        <button
+          onClick={handleDayShare}
+          className="flex-shrink-0 mt-1 p-1.5 rounded-lg text-muted hover:text-primary hover:bg-primary-soft/30 active:scale-95 transition-all cursor-pointer"
+          aria-label={`Share Day ${day.dayNumber}`}
+          title={dayCopied ? "Copied!" : `Share Day ${day.dayNumber}`}
+        >
+          {dayCopied ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8" />
+              <polyline points="16 6 12 2 8 6" />
+              <line x1="12" y1="2" x2="12" y2="15" />
+            </svg>
+          )}
+        </button>
+      </div>
 
       {/* Accordion content */}
       <AnimatePresence initial={false}>
@@ -285,6 +340,11 @@ function DaySection({
                       <span className="opacity-60">+ more places hidden</span>
                     </div>
                   )}
+
+                  {/* Accommodation card — visible to all users */}
+                  {day.accommodation && (
+                    <AccommodationCard accommodation={day.accommodation} />
+                  )}
                 </div>
               ) : (
                 <div className="bg-[var(--color-travel-row)] rounded-xl p-6 text-center">
@@ -303,16 +363,28 @@ function DaySection({
 
 /* ──────────────────────── Share Button ──────────────────────── */
 
-function ShareFAB({ trip }: { trip: Trip }) {
+function ShareFAB({
+  trip,
+  days,
+  dayPlaces,
+}: {
+  trip: Trip;
+  days: Day[];
+  dayPlaces: Record<string, Place[]>;
+}) {
   const [showMenu, setShowMenu] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [itineraryCopied, setItineraryCopied] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
   const shareUrl = typeof window !== "undefined"
     ? window.location.href
-    : `${process.env.NEXT_PUBLIC_BASE_URL || ""}/trips/${trip.slug}`;
+    : generateShareUrl(baseUrl, trip.slug);
   const shareTitle = trip.title;
-  const shareText = `${trip.hookLine} — Check out this trip!`;
+  const citiesPart = trip.cities.length > 0 ? trip.cities.join(" › ") : trip.states.join(", ");
+  const shareText = `${trip.hookLine} — ${citiesPart}`;
 
   // Close menu on outside click
   useEffect(() => {
@@ -348,8 +420,23 @@ function ShareFAB({ trip }: { trip: Trip }) {
     }
   };
 
+  const copyItinerary = async () => {
+    try {
+      const text = generateItineraryText(trip, days, dayPlaces, baseUrl);
+      await navigator.clipboard.writeText(text);
+      setItineraryCopied(true);
+      setTimeout(() => {
+        setItineraryCopied(false);
+        setShowMenu(false);
+      }, 1200);
+    } catch {
+      setShowMenu(false);
+    }
+  };
+
   const shareWhatsApp = () => {
-    const url = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n${shareUrl}`)}`;
+    const waText = `${trip.title}\n${shareText}\n\n${shareUrl}`;
+    const url = `https://wa.me/?text=${encodeURIComponent(waText)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setShowMenu(false);
   };
@@ -357,6 +444,13 @@ function ShareFAB({ trip }: { trip: Trip }) {
   const shareTwitter = () => {
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
     window.open(url, "_blank", "noopener,noreferrer");
+    setShowMenu(false);
+  };
+
+  const shareEmail = () => {
+    const subject = encodeURIComponent(`Check out: ${trip.title}`);
+    const body = encodeURIComponent(`${shareText}\n\n${shareUrl}`);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
     setShowMenu(false);
   };
 
@@ -370,7 +464,7 @@ function ShareFAB({ trip }: { trip: Trip }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 8 }}
             transition={{ duration: 0.15 }}
-            className="absolute bottom-full left-0 mb-2 bg-card rounded-xl shadow-lg border border-border/60 overflow-hidden min-w-[180px]"
+            className="absolute bottom-full left-0 mb-2 bg-card rounded-xl shadow-lg border border-border/60 overflow-hidden min-w-[190px]"
           >
             <button
               onClick={shareWhatsApp}
@@ -389,6 +483,40 @@ function ShareFAB({ trip }: { trip: Trip }) {
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
               Twitter / X
+            </button>
+            <button
+              onClick={shareEmail}
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm font-body text-heading hover:bg-primary-soft/30 transition-colors cursor-pointer"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="M22 7l-10 7L2 7" />
+              </svg>
+              Email
+            </button>
+            <button
+              onClick={copyItinerary}
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm font-body text-heading hover:bg-primary-soft/30 transition-colors cursor-pointer border-t border-border/40"
+            >
+              {itineraryCopied ? (
+                <>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span className="text-emerald-600">Copied!</span>
+                </>
+              ) : (
+                <>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                  </svg>
+                  Copy Itinerary
+                </>
+              )}
             </button>
             <button
               onClick={copyLink}
@@ -679,6 +807,7 @@ export default function TripDetailContent({
                       return (
                         <DaySection
                           key={day.id}
+                          trip={trip}
                           day={day}
                           dayIndex={dayIndex}
                           prevDay={prevDay}
@@ -710,6 +839,7 @@ export default function TripDetailContent({
                       return (
                         <DaySection
                           key={day.id}
+                          trip={trip}
                           day={day}
                           dayIndex={dayIndex}
                           prevDay={prevDay}
@@ -781,7 +911,7 @@ export default function TripDetailContent({
       )}
 
       {/* ── Share FAB ── */}
-      <ShareFAB trip={trip} />
+      <ShareFAB trip={trip} days={days} dayPlaces={dayPlaces} />
     </article>
   );
 }

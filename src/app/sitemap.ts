@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
-import { getPublishedTrips } from "@/lib/trips";
+import { getVisibleTrips } from "@/lib/trips";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-  const trips = await getPublishedTrips();
+  const trips = await getVisibleTrips();
   const tripEntries: MetadataRoute.Sitemap = trips.map((trip) => ({
     url: `${baseUrl}/trips/${trip.slug}`,
     lastModified: new Date(),

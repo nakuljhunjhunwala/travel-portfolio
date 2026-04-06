@@ -75,3 +75,59 @@
   --color-primary-text: #0E7490;
   --color-pin-bg: #0891B2;
 }
+
+[data-trip-theme="kashmir"] {
+  --color-primary: #1D4ED8;
+  --color-primary-soft: #DBEAFE;
+  --color-primary-text: #1E40AF;
+  --color-pin-bg: #1D4ED8;
+}
+
+[data-trip-theme="kedarkantha"] {
+  --color-primary: #166534;
+  --color-primary-soft: #DCFCE7;
+  --color-primary-text: #15803D;
+  --color-pin-bg: #166534;
+}
+
+[data-trip-theme="maharashtra"] {
+  --color-primary: #9333EA;
+  --color-primary-soft: #F3E8FF;
+  --color-primary-text: #7E22CE;
+  --color-pin-bg: #9333EA;
+}
+
+[data-trip-theme="madhya-pradesh"] {
+  --color-primary: #B45309;
+  --color-primary-soft: #FEF3C7;
+  --color-primary-text: #92400E;
+  --color-pin-bg: #B45309;
+}
+
+[data-trip-theme="south-india"] {
+  --color-primary: #059669;
+  --color-primary-soft: #D1FAE5;
+  --color-primary-text: #047857;
+  --color-pin-bg: #059669;
+}
+
+[data-trip-theme="gujarat"] {
+  --color-primary: #DC2626;
+  --color-primary-soft: #FEE2E2;
+  --color-primary-text: #B91C1C;
+  --color-pin-bg: #DC2626;
+}
+
+[data-trip-theme="spiti"] {
+  --color-primary: #4F46E5;
+  --color-primary-soft: #E0E7FF;
+  --color-primary-text: #4338CA;
+  --color-pin-bg: #4F46E5;
+}
+
+[data-trip-theme="gokarna"] {
+  --color-primary: #0D9488;
+  --color-primary-soft: #CCFBF1;
+  --color-primary-text: #0F766E;
+  --color-pin-bg: #0D9488;
+}

@@ -42,10 +42,121 @@ function WouldReturnBadge({ value }: { value: "yes" | "no" | "maybe" }) {
   }[value];
 
   return (
-    <span className={`inline-flex items-center gap-0.5 ${config.color} text-[10px] md:text-xs font-medium`}>
+    <span
+      className={`inline-flex items-center gap-0.5 ${config.color} text-[10px] md:text-xs font-medium`}
+    >
       <span className="font-mono font-bold">{config.icon}</span>
       {config.label}
     </span>
+  );
+}
+
+type PlaceCategory = NonNullable<Place["placeCategory"]>;
+
+const CATEGORY_COLORS: Record<PlaceCategory, string> = {
+  restaurant: "text-amber-700 bg-amber-50",
+  cafe: "text-amber-600 bg-amber-50",
+  hotel: "text-blue-700 bg-blue-50",
+  temple: "text-purple-700 bg-purple-50",
+  trek: "text-emerald-700 bg-emerald-50",
+  beach: "text-cyan-700 bg-cyan-50",
+  market: "text-pink-700 bg-pink-50",
+  attraction: "text-primary-text bg-primary-soft",
+  transport: "text-gray-600 bg-gray-100",
+};
+
+function CategoryBadge({ category }: { category: PlaceCategory }) {
+  return (
+    <span
+      className={`inline-flex items-center rounded px-1 py-0 text-[9px] md:text-[10px] font-medium capitalize leading-tight ${CATEGORY_COLORS[category]}`}
+    >
+      {category}
+    </span>
+  );
+}
+
+function PlaceActions({
+  place,
+  googleMapsUri,
+}: {
+  place: Place;
+  googleMapsUri?: string;
+}) {
+  const mapsUrl = place.googleMapsUrl ?? googleMapsUri;
+  const hasActions = mapsUrl || place.phoneNumber || place.websiteUrl;
+
+  if (!hasActions) return null;
+
+  return (
+    <div className="mt-2 ml-[38px] md:ml-[42px] flex flex-wrap gap-1.5">
+      {mapsUrl && (
+        <a
+          href={mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-border/60 text-[11px] md:text-xs text-muted hover:text-primary-text hover:bg-primary-soft/60 transition-colors"
+        >
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          Maps
+        </a>
+      )}
+      {place.phoneNumber && (
+        <a
+          href={`tel:${place.phoneNumber}`}
+          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-border/60 text-[11px] md:text-xs text-muted hover:text-primary-text hover:bg-primary-soft/60 transition-colors"
+        >
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012.86 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
+          </svg>
+          {place.phoneNumber}
+        </a>
+      )}
+      {place.websiteUrl && (
+        <a
+          href={place.websiteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-border/60 text-[11px] md:text-xs text-muted hover:text-primary-text hover:bg-primary-soft/60 transition-colors"
+        >
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+          </svg>
+          Website
+        </a>
+      )}
+    </div>
   );
 }
 
@@ -87,7 +198,9 @@ export default function PlaceCard({ place, placeCity }: PlaceCardProps) {
   // Primary type label for Google rating row
   const primaryType =
     details?.types && details.types.length > 0
-      ? details.types[0].replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+      ? details.types[0]
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, (c) => c.toUpperCase())
       : null;
 
   // Place name element — link to Google Maps if available
@@ -121,9 +234,14 @@ export default function PlaceCard({ place, placeCity }: PlaceCardProps) {
           <div className="flex-1 min-w-0">
             {/* Pin + Name */}
             <div className="flex items-center gap-2.5">
-              <span className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-pin-bg text-pin-text text-xs md:text-sm font-semibold flex items-center justify-center flex-shrink-0 shadow-sm">
-                {place.index}
-              </span>
+              <div className="flex flex-col items-center gap-1 flex-shrink-0">
+                <span className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-pin-bg text-pin-text text-xs md:text-sm font-semibold flex items-center justify-center shadow-sm">
+                  {place.index}
+                </span>
+                {place.placeCategory && (
+                  <CategoryBadge category={place.placeCategory} />
+                )}
+              </div>
               <div className="min-w-0">
                 <h3 className="font-heading font-bold text-heading text-sm md:text-base leading-snug">
                   {placeName}
@@ -141,10 +259,14 @@ export default function PlaceCard({ place, placeCity }: PlaceCardProps) {
               <p className="font-body text-[11px] md:text-xs text-muted mt-1.5 ml-[38px] md:ml-[42px] flex items-center gap-1.5 flex-wrap">
                 <span className="inline-flex items-center gap-0.5">
                   <span>⭐</span>
-                  <span className="font-mono font-medium">{details.rating.toFixed(1)}</span>
+                  <span className="font-mono font-medium">
+                    {details.rating.toFixed(1)}
+                  </span>
                 </span>
                 {details.userRatingCount != null && (
-                  <span>({details.userRatingCount.toLocaleString("en-IN")} reviews)</span>
+                  <span>
+                    ({details.userRatingCount.toLocaleString("en-IN")} reviews)
+                  </span>
                 )}
                 {primaryType && (
                   <>
@@ -164,10 +286,14 @@ export default function PlaceCard({ place, placeCity }: PlaceCardProps) {
             ) : (
               (openingHours || description) && (
                 <p className="font-body text-[13px] md:text-sm text-body leading-relaxed line-clamp-3 mt-2 ml-[38px] md:ml-[42px]">
-                  {openingHours && <span className="text-muted">{openingHours}</span>}
+                  {openingHours && (
+                    <span className="text-muted">{openingHours}</span>
+                  )}
                   {description && (
                     <>
-                      {openingHours && <span className="text-muted"> &bull; </span>}
+                      {openingHours && (
+                        <span className="text-muted"> &bull; </span>
+                      )}
                       {description}
                     </>
                   )}
@@ -181,6 +307,9 @@ export default function PlaceCard({ place, placeCity }: PlaceCardProps) {
                 {place.visitStart} - {place.visitEnd}
               </span>
             </div>
+
+            {/* Action buttons: Maps / Phone / Website */}
+            <PlaceActions place={place} googleMapsUri={details?.googleMapsUri} />
           </div>
 
           {/* Photo — square thumbnail, top-right */}

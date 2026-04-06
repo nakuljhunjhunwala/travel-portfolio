@@ -100,14 +100,15 @@ export default function HomeContent({ trips }: HomeContentProps) {
 
   // Compute stats from trips
   const stats = useMemo(() => {
-    const published = trips.filter((t) => t.published);
-    const totalStates = new Set(published.flatMap((t) => t.states)).size;
-    const totalCities = new Set(published.flatMap((t) => t.cities)).size;
-    const totalCost = published.reduce((sum, t) => sum + t.totalCost, 0);
+    const allVisible = trips.filter((t) => t.status !== "draft");
+    const totalStates = new Set(allVisible.flatMap((t) => t.states)).size;
+    const totalCities = new Set(allVisible.flatMap((t) => t.cities)).size;
+    const totalCost = allVisible.reduce((sum, t) => sum + t.totalCost, 0);
     return { totalStates, totalCities, totalCost };
   }, [trips]);
 
   const formatCost = (cost: number) => {
+    if (cost >= 100000) return `₹${(cost / 100000).toFixed(1).replace(/\.0$/, "")}L`;
     if (cost >= 1000) return `₹${(cost / 1000).toFixed(1).replace(/\.0$/, "")}k`;
     return `₹${cost}`;
   };

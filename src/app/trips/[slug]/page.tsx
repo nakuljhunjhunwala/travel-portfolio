@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getTripBySlug, getPublishedTrips, getDaysForTrip, getPlacesForDay } from "@/lib/trips";
+import { getTripBySlug, getVisibleTrips, getDaysForTrip, getPlacesForDay } from "@/lib/trips";
 import TripDetailContent from "./TripDetailContent";
+import ComingSoonContent from "./ComingSoonContent";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export async function generateStaticParams() {
-  const trips = await getPublishedTrips();
+  const trips = await getVisibleTrips();
   return trips.map((t) => ({ slug: t.slug }));
 }
 
@@ -35,6 +36,11 @@ export default async function TripDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const trip = await getTripBySlug(slug);
   if (!trip) notFound();
+
+  // Coming soon trips get a dedicated lightweight page
+  if (trip.status === "coming_soon") {
+    return <ComingSoonContent trip={trip} />;
+  }
 
   const days = await getDaysForTrip(trip.id);
 

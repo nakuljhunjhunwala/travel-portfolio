@@ -35,10 +35,23 @@ function serializeTimestamps<T>(data: Record<string, unknown>): T {
 
 /* ── Data fetchers ── */
 
+/** Trips visible to users: published + coming_soon (excludes drafts). */
+export async function getVisibleTrips(): Promise<Trip[]> {
+  const snap = await adminDb
+    .collection("trips")
+    .where("status", "in", ["published", "coming_soon"])
+    .get();
+
+  return snap.docs.map((doc) =>
+    serializeTimestamps<Trip>({ id: doc.id, ...doc.data() })
+  );
+}
+
+/** Only fully-published trips (with itineraries). */
 export async function getPublishedTrips(): Promise<Trip[]> {
   const snap = await adminDb
     .collection("trips")
-    .where("published", "==", true)
+    .where("status", "==", "published")
     .get();
 
   return snap.docs.map((doc) =>

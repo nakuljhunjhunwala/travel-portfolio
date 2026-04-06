@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import IndiaMap, { type MapViewMode } from "./IndiaMap";
 import TripCard from "@/components/trip/TripCard";
 import type { Trip } from "@/types";
@@ -68,16 +69,49 @@ export default function IndiaMapWrapper({
     return () => clearTimers();
   }, []);
 
-  // Derive visited states from trip data
-  const visitedStateNames = useMemo(
-    () => new Set(trips.flatMap((t) => t.states)),
+  // Derive published and coming_soon state sets from trip data
+  const publishedStateNames = useMemo(
+    () =>
+      new Set(
+        trips
+          .filter((t) => t.status === "published")
+          .flatMap((t) => t.states)
+      ),
     [trips]
+  );
+
+  // States that have coming_soon trips but NO published trips
+  const comingSoonStateNames = useMemo(() => {
+    const comingSoonStates = new Set(
+      trips
+        .filter((t) => t.status === "coming_soon")
+        .flatMap((t) => t.states)
+    );
+    // Remove any state that also has a published trip
+    publishedStateNames.forEach((s) => comingSoonStates.delete(s));
+    return comingSoonStates;
+  }, [trips, publishedStateNames]);
+
+  // Union of both: all interactive states on the map
+  const visitedStateNames = useMemo(
+    () => new Set([...publishedStateNames, ...comingSoonStateNames]),
+    [publishedStateNames, comingSoonStateNames]
   );
 
   const tripsForState = selectedState
     ? trips.filter(
-        (trip) => trip.published && trip.states.includes(selectedState)
+        (trip) => trip.status !== "draft" && trip.states.includes(selectedState)
       )
+    : [];
+
+  // Determine if selected state is purely coming_soon (no published trips)
+  const selectedStateIsComingSoonOnly =
+    selectedState !== null &&
+    !publishedStateNames.has(selectedState) &&
+    comingSoonStateNames.has(selectedState);
+
+  const comingSoonTripsForState = selectedStateIsComingSoonOnly
+    ? tripsForState.filter((t) => t.status === "coming_soon")
     : [];
 
   const isZoomed = mapViewMode === "zoomed" || mapViewMode === "zooming-in";
@@ -90,6 +124,7 @@ export default function IndiaMapWrapper({
         selectedState={selectedState}
         mapViewMode={mapViewMode}
         visitedStateNames={visitedStateNames}
+        comingSoonStateNames={comingSoonStateNames}
       />
 
       {/* Back button — large hit target, high z-index */}
@@ -136,22 +171,72 @@ export default function IndiaMapWrapper({
             }}
             className="mt-1 md:mt-2 mx-auto max-w-[500px] px-3 md:px-1"
           >
-            <div className="bg-card shadow-card rounded-xl md:rounded-2xl p-3 md:p-4">
-              <h3 className="font-heading text-sm md:text-sm font-semibold text-heading mb-2 md:mb-3">
-                Trips in {selectedState}
-              </h3>
-              <div className="flex flex-col gap-2">
-                {tripsForState.length > 0 ? (
-                  tripsForState.map((trip) => (
-                    <TripCard key={trip.id} trip={trip} isCompact />
-                  ))
-                ) : (
-                  <p className="text-muted text-xs text-center py-3">
-                    No trips here yet.
-                  </p>
-                )}
+            {selectedStateIsComingSoonOnly ? (
+              /* Coming-soon state panel */
+              <div className="bg-card shadow-card rounded-xl md:rounded-2xl p-3 md:p-4">
+                <div className="flex items-center gap-2 mb-2 md:mb-3">
+                  <h3 className="font-heading text-sm font-semibold text-heading">
+                    {selectedState}
+                  </h3>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium font-body bg-amber-100 text-amber-700 border border-amber-200">
+                    Coming Soon
+                  </span>
+                </div>
+                <div className="flex flex-col gap-4">
+                  {comingSoonTripsForState.map((trip) => (
+                    <div key={trip.id} className="flex flex-col gap-1.5">
+                      <h4 className="font-heading text-sm md:text-base font-bold text-heading leading-snug">
+                        {trip.title}
+                      </h4>
+                      {trip.visitedHighlight && (
+                        <p className="text-xs text-muted italic leading-relaxed">
+                          {trip.visitedHighlight}
+                        </p>
+                      )}
+                      <div className="flex items-center gap-2 text-[11px] text-muted">
+                        {trip.visitedDate && (
+                          <span className="font-mono">{trip.visitedDate}</span>
+                        )}
+                        <span className="text-border-dashed">·</span>
+                        <span>Detailed itinerary coming soon</span>
+                      </div>
+                      <Link
+                        href={`/trips/${trip.slug}`}
+                        className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-primary-text bg-primary-soft/60 hover:bg-primary-soft rounded-md px-2.5 py-1 transition-colors self-start"
+                      >
+                        Preview trip
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </div>
+                  ))}
+                  {comingSoonTripsForState.length === 0 && (
+                    <p className="text-muted text-xs text-center py-3">
+                      Itinerary coming soon.
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
+            ) : (
+              /* Published trips panel */
+              <div className="bg-card shadow-card rounded-xl md:rounded-2xl p-3 md:p-4">
+                <h3 className="font-heading text-sm md:text-sm font-semibold text-heading mb-2 md:mb-3">
+                  Trips in {selectedState}
+                </h3>
+                <div className="flex flex-col gap-2">
+                  {tripsForState.length > 0 ? (
+                    tripsForState.map((trip) => (
+                      <TripCard key={trip.id} trip={trip} isCompact />
+                    ))
+                  ) : (
+                    <p className="text-muted text-xs text-center py-3">
+                      No trips here yet.
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

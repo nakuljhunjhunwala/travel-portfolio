@@ -280,9 +280,13 @@ function TripRow({
             <span className="text-heading font-body font-medium">
               {trip.tripTitle}
             </span>
-            {!trip.published && (
-              <span className="text-[10px] px-1.5 py-0.5 bg-muted/20 text-muted rounded font-mono uppercase">
-                Draft
+            {trip.status !== "published" && (
+              <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono uppercase ${
+                trip.status === "coming_soon"
+                  ? "bg-amber-100 text-amber-700"
+                  : "bg-muted/20 text-muted"
+              }`}>
+                {trip.status === "coming_soon" ? "Coming Soon" : "Draft"}
               </span>
             )}
           </div>

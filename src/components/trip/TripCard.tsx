@@ -37,17 +37,20 @@ function getDayCount(
 export default function TripCard({ trip, isCompact = false }: TripCardProps) {
   const [mapError, setMapError] = useState(false);
   const [coverError, setCoverError] = useState(false);
-  const days = getDayCount(trip.startDate, trip.endDate);
+  const isComingSoon = trip.status === "coming_soon";
+  const days =
+    !isComingSoon ? getDayCount(trip.startDate, trip.endDate) : null;
 
-  // Static map strip URL for full card variant
+  // Static map strip URL for full card variant (skip for coming_soon)
   const lineColor = THEME_COLORS[trip.tripTheme] ?? THEME_COLORS.default;
-  const staticMapUrl = !isCompact
-    ? getStaticMapUrl(trip.cities, {
-        width: 400,
-        height: 48,
-        lineColor,
-      })
-    : null;
+  const staticMapUrl =
+    !isCompact && !isComingSoon
+      ? getStaticMapUrl(trip.cities, {
+          width: 400,
+          height: 48,
+          lineColor,
+        })
+      : null;
 
   if (isCompact) {
     return (
@@ -71,13 +74,20 @@ export default function TripCard({ trip, isCompact = false }: TripCardProps) {
                 src={trip.coverPhoto}
                 alt={`Cover photo for ${trip.title}`}
                 fill
-                className="object-cover"
+                className={`object-cover${isComingSoon ? " opacity-70" : ""}`}
                 sizes="96px"
                 onError={() => setCoverError(true)}
                 {...(trip.blurHash
                   ? { placeholder: "blur" as const, blurDataURL: trip.blurHash }
                   : {})}
               />
+            )}
+            {isComingSoon && (
+              <div className="absolute inset-0 flex items-end justify-center pb-1.5">
+                <span className="text-[9px] font-medium font-body bg-amber-100/90 text-amber-700 px-1.5 py-0.5 rounded-full">
+                  Coming Soon
+                </span>
+              </div>
             )}
           </div>
 
@@ -90,14 +100,28 @@ export default function TripCard({ trip, isCompact = false }: TripCardProps) {
               {trip.hookLine}
             </p>
             <div className="text-xs text-muted mt-2 flex items-center gap-2">
-              <span>
-                <span className="font-mono">{days}</span>
-                <span className="font-body"> days</span>
-              </span>
-              <span className="text-border">|</span>
-              <span className="font-mono">{trip.budgetTier}</span>
-              <span className="text-border">|</span>
-              <span className="font-body capitalize">{trip.tripType}</span>
+              {isComingSoon ? (
+                <>
+                  <span className="font-body">{trip.states.join(", ")}</span>
+                  {trip.visitedDate && (
+                    <>
+                      <span className="text-border">|</span>
+                      <span className="font-mono">{trip.visitedDate}</span>
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <span>
+                    <span className="font-mono">{days}</span>
+                    <span className="font-body"> days</span>
+                  </span>
+                  <span className="text-border">|</span>
+                  <span className="font-mono">{trip.budgetTier}</span>
+                  <span className="text-border">|</span>
+                  <span className="font-body capitalize">{trip.tripType}</span>
+                </>
+              )}
             </div>
           </div>
         </motion.article>
@@ -105,6 +129,7 @@ export default function TripCard({ trip, isCompact = false }: TripCardProps) {
     );
   }
 
+  // ── Full card ──────────────────────────────────────────────────────────────
   return (
     <Link href={`/trips/${trip.slug}`} className="block h-full">
       <motion.article
@@ -125,7 +150,7 @@ export default function TripCard({ trip, isCompact = false }: TripCardProps) {
               src={trip.coverPhoto}
               alt={`Cover photo for ${trip.title}`}
               fill
-              className="object-cover"
+              className={`object-cover${isComingSoon ? " opacity-75" : ""}`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onError={() => setCoverError(true)}
               {...(trip.blurHash
@@ -137,15 +162,28 @@ export default function TripCard({ trip, isCompact = false }: TripCardProps) {
           {/* Subtle vignette */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
 
+          {/* "Itinerary Coming Soon" amber pill overlay */}
+          {isComingSoon && (
+            <div className="absolute top-3 right-3">
+              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium font-body bg-amber-100/95 text-amber-700 border border-amber-200 shadow-sm backdrop-blur-sm">
+                Itinerary Coming Soon
+              </span>
+            </div>
+          )}
+
           {/* State + date badge */}
           <div className="absolute bottom-3 left-3 flex items-center gap-1.5 bg-black/40 backdrop-blur-md text-white text-[11px] md:text-xs px-3 py-1.5 rounded-full font-medium">
             <span className="font-body">{trip.states.join(", ")}</span>
             <span className="opacity-50">·</span>
-            <span className="font-mono">{formatDate(trip.startDate)}</span>
+            {isComingSoon && trip.visitedDate ? (
+              <span className="font-mono">{trip.visitedDate}</span>
+            ) : (
+              <span className="font-mono">{formatDate(trip.startDate)}</span>
+            )}
           </div>
         </div>
 
-        {/* Static map route strip */}
+        {/* Static map route strip — published only */}
         {staticMapUrl && !mapError && (
           <div className="h-[48px] overflow-hidden opacity-80">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -186,27 +224,36 @@ export default function TripCard({ trip, isCompact = false }: TripCardProps) {
           </div>
 
           {/* Stats — bottom aligned */}
-          <div className="flex items-center gap-3 mt-auto pt-4 text-xs text-muted border-t border-border/40 mt-4">
-            <span className="flex items-center gap-1">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-40">
-                <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
-              </svg>
-              <span className="font-mono font-medium">{days}</span> days
-            </span>
-            <span className="w-px h-3 bg-border/60" />
-            <span className="flex items-center gap-1">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-40">
-                <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
-              </svg>
-              <span className="font-mono font-medium">{trip.budgetTier}</span>
-            </span>
-            <span className="w-px h-3 bg-border/60" />
-            <span className="flex items-center gap-1">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-40">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" /><circle cx="12" cy="7" r="4" />
-              </svg>
-              <span className="capitalize">{trip.tripType}</span>
-            </span>
+          <div className={`flex items-center gap-3 mt-auto pt-4 text-xs border-t border-border/40 mt-4${isComingSoon ? " text-muted/50" : " text-muted"}`}>
+            {isComingSoon ? (
+              /* Coming soon: hide budget/duration, show a placeholder */
+              <span className="font-body italic text-xs text-muted/60">
+                Full itinerary details coming soon
+              </span>
+            ) : (
+              <>
+                <span className="flex items-center gap-1">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-40">
+                    <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
+                  </svg>
+                  <span className="font-mono font-medium">{days}</span> days
+                </span>
+                <span className="w-px h-3 bg-border/60" />
+                <span className="flex items-center gap-1">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-40">
+                    <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+                  </svg>
+                  <span className="font-mono font-medium">{trip.budgetTier}</span>
+                </span>
+                <span className="w-px h-3 bg-border/60" />
+                <span className="flex items-center gap-1">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-40">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" /><circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <span className="capitalize">{trip.tripType}</span>
+                </span>
+              </>
+            )}
           </div>
         </div>
       </motion.article>

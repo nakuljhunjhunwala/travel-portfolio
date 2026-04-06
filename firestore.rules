@@ -1,17 +1,17 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Trips: public read if published, admin write only
+    // Trips: public read if published or coming_soon, admin write only
     match /trips/{tripId} {
-      allow read: if resource.data.published == true;
+      allow read: if resource.data.status in ["published", "coming_soon"];
       allow write: if request.auth != null && request.auth.uid == '3VE0ucRyv6XHrYEGEpw4JC9KYD43';
 
       match /days/{dayId} {
-        allow read: if get(/databases/$(database)/documents/trips/$(tripId)).data.published == true;
+        allow read: if get(/databases/$(database)/documents/trips/$(tripId)).data.status in ["published", "coming_soon"];
         allow write: if request.auth.uid == '3VE0ucRyv6XHrYEGEpw4JC9KYD43';
 
         match /places/{placeId} {
-          allow read: if get(/databases/$(database)/documents/trips/$(tripId)).data.published == true;
+          allow read: if get(/databases/$(database)/documents/trips/$(tripId)).data.status in ["published", "coming_soon"];
           allow write: if request.auth.uid == '3VE0ucRyv6XHrYEGEpw4JC9KYD43';
         }
       }

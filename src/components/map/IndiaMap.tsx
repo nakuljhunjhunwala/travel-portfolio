@@ -20,6 +20,7 @@ interface IndiaMapProps {
   selectedState: string | null;
   mapViewMode: MapViewMode;
   visitedStateNames?: Set<string>;
+  comingSoonStateNames?: Set<string>;
 }
 
 // --- Smart label placement ---
@@ -160,6 +161,7 @@ export default function IndiaMap({
   selectedState,
   mapViewMode,
   visitedStateNames,
+  comingSoonStateNames,
 }: IndiaMapProps) {
   const [revealDone, setRevealDone] = useState(false);
 
@@ -172,6 +174,10 @@ export default function IndiaMap({
 
   const isVisited = (stateName: string): boolean => {
     return visitedStateNames ? visitedStateNames.has(stateName) : false;
+  };
+
+  const isComingSoon = (stateName: string): boolean => {
+    return comingSoonStateNames ? comingSoonStateNames.has(stateName) : false;
   };
 
   const getVisitedClass = (visited: boolean): string => {
@@ -252,6 +258,9 @@ export default function IndiaMap({
               geographies.map((geo) => {
                 const stateName = geo.properties.name as string;
                 const visited = isVisited(stateName);
+                const comingSoon = isComingSoon(stateName);
+                // A state is "interactive" if it has published or coming_soon trips
+                const interactive = visited || comingSoon;
                 const isSelected = stateName === selectedState;
 
                 // During zoom-out, non-selected states transition back to normal
@@ -263,11 +272,11 @@ export default function IndiaMap({
                   : isZoomingOut
                     ? isSelected
                       ? 1.0
-                      : visited
-                        ? 0.7
+                      : interactive
+                        ? comingSoon && !visited ? 0.35 : 0.7
                         : 1
-                    : visited
-                      ? 0.7
+                    : interactive
+                      ? comingSoon && !visited ? 0.35 : 0.7
                       : 1;
 
                 const computedStroke = isZooming
@@ -278,8 +287,19 @@ export default function IndiaMap({
                     ? isSelected
                       ? "rgba(30,60,120,0.3)"
                       : "#FFFFFF"
-                    : "#FFFFFF";
-                const computedStrokeWidth = isSelected && isZooming ? 0.6 : 0.5;
+                    : comingSoon && !visited
+                      ? "var(--color-primary)"
+                      : "#FFFFFF";
+                const computedStrokeDasharray =
+                  comingSoon && !visited && !isZooming && !isZoomingOut
+                    ? "3 2"
+                    : undefined;
+                const computedStrokeWidth =
+                  isSelected && isZooming
+                    ? 0.6
+                    : comingSoon && !visited && !isZooming && !isZoomingOut
+                      ? 0.8
+                      : 0.5;
 
                 const computedFilter =
                   isSelected && isZooming ? "url(#state-depth)" : "none";
@@ -287,62 +307,71 @@ export default function IndiaMap({
                 // Disable pointer events on invisible/non-interactive states
                 // so clicks pass through to the back button and other UI
                 const pe =
-                  mapViewMode === "full" && visited ? "auto" : ("none" as const);
+                  mapViewMode === "full" && interactive ? "auto" : ("none" as const);
 
                 return (
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
                     onClick={() => {
-                      if (visited && mapViewMode === "full") {
+                      if (interactive && mapViewMode === "full") {
                         onStateSelect(stateName);
                       }
                     }}
                     style={{
                       default: {
-                        fill: visited ? "var(--color-primary)" : "#D1D5DB",
+                        fill: interactive ? "var(--color-primary)" : "#D1D5DB",
                         fillOpacity: computedOpacity,
                         stroke: computedStroke,
                         strokeWidth: computedStrokeWidth,
+                        strokeDasharray: computedStrokeDasharray,
                         outline: "none",
                         filter: computedFilter,
                         pointerEvents: pe,
                         cursor:
-                          mapViewMode === "full" && visited
+                          mapViewMode === "full" && interactive
                             ? "pointer"
                             : "default",
                         transition:
                           "fill-opacity 0.6s ease, stroke 0.4s ease, stroke-width 0.3s ease, filter 0.4s ease",
                       },
                       hover: {
-                        fill: visited ? "var(--color-primary)" : "#D1D5DB",
+                        fill: interactive ? "var(--color-primary)" : "#D1D5DB",
                         fillOpacity: computedOpacity,
                         stroke: computedStroke,
                         strokeWidth: computedStrokeWidth,
+                        strokeDasharray: computedStrokeDasharray,
                         outline: "none",
                         filter:
-                          visited && mapViewMode === "full"
+                          interactive && mapViewMode === "full"
                             ? "brightness(1.15)"
                             : computedFilter,
                         pointerEvents: pe,
                         cursor:
-                          mapViewMode === "full" && visited
+                          mapViewMode === "full" && interactive
                             ? "pointer"
                             : "default",
                         transition:
                           "fill-opacity 0.6s ease, stroke 0.4s ease, stroke-width 0.3s ease, filter 0.2s ease",
                       },
                       pressed: {
-                        fill: visited ? "var(--color-primary)" : "#D1D5DB",
+                        fill: interactive ? "var(--color-primary)" : "#D1D5DB",
                         fillOpacity:
-                          isZooming && isSelected ? 1.0 : visited ? 0.85 : 1,
+                          isZooming && isSelected
+                            ? 1.0
+                            : interactive
+                              ? comingSoon && !visited
+                                ? 0.25
+                                : 0.85
+                              : 1,
                         stroke: computedStroke,
                         strokeWidth: computedStrokeWidth,
+                        strokeDasharray: computedStrokeDasharray,
                         outline: "none",
                         filter: computedFilter,
                         pointerEvents: pe,
                         cursor:
-                          mapViewMode === "full" && visited
+                          mapViewMode === "full" && interactive
                             ? "pointer"
                             : "default",
                         transition:
