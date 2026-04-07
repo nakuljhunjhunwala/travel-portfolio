@@ -70,14 +70,16 @@ export default function RootLayout({
         className={`${plusJakartaSans.variable} ${inter.variable} ${jetbrainsMono.variable} bg-bg text-body antialiased`}
       >
         <AuthProvider>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:text-primary"
-          >
-            Skip to main content
-          </a>
-          <div className="fixed top-3 right-3 md:top-5 md:right-5 z-50">
-            <UserMenu />
+          <div id="embed-hide-chrome">
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:text-primary"
+            >
+              Skip to main content
+            </a>
+            <div className="fixed top-3 right-3 md:top-5 md:right-5 z-50">
+              <UserMenu />
+            </div>
           </div>
           <main id="main-content" className="min-h-screen">{children}</main>
         </AuthProvider>
