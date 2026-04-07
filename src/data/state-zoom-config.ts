@@ -104,4 +104,15 @@ export const stateZoomConfig: Record<string, StateZoomEntry> = {
       { name: "Ahmedabad", coordinates: [72.57, 23.02] },
     ],
   },
+  Goa: {
+    center: [73.95, 15.35],
+    zoom: 7.0,
+    cities: [
+      { name: "Baga", coordinates: [73.75, 15.56] },
+      { name: "Anjuna", coordinates: [73.74, 15.58] },
+      { name: "Vagator", coordinates: [73.74, 15.6] },
+      { name: "Palolem", coordinates: [74.02, 15.01] },
+      { name: "Agonda", coordinates: [73.99, 15.05] },
+    ],
+  },
 };

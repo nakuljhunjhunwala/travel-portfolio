@@ -131,3 +131,10 @@
   --color-primary-text: #0F766E;
   --color-pin-bg: #0D9488;
 }
+
+[data-trip-theme="goa"] {
+  --color-primary: #E11D48;
+  --color-primary-soft: #FFE4E6;
+  --color-primary-text: #BE123C;
+  --color-pin-bg: #E11D48;
+}
