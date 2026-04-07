@@ -89,6 +89,75 @@ const scrollHintVariants = {
   },
 };
 
+const TOTAL_INDIAN_STATES = 36;
+
+function CoverageRing({
+  visited,
+  total,
+  animate,
+}: {
+  visited: number;
+  total: number;
+  animate: boolean;
+}) {
+  const r = 18;
+  const circumference = 2 * Math.PI * r;
+  const pct = visited / total;
+
+  return (
+    <div className="flex items-center gap-2.5 bg-white/65 backdrop-blur-md border border-white/50 shadow-sm rounded-full pl-1.5 pr-3.5 py-1.5">
+      <div className="relative w-10 h-10 flex-shrink-0">
+        <svg viewBox="0 0 44 44" className="w-full h-full -rotate-90">
+          <defs>
+            <linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#2C5F7C" />
+              <stop offset="100%" stopColor="#4F8DA8" />
+            </linearGradient>
+          </defs>
+          <circle
+            cx="22"
+            cy="22"
+            r={r}
+            fill="none"
+            stroke="#E2DDD6"
+            strokeWidth="3"
+          />
+          <motion.circle
+            cx="22"
+            cy="22"
+            r={r}
+            fill="none"
+            stroke="url(#ring-grad)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            initial={{ strokeDashoffset: circumference }}
+            animate={{
+              strokeDashoffset: animate
+                ? circumference * (1 - pct)
+                : circumference,
+            }}
+            transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-xs font-heading font-bold text-heading leading-none">
+            {visited}
+          </span>
+        </div>
+      </div>
+      <div className="flex flex-col gap-0.5">
+        <span className="text-[11px] font-heading font-semibold text-heading leading-tight">
+          States Explored
+        </span>
+        <span className="text-[9px] font-mono text-muted leading-tight">
+          {Math.round(pct * 100)}% of India
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function HomeContent({ trips }: HomeContentProps) {
   // Start with null phase — nothing renders until we know if we should skip or play
   const [phase, setPhase] = useState<IntroPhase | null>(null);
@@ -166,9 +235,8 @@ export default function HomeContent({ trips }: HomeContentProps) {
   ];
 
   const statPills = [
-    { label: `${stats.totalStates} states explored`, floatClass: "stat-pill-float", position: "top-0 left-0 md:-left-4" },
-    { label: `${stats.totalCities}+ cities`, floatClass: "stat-pill-float-delay-1", position: "top-0 right-0 md:-right-4" },
-    { label: `${formatCost(stats.totalCost)} total spend`, floatClass: "stat-pill-float-delay-2", position: "-bottom-2 left-1/2 -translate-x-1/2" },
+    { label: `${stats.totalCities}+ cities`, floatClass: "stat-pill-float", position: "top-0 right-0 md:-right-4" },
+    { label: `${formatCost(stats.totalCost)} total spend`, floatClass: "stat-pill-float-delay-1", position: "-bottom-2 left-1/2 -translate-x-1/2" },
   ];
 
   return (
@@ -270,7 +338,7 @@ export default function HomeContent({ trips }: HomeContentProps) {
             variants={glowVariants}
             initial={skipIntro ? "visible" : "hidden"}
             animate={isAtLeast("map") ? "visible" : "hidden"}
-            className="absolute inset-0 bg-[radial-gradient(circle,var(--color-primary-soft)_0%,transparent_70%)] pointer-events-none"
+            className="absolute inset-0 bg-[radial-gradient(circle,rgba(44,95,124,0.08)_0%,transparent_70%)] pointer-events-none"
           />
 
           {/* Map with zoom-from-satellite — starts 1.5x scale, blurred, zooms to normal */}
@@ -283,7 +351,25 @@ export default function HomeContent({ trips }: HomeContentProps) {
             <IndiaMapWrapper trips={trips} mapRevealed={isAtLeast("ambient")} onViewModeChange={setMapViewMode} />
           </motion.div>
 
-          {/* ACT 4: Floating stat pills — staggered entrance with gentle float */}
+          {/* ACT 4: Floating coverage ring + stat pills */}
+          <motion.div
+            variants={statPillVariants}
+            initial={skipIntro ? "visible" : "hidden"}
+            animate={isAtLeast("ambient") && !isMapZoomed ? "visible" : "hidden"}
+            transition={{
+              duration: 0.6,
+              ease: [0.25, 0.46, 0.45, 0.94] as const,
+            }}
+            className="absolute top-0 left-0 md:-left-6 hidden md:block z-20"
+          >
+            <div className="stat-pill-float">
+              <CoverageRing
+                visited={stats.totalStates}
+                total={TOTAL_INDIAN_STATES}
+                animate={isAtLeast("complete") && !isMapZoomed}
+              />
+            </div>
+          </motion.div>
           {statPills.map((pill, i) => (
             <motion.div
               key={pill.label}
@@ -293,12 +379,12 @@ export default function HomeContent({ trips }: HomeContentProps) {
               transition={{
                 duration: 0.6,
                 ease: [0.25, 0.46, 0.45, 0.94] as const,
-                delay: skipIntro ? 0 : i * 0.2,
+                delay: skipIntro ? 0 : (i + 1) * 0.2,
               }}
               className={`absolute ${pill.position} hidden md:block z-20`}
             >
               <div
-                className={`${pill.floatClass} bg-card shadow-card rounded-full px-3 py-1.5 text-xs font-mono text-muted whitespace-nowrap`}
+                className={`${pill.floatClass} bg-white/65 backdrop-blur-md border border-white/50 shadow-sm rounded-full px-3.5 py-2 text-xs font-mono text-muted whitespace-nowrap`}
               >
                 {pill.label}
               </div>
@@ -306,21 +392,28 @@ export default function HomeContent({ trips }: HomeContentProps) {
           ))}
         </div>
 
-        {/* Mobile stat pills — below map */}
+        {/* Mobile: ring + stat pills */}
         <motion.div
           initial={skipIntro ? { opacity: 1 } : { opacity: 0 }}
           animate={isAtLeast("ambient") && !isMapZoomed ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="flex md:hidden flex-wrap justify-center gap-1.5 mt-3"
+          className="flex md:hidden flex-col items-center gap-2 mt-3"
         >
-          {statPills.map((pill) => (
-            <div
-              key={pill.label}
-              className="bg-card shadow-card rounded-full px-2.5 py-1 text-[11px] font-mono text-muted"
-            >
-              {pill.label}
-            </div>
-          ))}
+          <CoverageRing
+            visited={stats.totalStates}
+            total={TOTAL_INDIAN_STATES}
+            animate={isAtLeast("complete") && !isMapZoomed}
+          />
+          <div className="flex flex-wrap justify-center gap-1.5">
+            {statPills.map((pill) => (
+              <div
+                key={pill.label}
+                className="bg-white/65 backdrop-blur-md border border-white/50 shadow-sm rounded-full px-2.5 py-1.5 text-[11px] font-mono text-muted"
+              >
+                {pill.label}
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         {/* ACT 5: Scroll hint */}

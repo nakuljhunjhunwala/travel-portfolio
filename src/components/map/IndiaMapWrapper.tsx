@@ -98,6 +98,19 @@ export default function IndiaMapWrapper({
     [publishedStateNames, comingSoonStateNames]
   );
 
+  // Count trips per state for dot indicators
+  const tripCountByState = useMemo(() => {
+    const counts: Record<string, number> = {};
+    trips
+      .filter((t) => t.status !== "draft")
+      .forEach((trip) => {
+        trip.states.forEach((state) => {
+          counts[state] = (counts[state] || 0) + 1;
+        });
+      });
+    return counts;
+  }, [trips]);
+
   const tripsForState = selectedState
     ? trips.filter(
         (trip) => trip.status !== "draft" && trip.states.includes(selectedState)
@@ -125,6 +138,7 @@ export default function IndiaMapWrapper({
         mapViewMode={mapViewMode}
         visitedStateNames={visitedStateNames}
         comingSoonStateNames={comingSoonStateNames}
+        tripCountByState={tripCountByState}
       />
 
       {/* Back button — large hit target, high z-index */}

@@ -21,6 +21,7 @@ interface IndiaMapProps {
   mapViewMode: MapViewMode;
   visitedStateNames?: Set<string>;
   comingSoonStateNames?: Set<string>;
+  tripCountByState?: Record<string, number>;
 }
 
 // --- Smart label placement ---
@@ -162,6 +163,7 @@ export default function IndiaMap({
   mapViewMode,
   visitedStateNames,
   comingSoonStateNames,
+  tripCountByState,
 }: IndiaMapProps) {
   const [revealDone, setRevealDone] = useState(false);
 
@@ -220,6 +222,15 @@ export default function IndiaMap({
         style={{ width: "100%", height: "auto", overflow: "visible" }}
       >
         <defs>
+          {/* Premium gradient fills — muted teal for visited, warm parchment for unvisited */}
+          <linearGradient id="visited-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#2C5F7C" />
+            <stop offset="100%" stopColor="#4F8DA8" />
+          </linearGradient>
+          <linearGradient id="unvisited-fill" x1="0" y1="0" x2="0.15" y2="1">
+            <stop offset="0%" stopColor="#E2DDD6" />
+            <stop offset="100%" stopColor="#D4CFC7" />
+          </linearGradient>
           <filter
             id="state-depth"
             x="-20%"
@@ -229,11 +240,11 @@ export default function IndiaMap({
           >
             <feGaussianBlur
               in="SourceAlpha"
-              stdDeviation="4"
+              stdDeviation="3"
               result="blur"
             />
-            <feOffset dx="0" dy="3" result="offsetBlur" />
-            <feFlood floodColor="rgba(0,0,0,0.25)" result="color" />
+            <feOffset dx="0" dy="2" result="offsetBlur" />
+            <feFlood floodColor="rgba(40,35,30,0.15)" result="color" />
             <feComposite
               in="color"
               in2="offsetBlur"
@@ -273,23 +284,23 @@ export default function IndiaMap({
                     ? isSelected
                       ? 1.0
                       : interactive
-                        ? comingSoon && !visited ? 0.35 : 0.7
+                        ? comingSoon && !visited ? 0.4 : 0.85
                         : 1
                     : interactive
-                      ? comingSoon && !visited ? 0.35 : 0.7
+                      ? comingSoon && !visited ? 0.4 : 0.85
                       : 1;
 
                 const computedStroke = isZooming
                   ? isSelected
-                    ? "rgba(30,60,120,0.3)"
+                    ? "rgba(30,55,70,0.2)"
                     : "transparent"
                   : isZoomingOut
                     ? isSelected
-                      ? "rgba(30,60,120,0.3)"
-                      : "#FFFFFF"
+                      ? "rgba(30,55,70,0.2)"
+                      : "rgba(255,255,255,0.3)"
                     : comingSoon && !visited
-                      ? "var(--color-primary)"
-                      : "#FFFFFF";
+                      ? "#2C5F7C"
+                      : "rgba(255,255,255,0.3)";
                 const computedStrokeDasharray =
                   comingSoon && !visited && !isZooming && !isZoomingOut
                     ? "3 2"
@@ -320,7 +331,7 @@ export default function IndiaMap({
                     }}
                     style={{
                       default: {
-                        fill: interactive ? "var(--color-primary)" : "#D1D5DB",
+                        fill: interactive ? "url(#visited-fill)" : "url(#unvisited-fill)",
                         fillOpacity: computedOpacity,
                         stroke: computedStroke,
                         strokeWidth: computedStrokeWidth,
@@ -336,7 +347,7 @@ export default function IndiaMap({
                           "fill-opacity 0.6s ease, stroke 0.4s ease, stroke-width 0.3s ease, filter 0.4s ease",
                       },
                       hover: {
-                        fill: interactive ? "var(--color-primary)" : "#D1D5DB",
+                        fill: interactive ? "url(#visited-fill)" : "url(#unvisited-fill)",
                         fillOpacity: computedOpacity,
                         stroke: computedStroke,
                         strokeWidth: computedStrokeWidth,
@@ -355,7 +366,7 @@ export default function IndiaMap({
                           "fill-opacity 0.6s ease, stroke 0.4s ease, stroke-width 0.3s ease, filter 0.2s ease",
                       },
                       pressed: {
-                        fill: interactive ? "var(--color-primary)" : "#D1D5DB",
+                        fill: interactive ? "url(#visited-fill)" : "url(#unvisited-fill)",
                         fillOpacity:
                           isZooming && isSelected
                             ? 1.0
@@ -420,10 +431,10 @@ export default function IndiaMap({
                     <circle
                       r={pinR}
                       fill="#FFFFFF"
-                      stroke="var(--color-primary)"
+                      stroke="#2C5F7C"
                       strokeWidth={1.2 / z}
                     />
-                    <circle r={pinR * 0.45} fill="var(--color-primary)" />
+                    <circle r={pinR * 0.45} fill="#2C5F7C" />
                     {/* City name label — white text with dark halo */}
                     <text
                       textAnchor={label.anchor}
@@ -446,6 +457,42 @@ export default function IndiaMap({
                 </Marker>
               );
             })}
+          {/* Trip count dots at state centroids */}
+          {mapViewMode === "full" &&
+            revealed &&
+            tripCountByState &&
+            Object.entries(tripCountByState).map(
+              ([stateName, count], idx) => {
+                const config = stateZoomConfig[stateName];
+                if (!config || count === 0) return null;
+                const dots = Math.min(count, 4);
+                return (
+                  <Marker
+                    key={`dots-${stateName}`}
+                    coordinates={config.center}
+                  >
+                    <g
+                      className="trip-dot-enter"
+                      style={{
+                        animationDelay: `${0.2 + idx * 0.06}s`,
+                      }}
+                    >
+                      {Array.from({ length: dots }).map((_, i) => (
+                        <circle
+                          key={i}
+                          cx={(i - (dots - 1) / 2) * 5.5}
+                          cy={0}
+                          r={1.8}
+                          fill="rgba(255,255,255,0.9)"
+                          stroke="rgba(0,0,0,0.1)"
+                          strokeWidth={0.3}
+                        />
+                      ))}
+                    </g>
+                  </Marker>
+                );
+              }
+            )}
         </ZoomableGroup>
       </ComposableMap>
     </div>
