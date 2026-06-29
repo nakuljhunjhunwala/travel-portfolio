@@ -182,7 +182,12 @@ export default function HomeContent({ trips }: HomeContentProps) {
     return `₹${cost}`;
   };
 
-  // Decide on mount: skip intro or play it
+  // Decide on mount: skip intro or play it.
+  // This setState-in-effect is intentional and must stay post-mount: the decision
+  // reads sessionStorage (browser-only), and both server and client first render
+  // with `phase === null` (empty section) to avoid a hydration mismatch, then this
+  // effect resolves skip-vs-play. It is not a cascading-render bug.
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (sessionStorage.getItem("intro-seen") === "true") {
       setSkipIntro(true);
@@ -193,6 +198,7 @@ export default function HomeContent({ trips }: HomeContentProps) {
       setPhase("overlay");
     }
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   // Phase timeline — spaced out for proper build-up
   // Each act gets breathing room before the next begins
