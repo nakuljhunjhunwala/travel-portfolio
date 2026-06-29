@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getTripBySlug, getVisibleTrips, getDaysForTrip, getPlacesForDay } from "@/lib/trips";
+import { getTripBySlug, getVisibleTrips, getDaysForTrip, getPlacesForDay, getTripReaderCount } from "@/lib/trips";
 import TripDetailContent from "./TripDetailContent";
 import ComingSoonContent from "./ComingSoonContent";
 
@@ -50,6 +50,8 @@ export default async function TripDetailPage({ params }: PageProps) {
     dayPlaces[day.id] = await getPlacesForDay(trip.id, day.id);
   }
 
+  const readerCount = await getTripReaderCount(trip.slug);
+
   const startDate = new Date(trip.startDate.seconds * 1000).toISOString().split("T")[0];
   const endDate = new Date(trip.endDate.seconds * 1000).toISOString().split("T")[0];
 
@@ -68,7 +70,7 @@ export default async function TripDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <TripDetailContent trip={trip} days={days} dayPlaces={dayPlaces} />
+      <TripDetailContent trip={trip} days={days} dayPlaces={dayPlaces} readerCount={readerCount} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -1,8 +1,9 @@
 /**
- * Place photo system with Google Places API (primary) and curated Unsplash (fallback).
+ * Curated, no-network fallback photos.
  *
- * When GOOGLE_PLACES_API_KEY is set, photos are fetched from Google Places API v1.
- * Otherwise, curated Unsplash URLs are used as a reliable fallback.
+ * Place photos are researched and stored inline on each Place (`photoUrl`). This module
+ * only provides a graceful fallback (curated Unsplash, public, no API key) for places that
+ * have no stored photo or whose photo fails to load.
  */
 
 const CURATED_PHOTOS: Record<string, string> = {
@@ -67,49 +68,4 @@ export function getPlacePhotoUrl(placeName: string): string {
 
   // Fallback: generic travel landscape
   return FALLBACK_PHOTO;
-}
-
-/**
- * Fetches a place photo using Google Places API (primary) with Unsplash fallback.
- *
- * 1. If GOOGLE_PLACES_API_KEY is set and placeId is provided, tries Google Places API v1.
- * 2. Falls back to curated Unsplash URL via getPlacePhotoUrl().
- */
-export async function fetchPlacePhoto(
-  placeId: string,
-  placeName: string
-): Promise<{ url: string; source: "google" | "unsplash" }> {
-  // 1. Try Google Places Photo API (if key exists)
-  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-  if (apiKey && placeId) {
-    try {
-      // Use Google Places API v1 (new) to get photo references
-      const detailsUrl = `https://places.googleapis.com/v1/places/${placeId}?fields=photos&key=${apiKey}`;
-      const detailsRes = await fetch(detailsUrl, {
-        headers: { "X-Goog-Api-Key": apiKey },
-      });
-
-      if (detailsRes.ok) {
-        const data = await detailsRes.json();
-        if (data.photos && data.photos.length > 0) {
-          const photoRef = data.photos[0].name; // e.g., "places/xxx/photos/yyy"
-          const photoUrl = `https://places.googleapis.com/v1/${photoRef}/media?maxWidthPx=600&key=${apiKey}`;
-
-          // Fetch the photo to get the final redirect URL
-          const photoRes = await fetch(photoUrl, { redirect: "follow" });
-          if (photoRes.ok) {
-            return { url: photoRes.url, source: "google" };
-          }
-        }
-      }
-    } catch (error) {
-      console.error(
-        `Google Places photo fetch failed for ${placeName}:`,
-        error
-      );
-    }
-  }
-
-  // 2. Fallback to curated Unsplash
-  return { url: getPlacePhotoUrl(placeName), source: "unsplash" };
 }

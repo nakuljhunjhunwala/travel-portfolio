@@ -5,13 +5,13 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Place } from "@/types";
 import { useAuth } from "@/lib/auth-context";
-import { usePlaceDetails } from "@/hooks/usePlaceDetails";
 import { getPlacePhotoUrl } from "@/lib/photos";
 import HonestNote from "./HonestNote";
 
 interface PlaceCardProps {
   place: Place;
-  placeCity: string;
+  /** 1-based position within the day — used for the pin number (consistent with map + share). */
+  displayIndex: number;
 }
 
 function StarRating({ rating }: { rating: number }) {
@@ -75,23 +75,16 @@ function CategoryBadge({ category }: { category: PlaceCategory }) {
   );
 }
 
-function PlaceActions({
-  place,
-  googleMapsUri,
-}: {
-  place: Place;
-  googleMapsUri?: string;
-}) {
-  const mapsUrl = place.googleMapsUrl ?? googleMapsUri;
-  const hasActions = mapsUrl || place.phoneNumber || place.websiteUrl;
+function PlaceActions({ place }: { place: Place }) {
+  const hasActions = place.googleMapsUrl || place.phoneNumber || place.websiteUrl;
 
   if (!hasActions) return null;
 
   return (
     <div className="mt-2 ml-[38px] md:ml-[42px] flex flex-wrap gap-1.5">
-      {mapsUrl && (
+      {place.googleMapsUrl && (
         <a
-          href={mapsUrl}
+          href={place.googleMapsUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-border/60 text-[11px] md:text-xs text-muted hover:text-primary-text hover:bg-primary-soft/60 transition-colors"
@@ -163,50 +156,24 @@ function PlaceActions({
 const LOGIN_GATE_ENABLED =
   process.env.NEXT_PUBLIC_ENABLE_LOGIN_GATE !== "false";
 
-export default function PlaceCard({ place, placeCity }: PlaceCardProps) {
+export default function PlaceCard({ place, displayIndex }: PlaceCardProps) {
   const { user } = useAuth();
   const isLoggedIn = !!user || !LOGIN_GATE_ENABLED;
   const hasExtras = place.yourRating || place.wouldReturn || place.actualCost;
   const hasHonestData = place.honestNote && hasExtras;
 
-  const { details, loading } = usePlaceDetails(
-    place.googlePlaceId,
-    place.name,
-    placeCity
-  );
-
   const [photoError, setPhotoError] = useState(false);
 
-  // Photo: prefer details photo, fall back to place photo (unless it's a placeholder SVG), then curated Unsplash
-  const photoSrc = photoError
-    ? getPlacePhotoUrl(place.name)
-    : details?.photoUrl ||
-      (place.photoUrl.startsWith("/images/")
-        ? getPlacePhotoUrl(place.name)
-        : place.photoUrl);
-
-  // Description text: prefer enriched data
-  const description =
-    details?.geminiSummary || details?.editorialSummary || null;
-
-  // Opening hours: prefer enriched data
-  const openingHours =
-    details?.openingHours && details.openingHours.length > 0
-      ? details.openingHours[0]
-      : place.openingHours;
-
-  // Primary type label for Google rating row
-  const primaryType =
-    details?.types && details.types.length > 0
-      ? details.types[0]
-          .replace(/_/g, " ")
-          .replace(/\b\w/g, (c) => c.toUpperCase())
-      : null;
+  // Photo: prefer the stored photo; fall back to a curated image (placeholder SVGs or load errors).
+  const photoSrc =
+    photoError || !place.photoUrl || place.photoUrl.startsWith("/images/")
+      ? getPlacePhotoUrl(place.name)
+      : place.photoUrl;
 
   // Place name element — link to Google Maps if available
-  const placeName = details?.googleMapsUri ? (
+  const placeName = place.googleMapsUrl ? (
     <a
-      href={details.googleMapsUri}
+      href={place.googleMapsUrl}
       target="_blank"
       rel="noopener noreferrer"
       className="hover:underline decoration-primary/30 underline-offset-2"
@@ -236,7 +203,7 @@ export default function PlaceCard({ place, placeCity }: PlaceCardProps) {
             <div className="flex items-center gap-2.5">
               <div className="flex flex-col items-center gap-1 flex-shrink-0">
                 <span className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-pin-bg text-pin-text text-xs md:text-sm font-semibold flex items-center justify-center shadow-sm">
-                  {place.index}
+                  {displayIndex}
                 </span>
                 {place.placeCategory && (
                   <CategoryBadge category={place.placeCategory} />
@@ -246,59 +213,46 @@ export default function PlaceCard({ place, placeCity }: PlaceCardProps) {
                 <h3 className="font-heading font-bold text-heading text-sm md:text-base leading-snug">
                   {placeName}
                 </h3>
-                {details?.formattedAddress && (
+                {place.address && (
                   <p className="font-body text-[11px] md:text-xs text-muted truncate mt-0.5">
-                    {details.formattedAddress}
+                    {place.address}
                   </p>
                 )}
               </div>
             </div>
 
-            {/* Google rating row */}
-            {details?.rating && (
+            {/* Rating row */}
+            {place.rating != null && (
               <p className="font-body text-[11px] md:text-xs text-muted mt-1.5 ml-[38px] md:ml-[42px] flex items-center gap-1.5 flex-wrap">
                 <span className="inline-flex items-center gap-0.5">
                   <span>⭐</span>
                   <span className="font-mono font-medium">
-                    {details.rating.toFixed(1)}
+                    {place.rating.toFixed(1)}
                   </span>
                 </span>
-                {details.userRatingCount != null && (
+                {place.ratingCount != null && (
                   <span>
-                    ({details.userRatingCount.toLocaleString("en-IN")} reviews)
+                    ({place.ratingCount.toLocaleString("en-IN")} reviews)
                   </span>
-                )}
-                {primaryType && (
-                  <>
-                    <span className="text-muted/40">—</span>
-                    <span>{primaryType}</span>
-                  </>
                 )}
               </p>
             )}
 
             {/* Description: hours + summary — flows beside photo */}
-            {loading ? (
-              <div className="mt-2 space-y-1.5 ml-[38px] md:ml-[42px]">
-                <div className="h-3 w-3/4 rounded animate-pulse bg-gray-200/50" />
-                <div className="h-3 w-1/2 rounded animate-pulse bg-gray-200/50" />
-              </div>
-            ) : (
-              (openingHours || description) && (
-                <p className="font-body text-[13px] md:text-sm text-body leading-relaxed line-clamp-3 mt-2 ml-[38px] md:ml-[42px]">
-                  {openingHours && (
-                    <span className="text-muted">{openingHours}</span>
-                  )}
-                  {description && (
-                    <>
-                      {openingHours && (
-                        <span className="text-muted"> &bull; </span>
-                      )}
-                      {description}
-                    </>
-                  )}
-                </p>
-              )
+            {(place.openingHours || place.description) && (
+              <p className="font-body text-[13px] md:text-sm text-body leading-relaxed line-clamp-3 mt-2 ml-[38px] md:ml-[42px]">
+                {place.openingHours && (
+                  <span className="text-muted">{place.openingHours}</span>
+                )}
+                {place.description && (
+                  <>
+                    {place.openingHours && (
+                      <span className="text-muted"> &bull; </span>
+                    )}
+                    {place.description}
+                  </>
+                )}
+              </p>
             )}
 
             {/* Time pill */}
@@ -309,23 +263,19 @@ export default function PlaceCard({ place, placeCity }: PlaceCardProps) {
             </div>
 
             {/* Action buttons: Maps / Phone / Website */}
-            <PlaceActions place={place} googleMapsUri={details?.googleMapsUri} />
+            <PlaceActions place={place} />
           </div>
 
           {/* Photo — square thumbnail, top-right */}
           <div className="w-[90px] h-[90px] md:w-[120px] md:h-[120px] rounded-xl overflow-hidden relative flex-shrink-0 self-start">
-            {loading ? (
-              <div className="absolute inset-0 animate-pulse bg-gray-200/50 rounded-xl" />
-            ) : (
-              <Image
-                src={photoSrc}
-                alt={place.name}
-                fill
-                className="object-cover object-center"
-                sizes="(max-width: 768px) 90px, 120px"
-                onError={() => setPhotoError(true)}
-              />
-            )}
+            <Image
+              src={photoSrc}
+              alt={place.name}
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 90px, 120px"
+              onError={() => setPhotoError(true)}
+            />
           </div>
         </div>
       </div>

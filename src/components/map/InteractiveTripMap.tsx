@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import type { Day, Place } from "@/types";
-import type { CoordinateMap } from "@/hooks/usePlaceCoordinates";
 
 // ---------------------------------------------------------------------------
 // Theme color map
@@ -29,7 +28,6 @@ interface InteractiveTripMapProps {
   days: Day[];
   dayPlaces: Record<string, Place[]>;
   activeDay: number;
-  coordinates: CoordinateMap;
   tripTheme?: string;
   onMarkerClick?: (placeId: string, dayNumber: number) => void;
   className?: string;
@@ -43,7 +41,6 @@ export default function InteractiveTripMap({
   days,
   dayPlaces,
   activeDay,
-  coordinates,
   tripTheme = "default",
   onMarkerClick,
   className,
@@ -61,28 +58,40 @@ export default function InteractiveTripMap({
   const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN?.replace(/^["']|["']$/g, "");
   const color = THEME_COLORS[tripTheme] || THEME_COLORS.default;
 
-  // Stable serialization key for coordinates object
-  const coordsKey = useMemo(
-    () => JSON.stringify(coordinates),
-    [coordinates]
+  // Stable key so the memo only recomputes when coordinates actually change
+  const placesKey = useMemo(
+    () =>
+      days
+        .map((d) =>
+          (dayPlaces[d.id] ?? [])
+            .map((p) => `${p.id}:${p.lat},${p.lng}`)
+            .join("|")
+        )
+        .join("||"),
+    [days, dayPlaces]
   );
 
-  // Memoized day coordinate data — only recomputes when days/places/coords change
+  // Memoized day coordinate data — coordinates come straight from each place (no API).
+  // `index` is the place's 1-based position within the day, matching PlaceCard + share text.
   const dayCoordData: DayCoordData[] = useMemo(() => {
     return days.map((day) => {
       const places = (dayPlaces[day.id] ?? [])
-        .filter((p) => coordinates[p.googlePlaceId])
-        .map((p) => ({
-          placeId: p.googlePlaceId,
-          name: p.name,
-          index: p.index,
-          lat: coordinates[p.googlePlaceId].lat,
-          lng: coordinates[p.googlePlaceId].lng,
+        .map((p, i) => ({ place: p, displayNumber: i + 1 }))
+        .filter(
+          ({ place }) =>
+            typeof place.lat === "number" && typeof place.lng === "number"
+        )
+        .map(({ place, displayNumber }) => ({
+          placeId: place.id,
+          name: place.name,
+          index: displayNumber,
+          lat: place.lat,
+          lng: place.lng,
         }));
       return { dayNumber: day.dayNumber, places };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [days, dayPlaces, coordsKey]);
+  }, [days, dayPlaces, placesKey]);
 
   const allCoords: [number, number][] = useMemo(
     () => dayCoordData.flatMap((d) => d.places.map((p) => [p.lng, p.lat] as [number, number])),

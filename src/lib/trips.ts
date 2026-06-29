@@ -91,6 +91,24 @@ export async function getDaysForTrip(tripId: string): Promise<Day[]> {
   );
 }
 
+/**
+ * Count of distinct readers for a trip (build-time social proof on the login gate).
+ * Reads `analytics/{slug}/views`; returns 0 on any error (e.g. rules/no data).
+ */
+export async function getTripReaderCount(slug: string): Promise<number> {
+  try {
+    const agg = await adminDb
+      .collection("analytics")
+      .doc(slug)
+      .collection("views")
+      .count()
+      .get();
+    return agg.data().count;
+  } catch {
+    return 0;
+  }
+}
+
 export async function getPlacesForDay(
   tripId: string,
   dayId: string

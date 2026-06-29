@@ -17,7 +17,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "places.googleapis.com",
+        hostname: "upload.wikimedia.org",
       },
     ],
   },
@@ -28,7 +28,6 @@ const nextConfig = {
       "firebase/firestore",
       "firebase/storage",
       "framer-motion",
-      "@google/generative-ai",
     ],
   },
 };

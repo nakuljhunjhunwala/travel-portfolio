@@ -6,7 +6,6 @@ import { useAuth } from "@/lib/auth-context";
 import type {
   OverviewStats,
   TripAnalyticsRow,
-  PlacesCacheStats,
   AdminAnalytics,
 } from "@/lib/admin";
 
@@ -154,9 +153,6 @@ export default function AdminDashboard() {
           expandedTrips={expandedTrips}
           onToggle={toggleTrip}
         />
-
-        {/* Places Cache */}
-        <PlacesCacheCard cache={data.placesCache} />
       </div>
     </div>
   );
@@ -169,7 +165,7 @@ function OverviewStatsRow({ stats }: { stats: OverviewStats }) {
     { label: "Total Trips", value: stats.totalTrips },
     { label: "Published", value: stats.publishedTrips },
     { label: "Total Readers", value: stats.totalReaders },
-    { label: "Views This Month", value: stats.viewsThisMonth },
+    { label: "Active This Month", value: stats.activeThisMonth },
   ];
 
   return (
@@ -383,44 +379,6 @@ function TripRow({
   );
 }
 
-/* ── Places Cache Card ── */
-
-function PlacesCacheCard({ cache }: { cache: PlacesCacheStats }) {
-  return (
-    <div className="bg-card border border-border rounded-xl shadow-card p-5">
-      <h2 className="text-lg font-semibold text-heading font-heading mb-4">
-        Places Cache
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div>
-          <p className="text-muted text-xs font-body uppercase tracking-wide">
-            Total Cached
-          </p>
-          <p className="text-2xl font-bold text-heading font-mono mt-1">
-            {cache.totalCached}
-          </p>
-        </div>
-        <div>
-          <p className="text-muted text-xs font-body uppercase tracking-wide">
-            With Summary
-          </p>
-          <p className="text-2xl font-bold text-heading font-mono mt-1">
-            {cache.withSummary}
-          </p>
-        </div>
-        <div>
-          <p className="text-muted text-xs font-body uppercase tracking-wide">
-            Last Cached
-          </p>
-          <p className="text-sm text-heading font-mono mt-2">
-            {cache.lastCachedAt ? formatDateTime(cache.lastCachedAt) : "--"}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /* ── Helpers ── */
 
 function formatDate(iso: string): string {
@@ -429,17 +387,6 @@ function formatDate(iso: string): string {
     day: "numeric",
     month: "short",
     year: "numeric",
-  });
-}
-
-function formatDateTime(iso: string): string {
-  const d = new Date(iso);
-  return d.toLocaleDateString("en-IN", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
   });
 }
 

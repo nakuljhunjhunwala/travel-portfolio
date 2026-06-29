@@ -16,17 +16,19 @@ import LoginGate from "@/components/auth/LoginGate";
 import BottomSheet from "@/components/ui/BottomSheet";
 import { useScrollTracking } from "@/hooks/useScrollTracking";
 import { useActiveDayObserver, scrollToDay } from "@/hooks/useActiveDayObserver";
-import { usePlaceCoordinates } from "@/hooks/usePlaceCoordinates";
 import {
   generateItineraryText,
   generateDayText,
   generateShareUrl,
+  generateShareBlurb,
 } from "@/lib/share";
 
 interface TripDetailContentProps {
   trip: Trip;
   days: Day[];
   dayPlaces: Record<string, Place[]>;
+  /** Build-time reader count for login-gate social proof. */
+  readerCount?: number;
 }
 
 /* ── Config ── */
@@ -323,11 +325,8 @@ function DaySection({
               {places.length > 0 ? (
                 <div className="flex flex-col gap-1.5">
                   {places.map((place, i) => (
-                    <div key={place.id} data-place-id={place.googlePlaceId}>
-                      <PlaceCard
-                        place={place}
-                        placeCity={day.city}
-                      />
+                    <div key={place.id} data-place-id={place.id}>
+                      <PlaceCard place={place} displayIndex={i + 1} />
                       {place.travelToNext && i < places.length - 1 && (
                         <TravelConnector connector={place.travelToNext} />
                       )}
@@ -367,14 +366,24 @@ function ShareFAB({
   trip,
   days,
   dayPlaces,
+  dayCount,
+  isGated,
 }: {
   trip: Trip;
   days: Day[];
   dayPlaces: Record<string, Place[]>;
+  dayCount: number;
+  isGated: boolean;
 }) {
   const [showMenu, setShowMenu] = useState(false);
   const [copied, setCopied] = useState(false);
   const [itineraryCopied, setItineraryCopied] = useState(false);
+  // Native-share availability. Lazy init is SSR-safe here: the menu (the only place
+  // this is read) isn't rendered until the user opens it on the client, so there's
+  // no hydration mismatch even though the server evaluates this as false.
+  const [canNativeShare] = useState(
+    () => typeof navigator !== "undefined" && typeof navigator.share === "function"
+  );
   const menuRef = useRef<HTMLDivElement>(null);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
@@ -383,8 +392,7 @@ function ShareFAB({
     ? window.location.href
     : generateShareUrl(baseUrl, trip.slug);
   const shareTitle = trip.title;
-  const citiesPart = trip.cities.length > 0 ? trip.cities.join(" › ") : trip.states.join(", ");
-  const shareText = `${trip.hookLine} — ${citiesPart}`;
+  const shareText = generateShareBlurb(trip, dayCount);
 
   // Close menu on outside click
   useEffect(() => {
@@ -398,16 +406,17 @@ function ShareFAB({
     return () => document.removeEventListener("click", handleClick, true);
   }, [showMenu]);
 
-  const handleShare = async () => {
-    if (typeof navigator !== "undefined" && navigator.share) {
-      try {
-        await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
-        return;
-      } catch {
-        // User cancelled — fall through to menu
-      }
+  // FAB tap always opens the rich menu (so WhatsApp / Copy etc. are reachable
+  // on mobile, where a native-share-and-return previously hid them).
+  const handleShare = () => setShowMenu((prev) => !prev);
+
+  const nativeShare = async () => {
+    try {
+      await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
+    } catch {
+      // User cancelled — no-op
     }
-    setShowMenu((prev) => !prev);
+    setShowMenu(false);
   };
 
   const copyLink = async () => {
@@ -464,8 +473,22 @@ function ShareFAB({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 8 }}
             transition={{ duration: 0.15 }}
-            className="absolute bottom-full left-0 mb-2 bg-card rounded-xl shadow-lg border border-border/60 overflow-hidden min-w-[190px]"
+            className="absolute bottom-full left-0 mb-2 bg-card rounded-xl shadow-lg border border-border/60 overflow-y-auto max-h-[70vh] min-w-[190px]"
           >
+            {/* Native share — only on devices that support it (primarily mobile) */}
+            {canNativeShare && (
+              <button
+                onClick={nativeShare}
+                className="w-full flex items-center gap-3 px-4 py-3 text-sm font-body text-heading hover:bg-primary-soft/30 transition-colors cursor-pointer border-b border-border/40"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8" />
+                  <polyline points="16 6 12 2 8 6" />
+                  <line x1="12" y1="2" x2="12" y2="15" />
+                </svg>
+                Share…
+              </button>
+            )}
             <button
               onClick={shareWhatsApp}
               className="w-full flex items-center gap-3 px-4 py-3 text-sm font-body text-heading hover:bg-primary-soft/30 transition-colors cursor-pointer"
@@ -494,30 +517,34 @@ function ShareFAB({
               </svg>
               Email
             </button>
-            <button
-              onClick={copyItinerary}
-              className="w-full flex items-center gap-3 px-4 py-3 text-sm font-body text-heading hover:bg-primary-soft/30 transition-colors cursor-pointer border-t border-border/40"
-            >
-              {itineraryCopied ? (
-                <>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  <span className="text-emerald-600">Copied!</span>
-                </>
-              ) : (
-                <>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
-                    <line x1="16" y1="13" x2="8" y2="13" />
-                    <line x1="16" y1="17" x2="8" y2="17" />
-                    <polyline points="10 9 9 9 8 9" />
-                  </svg>
-                  Copy Itinerary
-                </>
-              )}
-            </button>
+            {/* Full itinerary copy — only when the full itinerary is actually visible
+                (hidden for the gated preview so it can't dump premium content). */}
+            {!isGated && (
+              <button
+                onClick={copyItinerary}
+                className="w-full flex items-center gap-3 px-4 py-3 text-sm font-body text-heading hover:bg-primary-soft/30 transition-colors cursor-pointer border-t border-border/40"
+              >
+                {itineraryCopied ? (
+                  <>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span className="text-emerald-600">Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                      <line x1="16" y1="13" x2="8" y2="13" />
+                      <line x1="16" y1="17" x2="8" y2="17" />
+                      <polyline points="10 9 9 9 8 9" />
+                    </svg>
+                    Copy Itinerary
+                  </>
+                )}
+              </button>
+            )}
             <button
               onClick={copyLink}
               className="w-full flex items-center gap-3 px-4 py-3 text-sm font-body text-heading hover:bg-primary-soft/30 transition-colors cursor-pointer border-t border-border/40"
@@ -565,6 +592,7 @@ export default function TripDetailContent({
   trip,
   days,
   dayPlaces,
+  readerCount = 0,
 }: TripDetailContentProps) {
   const { user, loading } = useAuth();
   const isLoggedIn = !!user;
@@ -594,13 +622,16 @@ export default function TripDetailContent({
     setActiveDay(dayNumber);
   }, [suppress]);
 
-  // Coordinates for interactive map
-  const { coordinates } = usePlaceCoordinates(
-    gating.isGated ? gating.visibleDays : days,
-    activeDayPlaces
+  // Interactive map renders when any visible place carries inline coordinates.
+  const hasCoordinates = useMemo(
+    () =>
+      (gating.isGated ? gating.visibleDays : days).some((day) =>
+        (activeDayPlaces[day.id] ?? []).some(
+          (p) => typeof p.lat === "number" && typeof p.lng === "number"
+        )
+      ),
+    [gating.isGated, gating.visibleDays, days, activeDayPlaces]
   );
-
-  const hasCoordinates = Object.keys(coordinates).length > 0;
 
   // Mobile map bottom sheet
   const [showMobileMap, setShowMobileMap] = useState(false);
@@ -821,7 +852,7 @@ export default function TripDetailContent({
                     {!loading && (
                       <LoginGate
                         tripId={trip.id}
-                        readerCount={0}
+                        readerCount={readerCount}
                       />
                     )}
                   </motion.div>
@@ -862,7 +893,6 @@ export default function TripDetailContent({
                     days={gating.isGated ? gating.visibleDays : days}
                     dayPlaces={activeDayPlaces}
                     activeDay={activeDay}
-                    coordinates={coordinates}
                     tripTheme={trip.tripTheme}
                     onMarkerClick={handleMarkerClick}
                     className="h-full"
@@ -901,7 +931,6 @@ export default function TripDetailContent({
               days={gating.isGated ? gating.visibleDays : days}
               dayPlaces={activeDayPlaces}
               activeDay={activeDay}
-              coordinates={coordinates}
               tripTheme={trip.tripTheme}
               onMarkerClick={handleMarkerClick}
               className="h-full"
@@ -911,7 +940,13 @@ export default function TripDetailContent({
       )}
 
       {/* ── Share FAB ── */}
-      <ShareFAB trip={trip} days={days} dayPlaces={dayPlaces} />
+      <ShareFAB
+        trip={trip}
+        days={gating.isGated ? gating.visibleDays : days}
+        dayPlaces={activeDayPlaces}
+        dayCount={dayCount}
+        isGated={gating.isGated}
+      />
     </article>
   );
 }

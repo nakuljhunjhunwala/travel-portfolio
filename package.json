@@ -10,7 +10,6 @@
     "seed": "npx tsx scripts/seed-firestore.ts"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
     "firebase": "^12.10.0",
     "framer-motion": "^12.35.1",
     "mapbox-gl": "^3.19.1",

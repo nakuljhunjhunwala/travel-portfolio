@@ -1,6 +1,18 @@
 import type { Trip, Day, Place } from "@/types";
 
 /**
+ * Build a concise, information-rich blurb for native/WhatsApp/Twitter/Email sharing.
+ * e.g. "North Goa to South Goa...\n8 days · Vagator › Palolem · ₹16,000"
+ */
+export function generateShareBlurb(trip: Trip, dayCount: number): string {
+  const cities =
+    trip.cities.length > 0 ? trip.cities.join(" › ") : trip.states.join(", ");
+  const days = `${dayCount} ${dayCount === 1 ? "day" : "days"}`;
+  const cost = `₹${trip.totalCost.toLocaleString("en-IN")}`;
+  return `${trip.hookLine}\n${days} · ${cities} · ${cost}`;
+}
+
+/**
  * Build a share URL for a trip, optionally anchored to a specific day.
  */
 export function generateShareUrl(

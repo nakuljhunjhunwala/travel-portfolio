@@ -39,6 +39,9 @@ export interface Accommodation {
   rating?: number;
   honestNote?: string;
   photoUrl?: string;
+  /** Optional coordinates for an optional stay marker on the trip map. */
+  lat?: number;
+  lng?: number;
 }
 
 export interface Day {
@@ -56,12 +59,21 @@ export interface Place {
   id: string;
   index: number;
   name: string;
-  googlePlaceId: string;
+  /** Coordinates for the trip map — researched and stored inline at authoring time. */
+  lat: number;
+  lng: number;
+  /** Optional Google place id, used only to build a Maps deep-link when no googleMapsUrl is set. */
+  googlePlaceId?: string;
   openingHours: string;
   visitStart: string;
   visitEnd: string;
   photoUrl: string;
   blurHash?: string;
+  /** Self-contained, hand-researched place details (no runtime API enrichment). */
+  description?: string;
+  address?: string;
+  rating?: number;
+  ratingCount?: number;
   yourRating?: number;
   actualCost?: string;
   wouldReturn?: "yes" | "no" | "maybe";
@@ -84,12 +96,6 @@ export interface TravelConnector {
   costEstimate?: string;
 }
 
-export interface GeminiPlaceCache {
-  name: string;
-  geminiSummary: string;
-  cachedAt: Timestamp;
-}
-
 export interface UserProfile {
   name: string;
   email: string;
@@ -103,5 +109,4 @@ export interface TripViewAnalytics {
   lastViewedAt: Timestamp;
   viewCount: number;
   daysUnlocked: number[];
-  totalTimeSeconds: number;
 }

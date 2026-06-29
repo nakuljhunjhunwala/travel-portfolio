@@ -6,7 +6,8 @@ export interface OverviewStats {
   totalTrips: number;
   publishedTrips: number;
   totalReaders: number;
-  viewsThisMonth: number;
+  /** Distinct readers whose last visit falls in the current calendar month. */
+  activeThisMonth: number;
 }
 
 export interface TripAnalyticsRow {
@@ -30,16 +31,9 @@ export interface ReaderRow {
   viewCount: number;
 }
 
-export interface PlacesCacheStats {
-  totalCached: number;
-  withSummary: number;
-  lastCachedAt: string | null; // ISO string
-}
-
 export interface AdminAnalytics {
   overview: OverviewStats;
   tripAnalytics: TripAnalyticsRow[];
-  placesCache: PlacesCacheStats;
 }
 
 /* ── Helpers ── */
@@ -66,7 +60,7 @@ export async function getAdminAnalytics(): Promise<AdminAnalytics> {
 
   // 2. Fetch analytics for each trip + collect unique UIDs
   const allReaderUids = new Set<string>();
-  let viewsThisMonth = 0;
+  const activeThisMonthUids = new Set<string>();
   const now = new Date();
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
@@ -105,7 +99,7 @@ export async function getAdminAnalytics(): Promise<AdminAnalytics> {
       if (lastViewed && typeof lastViewed.toDate === "function") {
         const d = lastViewed.toDate();
         if (!lastViewAt || d > lastViewAt) lastViewAt = d;
-        if (d >= monthStart) viewsThisMonth += vc;
+        if (d >= monthStart) activeThisMonthUids.add(uid);
       }
 
       readers.push({
@@ -181,35 +175,13 @@ export async function getAdminAnalytics(): Promise<AdminAnalytics> {
   // Sort trips by total views descending
   tripAnalytics.sort((a, b) => b.totalViews - a.totalViews);
 
-  // 4. Places cache stats
-  const placesSnap = await adminDb.collection("places").get();
-  let withSummary = 0;
-  let lastCachedAt: Date | null = null;
-
-  for (const placeDoc of placesSnap.docs) {
-    const data = placeDoc.data();
-    if (data.geminiSummary) {
-      withSummary++;
-      const cachedAt = data.cachedAt as FirebaseFirestore.Timestamp | undefined;
-      if (cachedAt && typeof cachedAt.toDate === "function") {
-        const d = cachedAt.toDate();
-        if (!lastCachedAt || d > lastCachedAt) lastCachedAt = d;
-      }
-    }
-  }
-
   return {
     overview: {
       totalTrips,
       publishedTrips,
       totalReaders: allReaderUids.size,
-      viewsThisMonth,
+      activeThisMonth: activeThisMonthUids.size,
     },
     tripAnalytics,
-    placesCache: {
-      totalCached: placesSnap.size,
-      withSummary,
-      lastCachedAt: lastCachedAt ? lastCachedAt.toISOString() : null,
-    },
   };
 }
