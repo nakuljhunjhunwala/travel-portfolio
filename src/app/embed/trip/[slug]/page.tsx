@@ -4,6 +4,7 @@ import {
   getVisibleTrips,
   getDaysForTrip,
   getPlacesForDay,
+  buildPreview,
 } from "@/lib/trips";
 import type { Place } from "@/types";
 import TripDetailContent from "@/app/trips/[slug]/TripDetailContent";
@@ -32,15 +33,25 @@ export default async function EmbedTripDetailPage({ params }: PageProps) {
     );
   }
 
-  const days = await getDaysForTrip(trip.id);
-  const dayPlaces: Record<string, Place[]> = {};
-  for (const day of days) {
-    dayPlaces[day.id] = await getPlacesForDay(trip.id, day.id);
+  const fullDays = await getDaysForTrip(trip.id);
+  const fullDayPlaces: Record<string, Place[]> = {};
+  for (const day of fullDays) {
+    fullDayPlaces[day.id] = await getPlacesForDay(trip.id, day.id);
   }
+
+  const gateEnforced = process.env.NEXT_PUBLIC_ENABLE_LOGIN_GATE !== "false";
+  const { days, dayPlaces } = gateEnforced
+    ? buildPreview(fullDays, fullDayPlaces)
+    : { days: fullDays, dayPlaces: fullDayPlaces };
 
   return (
     <EmbedTripWrapper>
-      <TripDetailContent trip={trip} days={days} dayPlaces={dayPlaces} />
+      <TripDetailContent
+        trip={trip}
+        days={days}
+        dayPlaces={dayPlaces}
+        gateEnforced={gateEnforced}
+      />
     </EmbedTripWrapper>
   );
 }

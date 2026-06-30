@@ -6,67 +6,116 @@ export interface OverviewStats {
   totalTrips: number;
   publishedTrips: number;
   totalReaders: number;
-  /** Distinct readers whose last visit falls in the current calendar month. */
   activeThisMonth: number;
+  totalPreviewOpens: number;
 }
 
-export interface TripAnalyticsRow {
+export interface TripSummaryRow {
   tripSlug: string;
   tripTitle: string;
   status: "published" | "coming_soon" | "draft";
+  readers: number;
   totalViews: number;
-  uniqueReaders: number;
-  avgDaysRead: number;
-  lastViewAt: string | null; // ISO string
-  readers: ReaderRow[];
+  previewOpens: number;
+  lastActivityAt: string | null; // ISO
+}
+
+export interface AdminAnalytics {
+  overview: OverviewStats;
+  trips: TripSummaryRow[];
+}
+
+export interface Engagement {
+  essentials: number;
+  map: number;
+  share: number;
+  contact: number;
+  copy: number;
 }
 
 export interface ReaderRow {
   uid: string;
   name: string;
   email: string;
-  firstRead: string | null; // ISO string
-  daysUnlocked: number;
-  lastVisit: string | null; // ISO string
+  firstViewedAt: string | null; // ISO
+  lastViewedAt: string | null; // ISO
   viewCount: number;
+  daysReached: number;
+  engagement: Engagement;
 }
 
-export interface AdminAnalytics {
-  overview: OverviewStats;
-  tripAnalytics: TripAnalyticsRow[];
+export interface TripAnalyticsDetail {
+  tripSlug: string;
+  tripTitle: string;
+  status: "published" | "coming_soon" | "draft";
+  previewOpens: number;
+  readerOpens: number;
+  totalReaders: number;
+  totalViews: number;
+  lastActivityAt: string | null; // ISO
+  dailyOpens: { date: string; count: number }[];
+  dayFunnel: { day: number; readers: number }[];
+  engagement: Engagement;
+  readers: ReaderRow[];
 }
 
 /* ── Helpers ── */
 
-function toISO(ts: FirebaseFirestore.Timestamp | undefined | null): string | null {
+type Ts = FirebaseFirestore.Timestamp | undefined | null;
+
+function toISO(ts: Ts): string | null {
   if (!ts || typeof ts.toDate !== "function") return null;
   return ts.toDate().toISOString();
 }
 
-/* ── Main fetch ── */
+function emptyEngagement(): Engagement {
+  return { essentials: 0, map: 0, share: 0, contact: 0, copy: 0 };
+}
+
+function readEngagement(raw: unknown): Engagement {
+  const e = emptyEngagement();
+  if (raw && typeof raw === "object") {
+    for (const k of Object.keys(e) as (keyof Engagement)[]) {
+      const v = (raw as Record<string, unknown>)[k];
+      if (typeof v === "number") e[k] = v;
+    }
+  }
+  return e;
+}
+
+async function listTrips() {
+  const snap = await adminDb.collection("trips").get();
+  return snap.docs.map((d) => ({
+    id: d.id,
+    slug: (d.data().slug as string) ?? d.id,
+    title: (d.data().title as string) ?? d.id,
+    status: (d.data().status ||
+      (d.data().published ? "published" : "draft")) as
+      | "published"
+      | "coming_soon"
+      | "draft",
+  }));
+}
+
+/* ── Overview (dashboard list) ── */
 
 export async function getAdminAnalytics(): Promise<AdminAnalytics> {
-  // 1. Fetch all trips
-  const tripsSnap = await adminDb.collection("trips").get();
-  const trips = tripsSnap.docs.map((doc) => ({
-    id: doc.id,
-    slug: doc.data().slug as string,
-    title: doc.data().title as string,
-    status: (doc.data().status || (doc.data().published ? "published" : "draft")) as "published" | "coming_soon" | "draft",
-  }));
-
-  const totalTrips = trips.length;
-  const publishedTrips = trips.filter((t) => t.status === "published").length;
-
-  // 2. Fetch analytics for each trip + collect unique UIDs
-  const allReaderUids = new Set<string>();
-  const activeThisMonthUids = new Set<string>();
+  const trips = await listTrips();
   const now = new Date();
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
-  const tripAnalytics: TripAnalyticsRow[] = [];
+  const allReaderUids = new Set<string>();
+  const activeThisMonth = new Set<string>();
+  let totalPreviewOpens = 0;
+
+  const rows: TripSummaryRow[] = [];
 
   for (const trip of trips) {
+    const aggSnap = await adminDb.collection("analytics").doc(trip.slug).get();
+    const agg = aggSnap.data() || {};
+    const previewOpens = (agg.previewOpens as number) || 0;
+    totalPreviewOpens += previewOpens;
+
     const viewsSnap = await adminDb
       .collection("analytics")
       .doc(trip.slug)
@@ -74,114 +123,120 @@ export async function getAdminAnalytics(): Promise<AdminAnalytics> {
       .get();
 
     let totalViews = 0;
-    let totalDaysSum = 0;
-    let lastViewAt: Date | null = null;
-    const readers: {
-      uid: string;
-      viewedAt: FirebaseFirestore.Timestamp | null;
-      lastViewedAt: FirebaseFirestore.Timestamp | null;
-      viewCount: number;
-      daysUnlocked: number[];
-    }[] = [];
-
-    for (const viewDoc of viewsSnap.docs) {
-      const data = viewDoc.data();
-      const uid = viewDoc.id;
-      allReaderUids.add(uid);
-
-      const vc = (data.viewCount as number) || 1;
-      totalViews += vc;
-
-      const daysArr = (data.daysUnlocked as number[]) || [];
-      totalDaysSum += daysArr.length;
-
-      const lastViewed = data.lastViewedAt as FirebaseFirestore.Timestamp | undefined;
-      if (lastViewed && typeof lastViewed.toDate === "function") {
-        const d = lastViewed.toDate();
-        if (!lastViewAt || d > lastViewAt) lastViewAt = d;
-        if (d >= monthStart) activeThisMonthUids.add(uid);
-      }
-
-      readers.push({
-        uid,
-        viewedAt: data.viewedAt || null,
-        lastViewedAt: data.lastViewedAt || null,
-        viewCount: vc,
-        daysUnlocked: daysArr,
-      });
+    for (const v of viewsSnap.docs) {
+      const d = v.data();
+      totalViews += (d.viewCount as number) || 0;
+      allReaderUids.add(v.id);
+      const last = d.lastViewedAt as Ts;
+      if (last?.toDate && last.toDate() >= monthStart) activeThisMonth.add(v.id);
     }
 
-    const uniqueReaders = viewsSnap.size;
-    const avgDaysRead =
-      uniqueReaders > 0 ? Math.round((totalDaysSum / uniqueReaders) * 10) / 10 : 0;
-
-    tripAnalytics.push({
+    rows.push({
       tripSlug: trip.slug,
       tripTitle: trip.title,
       status: trip.status,
+      readers: viewsSnap.size,
       totalViews,
-      uniqueReaders,
-      avgDaysRead,
-      lastViewAt: lastViewAt ? lastViewAt.toISOString() : null,
-      readers: readers.map((r) => ({
-        uid: r.uid,
-        name: "",
-        email: "",
-        firstRead: toISO(r.viewedAt),
-        daysUnlocked: r.daysUnlocked.length,
-        lastVisit: toISO(r.lastViewedAt),
-        viewCount: r.viewCount,
-      })),
+      previewOpens,
+      lastActivityAt: toISO(agg.lastActivityAt as Ts),
     });
   }
 
-  // 3. Fetch user profiles for all reader UIDs
-  const userProfiles = new Map<string, { name: string; email: string }>();
-  const uidArray = Array.from(allReaderUids);
-
-  // Firestore `in` queries support max 30 items per batch
-  for (let i = 0; i < uidArray.length; i += 30) {
-    const batch = uidArray.slice(i, i + 30);
-    if (batch.length === 0) continue;
-
-    const usersSnap = await adminDb
-      .collection("users")
-      .where("__name__", "in", batch)
-      .get();
-
-    for (const userDoc of usersSnap.docs) {
-      const data = userDoc.data();
-      userProfiles.set(userDoc.id, {
-        name: (data.name as string) || "Unknown",
-        email: (data.email as string) || "",
-      });
-    }
-  }
-
-  // Enrich reader rows with user profile data
-  for (const tripRow of tripAnalytics) {
-    for (const reader of tripRow.readers) {
-      const profile = userProfiles.get(reader.uid);
-      if (profile) {
-        reader.name = profile.name;
-        reader.email = profile.email;
-      } else {
-        reader.name = "Unknown";
-        reader.email = reader.uid;
-      }
-    }
-  }
-
-  // Sort trips by total views descending
-  tripAnalytics.sort((a, b) => b.totalViews - a.totalViews);
+  // Sort by recent activity, then readers.
+  rows.sort((a, b) => {
+    const at = a.lastActivityAt ? Date.parse(a.lastActivityAt) : 0;
+    const bt = b.lastActivityAt ? Date.parse(b.lastActivityAt) : 0;
+    return bt - at || b.readers - a.readers;
+  });
 
   return {
     overview: {
-      totalTrips,
-      publishedTrips,
+      totalTrips: trips.length,
+      publishedTrips: trips.filter((t) => t.status === "published").length,
       totalReaders: allReaderUids.size,
-      activeThisMonth: activeThisMonthUids.size,
+      activeThisMonth: activeThisMonth.size,
+      totalPreviewOpens,
     },
-    tripAnalytics,
+    trips: rows,
+  };
+}
+
+/* ── Per-trip detail (full-screen view) ── */
+
+export async function getTripAnalytics(
+  slug: string
+): Promise<TripAnalyticsDetail | null> {
+  const trips = await listTrips();
+  const trip = trips.find((t) => t.slug === slug);
+  if (!trip) return null;
+
+  const aggSnap = await adminDb.collection("analytics").doc(slug).get();
+  const agg = aggSnap.data() || {};
+
+  const viewsSnap = await adminDb
+    .collection("analytics")
+    .doc(slug)
+    .collection("views")
+    .get();
+
+  const readers: ReaderRow[] = [];
+  const totals = emptyEngagement();
+  let totalViews = 0;
+  let maxDay = 0;
+  const dayCounts = new Map<number, number>();
+
+  for (const v of viewsSnap.docs) {
+    const d = v.data();
+    const days = (d.daysViewed as number[]) || [];
+    const engagement = readEngagement(d.engagement);
+    for (const k of Object.keys(totals) as (keyof Engagement)[]) {
+      totals[k] += engagement[k];
+    }
+    totalViews += (d.viewCount as number) || 0;
+    for (const day of days) {
+      maxDay = Math.max(maxDay, day);
+      dayCounts.set(day, (dayCounts.get(day) || 0) + 1);
+    }
+    readers.push({
+      uid: v.id,
+      name: (d.name as string) || "Unknown",
+      email: (d.email as string) || v.id,
+      firstViewedAt: toISO(d.firstViewedAt as Ts),
+      lastViewedAt: toISO(d.lastViewedAt as Ts),
+      viewCount: (d.viewCount as number) || 0,
+      daysReached: days.length,
+      engagement,
+    });
+  }
+
+  readers.sort((a, b) => {
+    const at = a.lastViewedAt ? Date.parse(a.lastViewedAt) : 0;
+    const bt = b.lastViewedAt ? Date.parse(b.lastViewedAt) : 0;
+    return bt - at;
+  });
+
+  const dailyOpensMap = (agg.dailyOpens as Record<string, number>) || {};
+  const dailyOpens = Object.entries(dailyOpensMap)
+    .map(([date, count]) => ({ date, count }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  const dayFunnel = Array.from({ length: maxDay }, (_, i) => ({
+    day: i + 1,
+    readers: dayCounts.get(i + 1) || 0,
+  }));
+
+  return {
+    tripSlug: slug,
+    tripTitle: trip.title,
+    status: trip.status,
+    previewOpens: (agg.previewOpens as number) || 0,
+    readerOpens: (agg.readerOpens as number) || 0,
+    totalReaders: viewsSnap.size,
+    totalViews,
+    lastActivityAt: toISO(agg.lastActivityAt as Ts),
+    dailyOpens,
+    dayFunnel,
+    engagement: totals,
+    readers,
   };
 }

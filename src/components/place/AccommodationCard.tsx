@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import type { Accommodation } from "@/types";
+import { useTripTrack } from "@/lib/track-context";
 
 interface AccommodationCardProps {
   accommodation: Accommodation;
@@ -26,6 +29,7 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export default function AccommodationCard({ accommodation }: AccommodationCardProps) {
+  const trackEvent = useTripTrack();
   return (
     <div className="mt-3 rounded-2xl bg-blue-50/50 border-t-2 border-dashed border-blue-200 overflow-hidden">
       <div className="p-4 md:p-5">
@@ -52,6 +56,7 @@ export default function AccommodationCard({ accommodation }: AccommodationCardPr
                         href={accommodation.googleMapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackEvent("contact")}
                         className="hover:underline decoration-blue-400/40 underline-offset-2"
                       >
                         {accommodation.name}
@@ -124,6 +129,7 @@ export default function AccommodationCard({ accommodation }: AccommodationCardPr
                 {accommodation.phoneNumber && (
                   <a
                     href={`tel:${accommodation.phoneNumber}`}
+                    onClick={() => trackEvent("contact")}
                     className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-blue-200 text-[11px] md:text-xs text-blue-700 hover:bg-blue-100 transition-colors"
                   >
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -137,6 +143,7 @@ export default function AccommodationCard({ accommodation }: AccommodationCardPr
                     href={accommodation.bookingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackEvent("contact")}
                     className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-blue-300 bg-blue-600 text-[11px] md:text-xs text-white hover:bg-blue-700 transition-colors font-medium"
                   >
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

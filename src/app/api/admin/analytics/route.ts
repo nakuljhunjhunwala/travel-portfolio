@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAuth } from "firebase-admin/auth";
-import { getAdminAnalytics } from "@/lib/admin";
+import { getAdminAnalytics, getTripAnalytics } from "@/lib/admin";
 
 export async function POST(req: Request) {
   try {
@@ -21,7 +21,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    // 4. Fetch and return analytics data
+    // 4. Per-trip detail when a slug is supplied; otherwise the overview.
+    const body = await req.json().catch(() => ({}));
+    const slug = typeof body?.slug === "string" ? body.slug : null;
+
+    if (slug) {
+      const detail = await getTripAnalytics(slug);
+      if (!detail) return NextResponse.json({ error: "Not found" }, { status: 404 });
+      return NextResponse.json(detail);
+    }
+
     const analytics = await getAdminAnalytics();
     return NextResponse.json(analytics);
   } catch (err) {

@@ -1,44 +1,39 @@
-import {
-  doc,
-  getDoc,
-  setDoc,
-  arrayUnion,
-  increment,
-  Timestamp,
-} from "firebase/firestore";
-import { getFirebaseDb } from "@/lib/firebase";
+import type { User } from "firebase/auth";
 
-export async function trackDayView(
-  tripId: string,
-  uid: string,
-  dayNumber: number
-) {
+export type TrackEvent = "essentials" | "map" | "share" | "contact" | "copy";
+
+interface TrackOpts {
+  tripSlug: string;
+  kind: "view" | "preview" | "day" | "event";
+  dayNumber?: number;
+  event?: TrackEvent;
+  /** Pass the signed-in user so the server can verify a trusted uid; omit for anonymous. */
+  user?: User | null;
+}
+
+/**
+ * Fire-and-forget analytics. Posts to /api/track, which writes via the Admin SDK
+ * (server-trusted uid from the ID token). Never throws; analytics must not break the page.
+ */
+export async function track(opts: TrackOpts): Promise<void> {
   try {
-    const db = getFirebaseDb();
-    const ref = doc(db, "analytics", tripId, "views", uid);
-
-    // Set `viewedAt` (first-read timestamp) only when the doc doesn't exist yet.
-    // The counters below are atomic, so the only residual race is on this initial
-    // timestamp — harmless, since concurrent first-writes resolve to ~the same instant.
-    const snap = await getDoc(ref);
-    const firstReadPatch = snap.exists()
-      ? {}
-      : { viewedAt: Timestamp.now() };
-
-    // Atomic merge — `increment`/`arrayUnion` are conflict-free, so concurrent
-    // day-section observers firing on load can't lose counts or dropped days.
-    await setDoc(
-      ref,
-      {
-        ...firstReadPatch,
-        lastViewedAt: Timestamp.now(),
-        viewCount: increment(1),
-        daysUnlocked: arrayUnion(dayNumber),
-      },
-      { merge: true }
-    );
-  } catch (err) {
-    // Firestore permissions may not be deployed yet — fail silently
-    console.warn("Analytics tracking failed:", err);
+    let idToken: string | undefined;
+    if (opts.user) {
+      idToken = await opts.user.getIdToken().catch(() => undefined);
+    }
+    await fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        tripSlug: opts.tripSlug,
+        kind: opts.kind,
+        dayNumber: opts.dayNumber,
+        event: opts.event,
+        idToken,
+      }),
+      keepalive: true,
+    });
+  } catch {
+    // ignore — analytics is best-effort
   }
 }

@@ -1,6 +1,31 @@
 import type { Trip, Day, Place } from "@/types";
 import { adminDb } from "./firebase-admin";
 
+/**
+ * The free preview slice shown to logged-out visitors when the gate is on:
+ * the first non-empty day, limited to min(10% of all places, 50% of that day's places).
+ * Returns only that subset so the full itinerary is never embedded in the static HTML.
+ */
+export function buildPreview(
+  days: Day[],
+  dayPlaces: Record<string, Place[]>
+): { days: Day[]; dayPlaces: Record<string, Place[]> } {
+  if (days.length === 0) return { days, dayPlaces };
+  const totalPlaces = days.reduce(
+    (sum, d) => sum + (dayPlaces[d.id]?.length ?? 0),
+    0
+  );
+  const firstDay = days.find((d) => (dayPlaces[d.id]?.length ?? 0) > 0) ?? days[0];
+  const firstPlaces = dayPlaces[firstDay.id] ?? [];
+  const tenPercent = Math.max(1, Math.ceil(totalPlaces * 0.1));
+  const halfDay = Math.max(1, Math.ceil(firstPlaces.length / 2));
+  const free = Math.min(tenPercent, halfDay);
+  return {
+    days: [firstDay],
+    dayPlaces: { [firstDay.id]: firstPlaces.slice(0, free) },
+  };
+}
+
 /* ── Helpers ── */
 
 /**

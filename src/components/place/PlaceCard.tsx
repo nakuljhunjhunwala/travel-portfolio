@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import type { Place } from "@/types";
 import { useAuth } from "@/lib/auth-context";
 import { getPlacePhotoUrl } from "@/lib/photos";
+import { useTripTrack } from "@/lib/track-context";
 import HonestNote from "./HonestNote";
 
 interface PlaceCardProps {
@@ -76,6 +77,7 @@ function CategoryBadge({ category }: { category: PlaceCategory }) {
 }
 
 function PlaceActions({ place }: { place: Place }) {
+  const trackEvent = useTripTrack();
   const hasActions = place.googleMapsUrl || place.phoneNumber || place.websiteUrl;
 
   if (!hasActions) return null;
@@ -87,6 +89,7 @@ function PlaceActions({ place }: { place: Place }) {
           href={place.googleMapsUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvent("contact")}
           className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-border/60 text-[11px] md:text-xs text-muted hover:text-primary-text hover:bg-primary-soft/60 transition-colors"
         >
           <svg
@@ -108,6 +111,7 @@ function PlaceActions({ place }: { place: Place }) {
       {place.phoneNumber && (
         <a
           href={`tel:${place.phoneNumber}`}
+          onClick={() => trackEvent("contact")}
           className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-border/60 text-[11px] md:text-xs text-muted hover:text-primary-text hover:bg-primary-soft/60 transition-colors"
         >
           <svg
@@ -130,6 +134,7 @@ function PlaceActions({ place }: { place: Place }) {
           href={place.websiteUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvent("contact")}
           className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full border border-border/60 text-[11px] md:text-xs text-muted hover:text-primary-text hover:bg-primary-soft/60 transition-colors"
         >
           <svg

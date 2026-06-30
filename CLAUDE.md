@@ -52,17 +52,21 @@ All place data (coordinates, description, address, rating, photo, contacts) is *
 
 | Route | Method | Purpose |
 |-------|--------|---------|
-| `/api/admin/analytics` | POST | Admin-only analytics, requires Bearer token verified against ADMIN_UID |
+| `/api/track` | POST | Analytics ingest. Admin SDK writes (bypass rules); uid is taken from a verified Firebase ID token, never the client. Kinds: `view`/`preview`/`day`/`event`. Fire-and-forget. |
+| `/api/itinerary` | POST | The real gate: returns the full days+places only to a caller with a valid ID token (else 401). Logged-out users never receive gated data. |
+| `/api/admin/analytics` | POST | Admin-only (Bearer verified against ADMIN_UID). No body → overview; `{ slug }` → per-trip detail. |
 
-There are intentionally **no runtime place-enrichment routes** — place data is self-contained on each Place document.
+There are intentionally **no runtime place-enrichment routes** — place data is self-contained on each Place document. All analytics I/O is server-side via the Admin SDK; the client never reads/writes analytics directly.
 
 ### Hooks
 
 | Hook | Purpose |
 |------|---------|
 | `useActiveDayObserver` | IntersectionObserver on `[data-day-number]` sections. Returns `activeDay` + `suppress()` for programmatic scrolls. |
-| `useScrollTracking` | Records per-day view analytics to Firestore for logged-in users (atomic `increment`/`arrayUnion`). |
+| `useScrollTracking` | Posts a trip open (`view`/`preview`) once + a `day` event per day seen, to `/api/track`. Re-attaches when the full itinerary loads. |
 | `useEmbedTheme` | Applies theme CSS vars in iframe embed mode (reads `?theme=`, listens for parent messages). |
+
+Engagement (`essentials`/`map`/`share`/`contact`/`copy`) is logged via `useTripTrack()` (`src/lib/track-context.tsx`) from descendant cards → `track()` (`src/lib/analytics.ts`) → `/api/track`.
 
 Map coordinates and place metadata come directly from the inline `Place` fields (`lat`/`lng`, `description`, `address`, `rating`, `ratingCount`, `photoUrl`, contacts) — no fetch hooks.
 
@@ -111,10 +115,17 @@ import { auth } from "./firebase";
 - `firebase-admin.ts` must never be imported in `"use client"` components
 - No third-party place/AI APIs are called at runtime — all such data is stored inline on Places
 
-### Content Gating
-Controlled by `NEXT_PUBLIC_ENABLE_LOGIN_GATE` (default: true). This is a **client-side visual gate**, not server-enforced. When enabled and the user is not logged in:
-- Only Day 1 is shown, limited to `min(10% of total places, 50% of Day 1 places)`; `LoginGate` prompts for Google sign-in below it.
-- Note: the full day/place data is still present in the page payload (gating hides it visually). The share menu only ever serializes the **visible** content, and "Copy Itinerary" is hidden in the gated preview, so sharing cannot leak premium content. (Truly hiding the payload would require server-enforced auth, which is out of scope for the static model.)
+### Content Gating (server-enforced)
+Controlled by `NEXT_PUBLIC_ENABLE_LOGIN_GATE` (default: true). **Truly enforced**, not cosmetic:
+- **Gate ON:** `trips/[slug]/page.tsx` embeds ONLY the free preview (first non-empty day,
+  `min(10% of total places, 50% of day-1 places)` — `buildPreview()` in `lib/trips.ts`). The full
+  itinerary is fetched client-side from `/api/itinerary` (token-verified) after sign-in; logged-out
+  users never receive it (no leak in view-source). `TripEssentials` + "Copy Itinerary" are hidden in
+  the preview. Logout → the client drops the full data and re-gates immediately.
+- **Gate OFF** (`=false`): the page embeds the full itinerary (public). The env flag is respected.
+- Firestore rules deny direct client reads of `days`/`places` (defense in depth — only the Admin SDK
+  reads them). **`NEXT_PUBLIC_*` flags are baked at build/dev-compile — changing the flag needs a
+  build (or dev-server restart) to take effect.**
 
 ### Place photo hosts
 Place `photoUrl`s are manual; any host must be allowed in `next.config.mjs` `images.remotePatterns`. Currently allowed: `images.unsplash.com`, `lh3.googleusercontent.com`, `upload.wikimedia.org`, `api.mapbox.com`. Photos on other hosts won't render — use one of these or rely on the curated `getPlacePhotoUrl` fallback (`src/lib/photos.ts`).

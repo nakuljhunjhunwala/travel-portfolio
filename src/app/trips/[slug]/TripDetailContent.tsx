@@ -23,19 +23,19 @@ import {
   generateShareUrl,
   generateShareBlurb,
 } from "@/lib/share";
+import { track, type TrackEvent } from "@/lib/analytics";
+import { TripTrackProvider, useTripTrack } from "@/lib/track-context";
 
 interface TripDetailContentProps {
   trip: Trip;
+  /** When the gate is enforced these are PREVIEW-only; the full set is fetched after sign-in. */
   days: Day[];
   dayPlaces: Record<string, Place[]>;
   /** Build-time reader count for login-gate social proof. */
   readerCount?: number;
+  /** True when the server embedded only the preview (gate on). */
+  gateEnforced?: boolean;
 }
-
-/* ── Config ── */
-
-const LOGIN_GATE_ENABLED =
-  process.env.NEXT_PUBLIC_ENABLE_LOGIN_GATE !== "false";
 
 /* ──────────────────────── Formatters ──────────────────────── */
 
@@ -83,45 +83,6 @@ function travelModeIcon(mode: string): string {
     walk: "🥾", flight: "✈️", bike: "🏍️", ferry: "⛴️",
   };
   return map[mode] ?? "🚗";
-}
-
-/* ──────────────────────── Gating Logic ──────────────────────── */
-
-function computeGating(
-  days: Day[],
-  dayPlaces: Record<string, Place[]>,
-  isLoggedIn: boolean,
-  gateEnabled: boolean
-): {
-  visibleDays: Day[];
-  gatedDayPlaces: Record<string, Place[]>;
-  isGated: boolean;
-} {
-  if (!gateEnabled || isLoggedIn || days.length === 0) {
-    return {
-      visibleDays: days,
-      gatedDayPlaces: dayPlaces,
-      isGated: false,
-    };
-  }
-
-  const totalPlaces = days.reduce(
-    (sum, day) => sum + (dayPlaces[day.id]?.length ?? 0),
-    0
-  );
-
-  const day1 = days[0];
-  const day1Places = dayPlaces[day1.id] ?? [];
-
-  const tenPercent = Math.max(1, Math.ceil(totalPlaces * 0.1));
-  const halfDay = Math.max(1, Math.ceil(day1Places.length / 2));
-  const freePlaces = Math.min(tenPercent, halfDay);
-
-  return {
-    visibleDays: [day1],
-    gatedDayPlaces: { [day1.id]: day1Places.slice(0, freePlaces) },
-    isGated: true,
-  };
 }
 
 /* ──────────────────────── Stat Card ──────────────────────── */
@@ -386,6 +347,7 @@ function ShareFAB({
     () => typeof navigator !== "undefined" && typeof navigator.share === "function"
   );
   const menuRef = useRef<HTMLDivElement>(null);
+  const trackEvent = useTripTrack();
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
@@ -412,6 +374,7 @@ function ShareFAB({
   const handleShare = () => setShowMenu((prev) => !prev);
 
   const nativeShare = async () => {
+    trackEvent("share");
     try {
       await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
     } catch {
@@ -431,6 +394,7 @@ function ShareFAB({
   };
 
   const copyItinerary = async () => {
+    trackEvent("copy");
     try {
       const text = generateItineraryText(trip, days, dayPlaces, baseUrl);
       await navigator.clipboard.writeText(text);
@@ -445,6 +409,7 @@ function ShareFAB({
   };
 
   const shareWhatsApp = () => {
+    trackEvent("share");
     const waText = `${trip.title}\n${shareText}\n\n${shareUrl}`;
     const url = `https://wa.me/?text=${encodeURIComponent(waText)}`;
     window.open(url, "_blank", "noopener,noreferrer");
@@ -452,12 +417,14 @@ function ShareFAB({
   };
 
   const shareTwitter = () => {
+    trackEvent("share");
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setShowMenu(false);
   };
 
   const shareEmail = () => {
+    trackEvent("share");
     const subject = encodeURIComponent(`Check out: ${trip.title}`);
     const body = encodeURIComponent(`${shareText}\n\n${shareUrl}`);
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
@@ -594,23 +561,78 @@ export default function TripDetailContent({
   days,
   dayPlaces,
   readerCount = 0,
+  gateEnforced = false,
 }: TripDetailContentProps) {
   const { user, loading } = useAuth();
-  const isLoggedIn = !!user;
   const dayCount = getDayCount(trip.startDate, trip.endDate);
 
-  useScrollTracking(trip.slug, user?.uid ?? null);
+  // Full itinerary + gated Essentials, fetched client-side (token-verified) when gated + signed in.
+  const [fullData, setFullData] = useState<{
+    days: Day[];
+    dayPlaces: Record<string, Place[]>;
+    essentials?: {
+      transport?: Trip["transport"];
+      costBreakdown?: Trip["costBreakdown"];
+      tips?: Trip["tips"];
+    } | null;
+  } | null>(null);
 
-  const gating = useMemo(
-    () => computeGating(days, dayPlaces, isLoggedIn, LOGIN_GATE_ENABLED),
-    [days, dayPlaces, isLoggedIn]
+  useEffect(() => {
+    if (!gateEnforced || !user) {
+      setFullData(null);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      const idToken = await user.getIdToken().catch(() => null);
+      if (!idToken) return;
+      const res = await fetch("/api/itinerary", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: trip.slug, idToken }),
+      });
+      if (res.ok && !cancelled) {
+        const data = await res.json();
+        setFullData({
+          days: data.days,
+          dayPlaces: data.dayPlaces,
+          essentials: data.essentials ?? null,
+        });
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [gateEnforced, user, trip.slug]);
+
+  // Effective data: full when available, else the embedded (preview or full) props.
+  const effDays = fullData?.days ?? days;
+  const effDayPlaces = fullData?.dayPlaces ?? dayPlaces;
+
+  // Trip with the gated Essentials fields restored (stripped from the static payload when gated).
+  const effTrip: Trip = fullData?.essentials
+    ? {
+        ...trip,
+        transport: fullData.essentials.transport ?? undefined,
+        costBreakdown: fullData.essentials.costBreakdown ?? undefined,
+        tips: fullData.essentials.tips ?? undefined,
+      }
+    : trip;
+
+  // gated = gate on + not signed in (preview). loadingFull = signed in, fetching full.
+  const gated = gateEnforced && !user;
+  const loadingFull = gateEnforced && !!user && !fullData;
+
+  // Engagement tracker shared with descendant cards.
+  const trackEvent = useCallback(
+    (event: TrackEvent) => track({ tripSlug: trip.slug, kind: "event", event, user }),
+    [trip.slug, user]
   );
 
-  const tabDays = gating.isGated ? gating.visibleDays : days;
-  const activeDayPlaces = gating.isGated ? gating.gatedDayPlaces : dayPlaces;
+  useScrollTracking(trip.slug, user, effDays.length);
 
   // Active day — lifted state with scroll-sync
-  const { activeDay: observedDay, suppress } = useActiveDayObserver(tabDays.length);
+  const { activeDay: observedDay, suppress } = useActiveDayObserver(effDays.length);
   const [activeDay, setActiveDay] = useState(1);
 
   // Sync observer → activeDay
@@ -626,12 +648,12 @@ export default function TripDetailContent({
   // Interactive map renders when any visible place carries inline coordinates.
   const hasCoordinates = useMemo(
     () =>
-      (gating.isGated ? gating.visibleDays : days).some((day) =>
-        (activeDayPlaces[day.id] ?? []).some(
+      effDays.some((day) =>
+        (effDayPlaces[day.id] ?? []).some(
           (p) => typeof p.lat === "number" && typeof p.lng === "number"
         )
       ),
-    [gating.isGated, gating.visibleDays, days, activeDayPlaces]
+    [effDays, effDayPlaces]
   );
 
   // Mobile map bottom sheet
@@ -642,6 +664,7 @@ export default function TripDetailContent({
     suppress();
     setActiveDay(dayNumber);
     setShowMobileMap(false);
+    trackEvent("map");
 
     // Find and scroll to the place card
     setTimeout(() => {
@@ -652,7 +675,7 @@ export default function TripDetailContent({
         scrollToDay(dayNumber);
       }
     }, 100);
-  }, [suppress]);
+  }, [suppress, trackEvent]);
 
   // Deep link: scroll to #day-N on page load
   useEffect(() => {
@@ -666,6 +689,7 @@ export default function TripDetailContent({
   }, []);
 
   return (
+    <TripTrackProvider value={trackEvent}>
     <article
       data-trip-theme={trip.tripTheme}
       className="min-h-screen bg-bg"
@@ -812,20 +836,20 @@ export default function TripDetailContent({
       </div>
 
       {/* ── Trip Essentials (transport, stays, costs, tips) ──
-            Premium info (contacts, prices, driver, cost breakdown) — hidden while
-            the content is gated; shown in full once the visitor signs in. */}
-      {!gating.isGated && (
+            Premium info (contacts, prices, driver, cost breakdown) — shown only
+            when the full itinerary is available (gate off, or signed in + loaded). */}
+      {!gated && !loadingFull && (
         <div className="px-4 md:px-8 max-w-4xl mx-auto lg:max-w-5xl mt-5 md:mt-6">
-          <TripEssentials trip={trip} days={days} />
+          <TripEssentials trip={effTrip} days={effDays} />
         </div>
       )}
 
       {/* ── Day Tabs + Split Panel (Desktop: itinerary left, map right) ── */}
-      {days.length > 0 && (
+      {effDays.length > 0 && (
         <div className="mt-6 md:mt-8">
           {/* Day Tabs — full width sticky */}
           <DayTabs
-            days={tabDays}
+            days={effDays}
             activeDay={activeDay}
             onDayChange={handleDayChange}
           />
@@ -834,65 +858,37 @@ export default function TripDetailContent({
           <div className="lg:flex lg:max-w-[1400px] lg:mx-auto">
             {/* Left: Itinerary */}
             <div className="px-4 md:px-8 lg:px-6 lg:w-[55%] lg:min-w-0 pt-4 pb-16">
-              <AnimatePresence mode="wait">
-                {gating.isGated ? (
-                  <motion.div
-                    key="gated-view"
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                  >
-                    {gating.visibleDays.map((day, dayIndex) => {
-                      const places = gating.gatedDayPlaces[day.id] ?? [];
-                      const prevDay = dayIndex > 0 ? gating.visibleDays[dayIndex - 1] : null;
-
-                      return (
-                        <DaySection
-                          key={day.id}
-                          trip={trip}
-                          day={day}
-                          dayIndex={dayIndex}
-                          prevDay={prevDay}
-                          places={places}
-                          placeCount={places.length}
-                          isPartial={true}
-                        />
-                      );
-                    })}
-
-                    {!loading && (
-                      <LoginGate
-                        tripId={trip.id}
-                        readerCount={readerCount}
+              {loadingFull ? (
+                <div className="space-y-4">
+                  <p className="text-muted text-sm font-body">Loading your full itinerary…</p>
+                  {[0, 1, 2].map((i) => (
+                    <div key={i} className="rounded-2xl bg-[var(--color-travel-row)] h-28 animate-pulse" />
+                  ))}
+                </div>
+              ) : (
+                <>
+                  {effDays.map((day, dayIndex) => {
+                    const places = effDayPlaces[day.id] ?? [];
+                    const prevDay = dayIndex > 0 ? effDays[dayIndex - 1] : null;
+                    return (
+                      <DaySection
+                        key={day.id}
+                        trip={trip}
+                        day={day}
+                        dayIndex={dayIndex}
+                        prevDay={prevDay}
+                        places={places}
+                        placeCount={places.length}
+                        isPartial={gated}
                       />
-                    )}
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="full-view"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
-                  >
-                    {days.map((day, dayIndex) => {
-                      const places = dayPlaces[day.id] ?? [];
-                      const prevDay = dayIndex > 0 ? days[dayIndex - 1] : null;
+                    );
+                  })}
 
-                      return (
-                        <DaySection
-                          key={day.id}
-                          trip={trip}
-                          day={day}
-                          dayIndex={dayIndex}
-                          prevDay={prevDay}
-                          places={places}
-                          placeCount={places.length}
-                          isPartial={false}
-                        />
-                      );
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  {gated && !loading && (
+                    <LoginGate tripId={trip.id} readerCount={readerCount} />
+                  )}
+                </>
+              )}
             </div>
 
             {/* Right: Sticky Map (desktop only) */}
@@ -900,8 +896,8 @@ export default function TripDetailContent({
               <div className="hidden lg:block lg:w-[45%] lg:flex-shrink-0">
                 <div className="sticky top-[60px] h-[calc(100vh-60px)] p-3 pt-4">
                   <InteractiveTripMap
-                    days={gating.isGated ? gating.visibleDays : days}
-                    dayPlaces={activeDayPlaces}
+                    days={effDays}
+                    dayPlaces={effDayPlaces}
                     activeDay={activeDay}
                     tripTheme={trip.tripTheme}
                     onMarkerClick={handleMarkerClick}
@@ -917,7 +913,10 @@ export default function TripDetailContent({
       {/* ── Mobile Map FAB ── */}
       {hasCoordinates && (
         <button
-          onClick={() => setShowMobileMap(true)}
+          onClick={() => {
+            setShowMobileMap(true);
+            trackEvent("map");
+          }}
           className="lg:hidden fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-5 z-30 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center hover:shadow-xl active:scale-95 transition-all cursor-pointer"
           aria-label="Show map"
         >
@@ -938,8 +937,8 @@ export default function TripDetailContent({
         >
           <div className="h-[55dvh] -mx-4">
             <InteractiveTripMap
-              days={gating.isGated ? gating.visibleDays : days}
-              dayPlaces={activeDayPlaces}
+              days={effDays}
+              dayPlaces={effDayPlaces}
               activeDay={activeDay}
               tripTheme={trip.tripTheme}
               onMarkerClick={handleMarkerClick}
@@ -952,11 +951,12 @@ export default function TripDetailContent({
       {/* ── Share FAB ── */}
       <ShareFAB
         trip={trip}
-        days={gating.isGated ? gating.visibleDays : days}
-        dayPlaces={activeDayPlaces}
+        days={effDays}
+        dayPlaces={effDayPlaces}
         dayCount={dayCount}
-        isGated={gating.isGated}
+        isGated={gated}
       />
     </article>
+    </TripTrackProvider>
   );
 }

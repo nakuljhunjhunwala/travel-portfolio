@@ -1,4 +1,8 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import type { Trip, Day, Accommodation } from "@/types";
+import { useTripTrack } from "@/lib/track-context";
 
 interface TripEssentialsProps {
   trip: Trip;
@@ -100,12 +104,34 @@ export default function TripEssentials({ trip, days }: TripEssentialsProps) {
   const cost = trip.costBreakdown;
   const tips = trip.tips ?? [];
 
+  const trackEvent = useTripTrack();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const seenRef = useRef(false);
+
+  // Log "opened Trip Essentials" once when it scrolls into view.
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting && !seenRef.current) {
+          seenRef.current = true;
+          trackEvent("essentials");
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [trackEvent]);
+
   if (!t && stays.length === 0 && !cost && tips.length === 0) return null;
 
   const maxItem = cost?.items?.reduce((m, i) => Math.max(m, i.amount), 0) ?? 0;
 
   return (
-    <div className="bg-card rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.06),0_6px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+    <div ref={rootRef} className="bg-card rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.06),0_6px_16px_rgba(0,0,0,0.06)] overflow-hidden">
       {/* Header */}
       <div className="px-5 md:px-6 pt-5 md:pt-6 pb-1">
         <h2 className="font-heading font-bold text-heading text-base md:text-lg">Trip Essentials</h2>
@@ -153,6 +179,7 @@ export default function TripEssentials({ trip, days }: TripEssentialsProps) {
                             {" · "}
                             <a
                               href={`tel:${t.cabDriverPhone}`}
+                              onClick={() => trackEvent("contact")}
                               className="inline-flex items-center gap-1 text-link hover:underline font-mono"
                             >
                               <PhoneIcon />
@@ -202,6 +229,7 @@ export default function TripEssentials({ trip, days }: TripEssentialsProps) {
                           href={s.acc.googleMapsUrl}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => trackEvent("contact")}
                           className="inline-flex items-center gap-1 hover:underline decoration-primary/30 underline-offset-2"
                         >
                           <span className="text-primary/70"><PinIcon /></span>
@@ -216,7 +244,7 @@ export default function TripEssentials({ trip, days }: TripEssentialsProps) {
                       {s.acc.phoneNumber && (
                         <>
                           {" · "}
-                          <a href={`tel:${s.acc.phoneNumber}`} className="text-link hover:underline font-mono">
+                          <a href={`tel:${s.acc.phoneNumber}`} onClick={() => trackEvent("contact")} className="text-link hover:underline font-mono">
                             {s.acc.phoneNumber}
                           </a>
                         </>

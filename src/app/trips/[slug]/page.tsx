@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getTripBySlug, getVisibleTrips, getDaysForTrip, getPlacesForDay, getTripReaderCount } from "@/lib/trips";
+import { getTripBySlug, getVisibleTrips, getDaysForTrip, getPlacesForDay, getTripReaderCount, buildPreview } from "@/lib/trips";
 import TripDetailContent from "./TripDetailContent";
 import ComingSoonContent from "./ComingSoonContent";
 
@@ -42,13 +42,27 @@ export default async function TripDetailPage({ params }: PageProps) {
     return <ComingSoonContent trip={trip} />;
   }
 
-  const days = await getDaysForTrip(trip.id);
+  const fullDays = await getDaysForTrip(trip.id);
 
   // Build places map keyed by day.id
-  const dayPlaces: Record<string, import("@/types").Place[]> = {};
-  for (const day of days) {
-    dayPlaces[day.id] = await getPlacesForDay(trip.id, day.id);
+  const fullDayPlaces: Record<string, import("@/types").Place[]> = {};
+  for (const day of fullDays) {
+    fullDayPlaces[day.id] = await getPlacesForDay(trip.id, day.id);
   }
+
+  // Real gate: when enabled, embed ONLY the free preview in the static HTML.
+  // The full itinerary is fetched client-side via /api/itinerary after sign-in.
+  // When disabled (NEXT_PUBLIC_ENABLE_LOGIN_GATE=false), embed everything (public).
+  const gateEnforced = process.env.NEXT_PUBLIC_ENABLE_LOGIN_GATE !== "false";
+  const { days, dayPlaces } = gateEnforced
+    ? buildPreview(fullDays, fullDayPlaces)
+    : { days: fullDays, dayPlaces: fullDayPlaces };
+
+  // When gated, strip the premium Essentials fields (driver phone, costs, tips)
+  // from the embedded trip — they're restored client-side via /api/itinerary.
+  const clientTrip = gateEnforced
+    ? { ...trip, transport: undefined, costBreakdown: undefined, tips: undefined }
+    : trip;
 
   const readerCount = await getTripReaderCount(trip.slug);
 
@@ -70,7 +84,13 @@ export default async function TripDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <TripDetailContent trip={trip} days={days} dayPlaces={dayPlaces} readerCount={readerCount} />
+      <TripDetailContent
+        trip={clientTrip}
+        days={days}
+        dayPlaces={dayPlaces}
+        readerCount={readerCount}
+        gateEnforced={gateEnforced}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
