@@ -25,6 +25,36 @@ export interface Trip {
   tripType: "solo" | "couple" | "group";
   visitedHighlight?: string;
   visitedDate?: string;
+  /** Trip-wide essentials (optional) — powers the "Trip Essentials" section. */
+  transport?: TripTransport;
+  costBreakdown?: TripCostBreakdown;
+  tips?: string[];
+}
+
+/** How you got there and got around — shown in Trip Essentials → "Getting around". */
+export interface TripTransport {
+  summary?: string;
+  trainIn?: string;
+  trainOut?: string;
+  cabVehicle?: string;
+  cabDriverName?: string;
+  cabDriverPhone?: string;
+  cabPackage?: string;
+  cabInclusions?: string;
+  cabTerms?: string;
+}
+
+/** Real cost breakdown — shown in Trip Essentials → "What it cost". */
+export interface TripCostBreakdown {
+  /** Per-person figure (matches the headline). */
+  perPerson?: number;
+  /** Full group spend. */
+  groupTotal?: number;
+  travellers?: number;
+  /** Category rows, e.g. { label: "Stays", amount: 32750 }. */
+  items?: { label: string; amount: number }[];
+  /** Context note (e.g. how it was split / what's excluded). */
+  note?: string;
 }
 
 export interface Accommodation {
@@ -59,9 +89,10 @@ export interface Place {
   id: string;
   index: number;
   name: string;
-  /** Coordinates for the trip map — researched and stored inline at authoring time. */
-  lat: number;
-  lng: number;
+  /** Coordinates for the trip map — researched and stored inline at authoring time.
+   *  Optional: transit/travel-day entries (trains, drives) may have no map point. */
+  lat?: number;
+  lng?: number;
   /** Optional Google place id, used only to build a Maps deep-link when no googleMapsUrl is set. */
   googlePlaceId?: string;
   openingHours: string;

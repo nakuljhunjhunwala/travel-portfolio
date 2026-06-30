@@ -85,8 +85,8 @@ export default function InteractiveTripMap({
           placeId: place.id,
           name: place.name,
           index: displayNumber,
-          lat: place.lat,
-          lng: place.lng,
+          lat: place.lat as number,
+          lng: place.lng as number,
         }));
       return { dayNumber: day.dayNumber, places };
     });

@@ -115,4 +115,15 @@ export const stateZoomConfig: Record<string, StateZoomEntry> = {
       { name: "Agonda", coordinates: [73.99, 15.05] },
     ],
   },
+  Kerala: {
+    center: [76.7, 9.4],
+    zoom: 3.5,
+    cities: [
+      { name: "Munnar", coordinates: [77.06, 10.09] },
+      { name: "Thekkady", coordinates: [77.17, 9.61] },
+      { name: "Alleppey", coordinates: [76.34, 9.5] },
+      { name: "Varkala", coordinates: [76.71, 8.74] },
+      { name: "Trivandrum", coordinates: [76.95, 8.49] },
+    ],
+  },
 };

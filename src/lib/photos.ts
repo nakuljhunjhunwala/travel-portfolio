@@ -42,9 +42,9 @@ const CURATED_PHOTOS: Record<string, string> = {
     "https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=600&h=400&fit=crop",
 };
 
-/** Generic travel/landscape fallback photo */
+/** Generic travel/landscape fallback photo (lush green hills — safe default). */
 const FALLBACK_PHOTO =
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop";
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Munnar_Overview.jpg/1280px-Munnar_Overview.jpg";
 
 /**
  * Returns a curated Unsplash photo URL for a known place, or a generic

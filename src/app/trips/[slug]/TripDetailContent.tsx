@@ -8,6 +8,7 @@ import type { Trip, Day, Place } from "@/types";
 import { useAuth } from "@/lib/auth-context";
 import DayTabs from "@/components/trip/DayTabs";
 import TripSummary from "@/components/trip/TripSummary";
+import TripEssentials from "@/components/trip/TripEssentials";
 import InteractiveTripMap from "@/components/map/InteractiveTripMap";
 import PlaceCard from "@/components/place/PlaceCard";
 import TravelConnector from "@/components/place/TravelConnector";
@@ -809,6 +810,15 @@ export default function TripDetailContent({
       <div className="px-4 md:px-8 max-w-4xl mx-auto lg:max-w-5xl mt-5 md:mt-6">
         <TripSummary trip={trip} />
       </div>
+
+      {/* ── Trip Essentials (transport, stays, costs, tips) ──
+            Premium info (contacts, prices, driver, cost breakdown) — hidden while
+            the content is gated; shown in full once the visitor signs in. */}
+      {!gating.isGated && (
+        <div className="px-4 md:px-8 max-w-4xl mx-auto lg:max-w-5xl mt-5 md:mt-6">
+          <TripEssentials trip={trip} days={days} />
+        </div>
+      )}
 
       {/* ── Day Tabs + Split Panel (Desktop: itinerary left, map right) ── */}
       {days.length > 0 && (

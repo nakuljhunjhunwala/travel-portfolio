@@ -2,6 +2,68 @@ import type { Trip } from "@/types";
 
 export const mockTrips: Trip[] = [
   {
+    id: "trip-kerala-2026",
+    title: "Kerala Family Trip",
+    slug: "kerala-family-trip",
+    coverPhoto: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1200&h=600&fit=crop",
+    states: ["Kerala"],
+    cities: ["Munnar", "Thekkady", "Alleppey", "Varkala", "Trivandrum"],
+    startDate: { seconds: 1781827200, nanoseconds: 0 } as Trip["startDate"], // 19 Jun 2026
+    endDate: { seconds: 1782604800, nanoseconds: 0 } as Trip["endDate"],     // 28 Jun 2026
+    tags: ["backwaters", "tea-estates", "temples", "beaches", "family", "monsoon"],
+    budgetTier: "₹₹",
+    totalCost: 21895,
+    published: true,
+    status: "published",
+    tripTheme: "kerala",
+    tripDNA: { nature: 90, food: 70, culture: 80 },
+    bestMoment:
+      "Waking up at the Calm Shack farm stay in Munnar and plucking exotic fruit off the trees — and the boat-only water stay in Alleppey.",
+    skipThis:
+      "The Alleppey houseboat — our boat-access water stay and a morning shikara beat it. And don't buy spices at the plantation; buy them in town, far cheaper.",
+    bestMonth: "September–March (we went in June monsoon — lush, cheap and uncrowded, but expect some closures and rough seas)",
+    hookLine:
+      "Ten days, six of us, north-to-south Kerala by train and one trusty cab — tea hills, a crazy jungle jeep safari, a boat-only backwater stay, a private beach and the world's wealthiest temple.",
+    travelMode: ["train", "car"],
+    tripType: "group",
+    visitedHighlight:
+      "A six-person family trip from Mumbai by train (in to Aluva, out from Trivandrum), looping Munnar → Thekkady → Alleppey → Varkala → Trivandrum in a single AC Ertiga. Farm stays, spice plantations, a Periyar jungle jeep, backwater shikara, cliff coast and a cliff-top Shiva sunset.",
+    visitedDate: "June 2026",
+    transport: {
+      summary: "Overnight train each way + one private AC cab for the whole 8-day loop.",
+      trainIn: "Vasai Road → Aluva · PBR–KCVL Express · overnight (~24 hrs) · ₹11,238 (group of 6)",
+      trainOut: "Trivandrum Central → Mumbai · ₹10,608 (group of 6)",
+      cabVehicle: "AC Maruti Ertiga · whole trip",
+      cabDriverName: "Shehi Nihal",
+      cabDriverPhone: "+91 97461 63935",
+      cabPackage: "₹18,500 · 8 days · 800 km",
+      cabInclusions: "Fuel, tolls, parking, driver bata & allowance",
+      cabTerms: "Billed pickup-to-pickup (back to Aluva) · +₹18/km beyond 800 km · duty 8 AM–8 PM",
+    },
+    costBreakdown: {
+      perPerson: 21895,
+      groupTotal: 131371,
+      travellers: 6,
+      items: [
+        { label: "Stays (8 nights)", amount: 32750 },
+        { label: "Private cab (8 days)", amount: 23340 },
+        { label: "Activities & entries", amount: 24446 },
+        { label: "Food & groceries", amount: 22499 },
+        { label: "Temples, local taxi & train fine", amount: 6490 },
+        { label: "Train tickets (both ways)", amount: 21846 },
+      ],
+    },
+    tips: [
+      "Skip the Alleppey houseboat — a boat-only water stay plus a morning shikara is quieter, cheaper and more authentic.",
+      "Don't buy spices at the plantation shop — buy from the Kumily town shops instead, far cheaper for the same thing.",
+      "Watch out for TTE fines on the train — we got hit with ₹5,060. Keep every passenger's reservation and ID handy.",
+      "June monsoon is the cheat code: lush, cheap and uncrowded — but expect rough seas (no swimming) and a few weather closures.",
+      "Sree Padmanabhaswamy: strict dress code (mundu / saree), ID required, no phones inside — leave them in the cab.",
+      "Book the hill homestays (Calm Shack, Periyar Inn) directly by phone for better rates than the apps.",
+      "Time the Azhimala Shiva temple for sunset — the giant statue faces west, so sunrise is backlit.",
+    ],
+  },
+  {
     id: "trip-kashmir-2022",
     title: "Kashmir & Vaishno Devi",
     slug: "kashmir-vaishno-devi",
