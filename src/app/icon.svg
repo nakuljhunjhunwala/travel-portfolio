@@ -1,14 +1,9 @@
-<!-- Brand app icon: Compass Pin. Mirrors src/components/brand/Logo.tsx geometry. -->
-<!-- Blue rounded-square background + white pin with a blue compass needle (legible at favicon sizes). -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <rect width="512" height="512" rx="112" fill="#2B6CE6"/>
   <g transform="translate(126,110) scale(8)">
-    <!-- Pin body (white) -->
     <path d="M16 1.5C8.82 1.5 3 7.32 3 14.5c0 9.75 13 23 13 23s13-13.25 13-23c0-7.18-5.82-13-13-13Z" fill="#FFFFFF"/>
-    <!-- Compass needle: north (deep blue) + south (mid blue) -->
     <polygon points="16,6.5 20.5,15 11.5,15" fill="#1A56DB"/>
     <polygon points="16,23.5 20.5,15 11.5,15" fill="#6FA0EE"/>
-    <!-- Center hub -->
     <circle cx="16" cy="15" r="2.1" fill="#1A56DB"/>
   </g>
 </svg>

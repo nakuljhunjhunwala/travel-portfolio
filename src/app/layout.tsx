@@ -2,7 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Inter, JetBrains_Mono } from "next/font/google";
 import { AuthProvider } from "@/lib/auth-context";
 import { OWNER } from "@/lib/constants";
-import UserMenu from "@/components/auth/UserMenu";
+import { SITE_URL } from "@/lib/site";
+import SiteHeader from "@/components/layout/SiteHeader";
+import SiteFooter from "@/components/layout/SiteFooter";
+import SiteChrome from "@/components/layout/SiteChrome";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -26,16 +29,34 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const SITE_DESCRIPTION =
+  "Honest travel itineraries with real costs, personal notes, and day-by-day guides across India.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: `${OWNER.siteName} — ${OWNER.siteTagline}`,
     template: `%s | ${OWNER.siteName}`,
   },
-  description:
-    "Honest travel itineraries with real costs, personal notes, and day-by-day guides across India.",
-  keywords: ["travel", "India", "itinerary", "travel portfolio"],
+  description: SITE_DESCRIPTION,
+  applicationName: OWNER.siteName,
   authors: [{ name: OWNER.name }],
+  creator: OWNER.name,
+  publisher: OWNER.name,
+  keywords: [
+    "travel",
+    "India",
+    "travel itinerary",
+    "India travel guide",
+    "trip planner",
+    "honest travel costs",
+    "road trip India",
+    "Kerala itinerary",
+    "Goa itinerary",
+    "Nakul's Travels",
+  ],
   manifest: "/manifest.json",
+  alternates: { canonical: "/" },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -44,14 +65,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
+    url: SITE_URL,
     siteName: OWNER.siteName,
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    title: `${OWNER.siteName} — ${OWNER.siteTagline}`,
+    description: SITE_DESCRIPTION,
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    title: `${OWNER.siteName} — ${OWNER.siteTagline}`,
+    description: SITE_DESCRIPTION,
+  },
   robots: { index: true, follow: true },
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-  ),
 };
 
 export const viewport: Viewport = {
@@ -70,18 +94,19 @@ export default function RootLayout({
         className={`${plusJakartaSans.variable} ${inter.variable} ${jetbrainsMono.variable} bg-bg text-body antialiased`}
       >
         <AuthProvider>
-          <div id="embed-hide-chrome">
+          <SiteChrome>
             <a
               href="#main-content"
               className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:text-primary"
             >
               Skip to main content
             </a>
-            <div className="fixed top-3 right-3 md:top-5 md:right-5 z-50">
-              <UserMenu />
-            </div>
-          </div>
+            <SiteHeader />
+          </SiteChrome>
           <main id="main-content" className="min-h-screen">{children}</main>
+          <SiteChrome>
+            <SiteFooter />
+          </SiteChrome>
         </AuthProvider>
       </body>
     </html>

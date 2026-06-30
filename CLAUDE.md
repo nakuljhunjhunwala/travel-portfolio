@@ -44,9 +44,19 @@ All place data (coordinates, description, address, rating, photo, contacts) is *
 
 ```
 /                    Homepage (India SVG map + cinematic intro + trip cards)
+/trips               Trip collection hub (all visible trips + ItemList/Breadcrumb JSON-LD)
 /trips/[slug]        Trip detail (split panel: itinerary + interactive map)
 /admin               Private analytics dashboard (ADMIN_UID only)
 ```
+
+### Site chrome (header / footer)
+A slim sticky `SiteHeader` (Compass Pin logo + wordmark → `/`, with the auth `UserMenu`
+inline on the right) and a light `SiteFooter` render site-wide via the root layout, wrapped
+in `SiteChrome` (`src/components/layout/SiteChrome.tsx`). `SiteChrome` is a client gate that
+**hides** header+footer on `/admin/*` (own dashboard chrome) and `/embed/*` (chrome-free
+iframes) using `usePathname` (resolves during SSR, no flash). The header is `z-40`, below the
+homepage cinematic intro overlay (`z-50`), so the intro is unobstructed. `UserMenu` is a flat
+inline control (no floating pill) so it merges into the header bar.
 
 ### API Routes
 
@@ -82,6 +92,24 @@ Map coordinates and place metadata come directly from the inline `Place` fields 
 | `src/types/firestore.ts` | All data interfaces: Trip, Day, Place, TravelConnector, UserProfile, etc. |
 | `src/data/mock-trips.ts` | Mock trip data used by seed script and SSG |
 | `src/app/trips/[slug]/TripDetailContent.tsx` | Main trip page: content gating, split panel layout, map integration, share FAB |
+| `src/components/brand/Logo.tsx` | The brand **Compass Pin** mark + `Wordmark`. Single source of truth for the logo geometry (favicon/PWA `public/icons/icon.svg` + `src/app/icon.svg` mirror it). |
+| `src/components/layout/SiteHeader.tsx` · `SiteFooter.tsx` · `SiteChrome.tsx` | Site-wide header/footer + the client gate that hides them on `/admin` and `/embed`. |
+| `src/lib/site.ts` | `SITE_URL` + `absoluteUrl()` — used to build **absolute** URLs for all JSON-LD/canonicals. |
+| `src/lib/constants.ts` | `OWNER` (name/site name/tagline) + `SOCIAL`/`SAME_AS` (Instagram, for footer + JSON-LD `sameAs`). |
+
+### SEO / structured data
+- **Icons**: file-based metadata — `src/app/icon.svg` (favicon), `src/app/apple-icon.png`,
+  `src/app/favicon.ico`, plus PWA `public/icons/icon-{192,512}.png` + `icon-maskable-512.png`
+  (referenced by `public/manifest.json`). All generated from `public/icons/icon.svg` via
+  macOS `qlmanage`/`sips` (no image deps). Regenerate the same way if the art changes.
+- **OG images**: dynamic via `next/og` — root `src/app/opengraph-image.tsx` (brand card with
+  live state/city counts) + per-trip `src/app/trips/[slug]/opengraph-image.tsx`. There is **no**
+  static `og-image.jpg`.
+- **JSON-LD**: homepage `@graph` = `WebSite` + `Person` (logo + `sameAs`) + `ItemList` of trips;
+  `/trips` = `BreadcrumbList` + `ItemList`; trip page = `BreadcrumbList` + `TouristTrip` (image,
+  author, itinerary). All URLs absolute via `absoluteUrl()`.
+- **Requires** `NEXT_PUBLIC_BASE_URL=https://travel.nakuljhunjhunwala.in` in production — else
+  `metadataBase`, canonicals, sitemap, robots, and JSON-LD URLs fall back to localhost.
 
 ## Design System
 

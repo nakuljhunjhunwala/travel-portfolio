@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTripBySlug, getVisibleTrips, getDaysForTrip, getPlacesForDay, getTripReaderCount, buildPreview } from "@/lib/trips";
+import { OWNER, SAME_AS } from "@/lib/constants";
+import { SITE_URL, absoluteUrl } from "@/lib/site";
 import TripDetailContent from "./TripDetailContent";
 import ComingSoonContent from "./ComingSoonContent";
 
@@ -69,17 +71,46 @@ export default async function TripDetailPage({ params }: PageProps) {
   const startDate = new Date(trip.startDate.seconds * 1000).toISOString().split("T")[0];
   const endDate = new Date(trip.endDate.seconds * 1000).toISOString().split("T")[0];
 
+  const tripUrl = absoluteUrl(`/trips/${trip.slug}`);
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "TravelAction",
-    name: trip.title,
-    description: trip.hookLine,
-    location: {
-      "@type": "Place",
-      name: `${trip.states.join(", ")}, India`,
-    },
-    startTime: startDate,
-    endTime: endDate,
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+          { "@type": "ListItem", position: 2, name: "Trips", item: absoluteUrl("/trips") },
+          { "@type": "ListItem", position: 3, name: trip.title, item: tripUrl },
+        ],
+      },
+      {
+        "@type": "TouristTrip",
+        "@id": `${tripUrl}#trip`,
+        name: trip.title,
+        description: `${trip.hookLine} — ${trip.cities.join(", ")} | ${trip.states.join(", ")}`,
+        url: tripUrl,
+        image: absoluteUrl(trip.coverPhoto),
+        startDate,
+        endDate,
+        touristType: trip.tripType,
+        author: {
+          "@type": "Person",
+          "@id": `${SITE_URL}/#person`,
+          name: OWNER.name,
+          url: `${SITE_URL}/`,
+          sameAs: SAME_AS,
+        },
+        itinerary: {
+          "@type": "ItemList",
+          numberOfItems: trip.cities.length,
+          itemListElement: trip.cities.map((city, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: city,
+          })),
+        },
+      },
+    ],
   };
 
   return (
