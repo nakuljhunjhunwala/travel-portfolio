@@ -1,6 +1,9 @@
 # ── Stage 1: Install dependencies ──
 FROM node:22-alpine AS deps
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Pin pnpm to an exact version (matches the committed pnpm-lock.yaml).
+# Avoid `corepack prepare pnpm@latest`: it fetches a moving version at build
+# time and breaks when the image's corepack can't verify a new pnpm signature.
+RUN npm install -g pnpm@10.29.3
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
@@ -8,7 +11,10 @@ RUN pnpm install --frozen-lockfile
 
 # ── Stage 2: Build the application ──
 FROM node:22-alpine AS builder
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Pin pnpm to an exact version (matches the committed pnpm-lock.yaml).
+# Avoid `corepack prepare pnpm@latest`: it fetches a moving version at build
+# time and breaks when the image's corepack can't verify a new pnpm signature.
+RUN npm install -g pnpm@10.29.3
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
